@@ -1,10 +1,10 @@
 {
   "name": "garden",
-  "version": "0.1.0",
-  "description": "Planting helper for the West Cajon garden: what to plant or harvest now, adding crops, and crops.json validation.",
+  "version": "0.2.0",
+  "description": "Planting helper and farm knowledge for the West Cajon garden and farm: what to plant or harvest now, adding crops, crops.json validation, and the site's design rules, research library and plan checks.",
   "author": {
     "name": "cm2v6dy4fg-pixel"
   },
   "repository": "https://github.com/cm2v6dy4fg-pixel/west-cajon-garden",
-  "keywords": ["garden", "planting", "frost"]
+  "keywords": ["garden", "planting", "frost", "permaculture", "keyline", "water-harvesting", "farm"]
 }

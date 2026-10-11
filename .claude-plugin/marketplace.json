@@ -3,12 +3,12 @@
   "owner": {
     "name": "cm2v6dy4fg-pixel"
   },
-  "description": "Claude Code plugins for the West Cajon garden calendar.",
+  "description": "Claude Code plugins for the West Cajon garden and farm.",
   "plugins": [
     {
       "name": "garden",
       "source": "./plugins/garden",
-      "description": "Planting helper for the West Cajon garden: what to plant or harvest now, adding crops, and crops.json validation."
+      "description": "Planting helper and farm knowledge for the West Cajon garden and farm: what to plant or harvest now, adding crops, crops.json validation, and the site's design rules, research library and plan checks."
     }
   ]
 }
