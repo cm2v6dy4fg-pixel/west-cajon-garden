@@ -150,6 +150,20 @@ def build_ics(events, stamp):
     return "\r\n".join(ics_fold(l) for l in lines) + "\r\n"
 
 
+def render(data, crops):
+    src = (HERE / "garden.src.html").read_text()
+    out = src.replace("__STATION_DATA__", json.dumps(data, separators=(",", ":")).replace("</", "<\\/"))
+    return out.replace("__CROPS__", json.dumps(crops, ensure_ascii=False, separators=(",", ":")))
+
+
+def render_offline():
+    """Rebuild garden.html from the saved data/station.json, without fetching (used to republish the chat page)."""
+    data = json.loads((HERE / "data" / "station.json").read_text())
+    crops = json.loads((HERE / "crops.json").read_text())
+    (HERE / "garden.html").write_text(render(data, crops))
+    print("Built garden.html from saved station data of", data["updated"])
+
+
 def main():
     dev = get(f"{BASE}/devices?public.slug={SLUG}")["data"][0]
     info = dev.get("info", {})
@@ -241,9 +255,7 @@ def main():
                    for r in rows[-14:]],
     }
     crops = json.loads((HERE / "crops.json").read_text())
-    src = (HERE / "garden.src.html").read_text()
-    out = src.replace("__STATION_DATA__", json.dumps(data, separators=(",", ":")).replace("</", "<\\/"))
-    out = out.replace("__CROPS__", json.dumps(crops, ensure_ascii=False, separators=(",", ":")))
+    out = render(data, crops)
     today = dt.datetime.now(tz).date()
     events = calendar_events(crops, data["frost"], today)
     (HERE / "garden_events.json").write_text(json.dumps(
@@ -262,4 +274,5 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    import sys
+    render_offline() if "--offline" in sys.argv else main()
