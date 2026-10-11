@@ -797,21 +797,39 @@ function addMsg(role, text){
   $("msgs").appendChild(el); $("msgs").scrollTop = $("msgs").scrollHeight;
   return el;
 }
+function cropGuide(){
+  const range = (a, b) => fmtMD(dateOf(a)) + " to " + fmtMD(dateOf(b));
+  return CROPS.map(c => {
+    const facts = [CAT[c.c]];
+    if (c.dtm) facts.push(c.dtm + " days to maturity");
+    if (c.tender) facts.push("killed by frost");
+    if (c.cont) facts.push("keeps producing until frost");
+    const evs = eventsOf(c).map(ev => labelFor(c, ev.t) + " " + range(ev.s, ev.e) + (ev.note ? " (" + ev.note + ")" : ""));
+    return "- " + c.n + " [" + facts.join("; ") + "]: " + evs.join("; ") + "." + (c.tip ? " Tip: " + c.tip : "");
+  }).join("\n");
+}
 function context(){
-  const weekTasks = taskList(TODAY, TODAY + 6).map(x => labelFor(x.c, x.ev.t) + " " + x.c.n).join("; ");
+  const weekTasks = taskList(TODAY, TODAY + 6).map(x => labelFor(x.c, x.ev.t) + " " + x.c.n + " (until " + fmtMD(dateOf(x.b)) + ")").join("; ");
   const soonTasks = taskList(TODAY + 7, TODAY + 28).filter(x => x.a > TODAY + 6).map(x => labelFor(x.c, x.ev.t) + " " + x.c.n + " from " + fmtMD(dateOf(x.a))).join("; ");
+  const yrRain = D.months.reduce((t, m) => t + (m.rain || 0), 0);
+  const maxGust = Math.max(0, ...D.months.map(m => m.gust || 0));
+  const adjusted = store.get("gc_L") || store.get("gc_F");
+  const storm = $("stormH").textContent + ". " + $("stormSub").textContent + " Suggested: " + [...$("stormActs").querySelectorAll("li")].map(li => li.textContent).join(" ");
   return [
-    "You are a friendly, practical garden advisor for one home garden. Answer the gardener's questions using the facts below. Keep answers short (under 180 words), concrete, with dates where useful. Use plain text with simple dashes for lists; no markdown headings. If the station data is more than a week old, mention that the readings are a snapshot.",
+    "You are a friendly, practical garden advisor for one home garden. Answer using the facts below, and be specific to this garden: name real dates from the crop guide, use the crop's tip, and cite station numbers (recent lows, rain totals, gusts) when they bear on the answer. Keep answers under 250 words, plain text with simple dashes for lists, no markdown headings. If a crop or topic isn't in the guide, say so and give advice suited to this site. If the station data is more than a week old, say the readings are a snapshot.",
     "",
-    "LOCATION: " + D.station.name + " station, " + D.station.place + " — Mojave high desert, about " + (D.station.elevationFt || 4300) + " ft, USDA zone 8a. Typical conditions: sandy alkaline soil, low humidity, strong spring winds, hot dry summers, cold nights, occasional winter snow, summer monsoon storms.",
+    "LOCATION: " + D.station.name + " station, " + D.station.place + " — Mojave high desert, " + (D.station.elevationFt || 4300) + " ft, USDA zone 8a. Sandy alkaline soil, low humidity, strong spring winds, hot dry summers, cold nights, occasional winter snow, summer monsoon storms, gophers.",
     "TODAY: " + today.toDateString(),
-    "FROST DATES used by the calendar: last spring frost " + fmtMD(dateOf(L)) + ", first fall frost " + fmtMD(dateOf(F)) + ". Station record: last spring frost " + D.frost.lastSpring + ", first fall frost " + D.frost.firstFall + ", " + D.frost.nights + " frost nights since " + D.frost.recordStart + ", coldest " + (D.frost.coldest ? D.frost.coldest.t + "°F on " + D.frost.coldest.d : "n/a") + ".",
-    "STATION SNAPSHOT (" + D.updated + "): " + JSON.stringify(D.current),
-    "SAVED FORECAST (saved " + (D.forecast ? D.forecast.fetched : "never") + ", regional forecast for the station location, chance of rain only and no amounts or wind): " + (forecastDays().map(x => x.d + " high " + x.high + " low " + x.low + " rain " + x.precip + "%").join(" | ") || "none left"),
+    "FROST DATES used by the calendar" + (adjusted ? " (the gardener adjusted these)" : " (from the station)") + ": last spring frost " + fmtMD(dateOf(L)) + ", first fall frost " + fmtMD(dateOf(F)) + ", a " + (F - L) + "-day frost-free season. Station record since " + D.frost.recordStart + ": last spring frost " + D.frost.lastSpring + ", first fall frost " + D.frost.firstFall + ", " + D.frost.nights + " frost nights, coldest " + (D.frost.coldest ? D.frost.coldest.t + "°F on " + D.frost.coldest.d : "n/a") + ", hottest " + (D.frost.hottest ? D.frost.hottest.t + "°F on " + D.frost.hottest.d : "n/a") + ".",
+    "STATION SNAPSHOT (" + D.updated + ", temps °F, rain in, wind mph, solar W/m2): " + JSON.stringify(D.current),
+    "STORM WATCH: " + storm,
+    "SAVED FORECAST (saved " + (D.forecast ? D.forecast.fetched : "never") + ", chance of rain only, no amounts or wind): " + (forecastDays().map(x => x.d + " high " + x.high + " low " + x.low + " rain " + x.precip + "%").join(" | ") || "none left"),
     "LAST 14 DAYS (date, high, low, rain in, max gust mph, peak UV, sun hours): " + D.recent.map(r => [r.d, r.hi, r.lo, r.rain, r.gust, r.uv, r.sun].join(",")).join(" | "),
-    "LAST 12 MONTHS (month, avg high, avg low, min, max, rain in, frost nights): " + D.months.map(m => [m.ym, m.hi, m.lo, m.min, m.max, m.rain, m.frost].join(",")).join(" | "),
+    "LAST 12 MONTHS (month, avg high, avg low, min, max, rain in, frost nights, max gust mph, sun hours/day, avg peak UV): " + D.months.map(m => [m.ym, m.hi, m.lo, m.min, m.max, m.rain, m.frost, m.gust, m.sun, m.uv].join(",")).join(" | ") + ". Total rain over these months: " + yrRain.toFixed(2) + " in; strongest gust " + Math.round(maxGust) + " mph.",
     "CALENDAR — this week: " + (weekTasks || "nothing scheduled") + ". Next 4 weeks: " + (soonTasks || "nothing new") + ".",
-    "The gardener grows vegetables, herbs, fruit trees (including blue elderberry), flowers, California native plants, a lawn and native grasses."
+    "CROP GUIDE (every crop the gardener grows, with this year's windows from the frost dates above):",
+    cropGuide(),
+    "Links: full page " + ((D.links && D.links.site) || "") + ", calendar feed " + ((D.links && D.links.ics) || "") + ", live station " + D.station.dashboard + "."
   ].join("\n");
 }
 const ERR = {
@@ -831,7 +849,7 @@ async function ask(q){
   const bubble = addMsg("bot", "Thinking…");
   ctl = new AbortController();
   try {
-    const { text, truncated } = await sample([{role:"user", content: context()}, {role:"assistant", content:"Understood. I'll use your station data and calendar."}, ...turns], {
+    const { text, truncated } = await sample([{role:"user", content: context()}, {role:"assistant", content:"Understood. I'll answer from your station data, forecast and crop guide."}, ...turns], {
       cache:false, signal:ctl.signal,
       onText:({text}) => { bubble.textContent = text; $("msgs").scrollTop = $("msgs").scrollHeight; }
     });
