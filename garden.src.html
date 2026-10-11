@@ -1,0 +1,739 @@
+<meta charset="utf-8">
+<title>West Cajon Garden</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Source+Sans+3:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --ground:#F2F3EC; --panel:#FBFBF7; --ink:#1D2A21; --muted:#5E6A5F; --line:#D5D9CC; --soft:#E7EADF;
+  --accent:#2F6B4F; --accent-ink:#FFFFFF;
+  --indoor:#7E62C4; --sow:#3A8A57; --plant:#C98424; --harvest:#C2463A; --care:#4D7E9E; --prop:#A8457F;
+  --frost:#3E74C9; --heat:#C2572E; --rain:#1F8A86; --sun:#C9900E;
+  --uv1:#3E8E4A; --uv2:#B8920F; --uv3:#D26A1E; --uv4:#C23A33; --uv5:#7B4FB8;
+  --display:"Bricolage Grotesque","Avenir Next",system-ui,sans-serif;
+  --body:"Source Sans 3",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --ground:#121813; --panel:#1A221C; --ink:#E3E9E1; --muted:#95A396; --line:#2D3930; --soft:#222C24;
+    --accent:#6FBF92; --accent-ink:#0F1A12;
+    --indoor:#A58CEB; --sow:#63BD83; --plant:#E3A44A; --harvest:#EE6F62; --care:#79AED0; --prop:#E07DB8;
+    --frost:#7FA8F0; --heat:#F08A5D; --rain:#4CC6C0; --sun:#E8B940;
+    --uv1:#6CC47A; --uv2:#E3C24A; --uv3:#F0914A; --uv4:#EE6F62; --uv5:#A88AE8; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#121813; --panel:#1A221C; --ink:#E3E9E1; --muted:#95A396; --line:#2D3930; --soft:#222C24;
+  --accent:#6FBF92; --accent-ink:#0F1A12;
+  --indoor:#A58CEB; --sow:#63BD83; --plant:#E3A44A; --harvest:#EE6F62; --care:#79AED0; --prop:#E07DB8;
+  --frost:#7FA8F0; --heat:#F08A5D; --rain:#4CC6C0; --sun:#E8B940;
+    --uv1:#6CC47A; --uv2:#E3C24A; --uv3:#F0914A; --uv4:#EE6F62; --uv5:#A88AE8; color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--ground);color:var(--ink);font:16px/1.5 var(--body);padding-inline:16px;padding-block:24px 56px}
+.wrap{max-width:1120px;margin:0 auto;display:grid;gap:20px}
+h1,h2,h3{font-family:var(--display);margin:0;text-wrap:balance;line-height:1.1}
+h1{font-size:clamp(2rem,5vw,3rem);font-weight:800;letter-spacing:-.02em}
+h2{font-size:1.35rem;font-weight:700}
+.eyebrow{font:500 .72rem var(--mono);text-transform:uppercase;letter-spacing:.1em;color:var(--muted)}
+.muted{color:var(--muted)}
+a{color:var(--accent)}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:20px}
+.num{font-variant-numeric:tabular-nums}
+button,input,textarea{font:inherit;color:inherit}
+button:focus-visible,input:focus-visible,textarea:focus-visible,a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+/* header */
+.top{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:16px}
+.top .meta{display:flex;flex-wrap:wrap;gap:8px 16px;margin-top:8px;font-size:.92rem;color:var(--muted)}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:8px;border:1px solid var(--line);background:var(--panel);text-decoration:none;color:var(--ink);font-weight:600;font-size:.9rem;cursor:pointer}
+.btn:hover{border-color:var(--accent)}
+.btn.primary{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+
+/* frost strip */
+.frost{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.frost > div{background:var(--panel);padding:14px 18px}
+.frost .v{font:700 1.5rem/1.1 var(--display);margin-top:4px}
+.frost .n{font-size:.85rem;color:var(--muted);margin-top:2px}
+.frost .v.cold{color:var(--frost)}
+
+/* now + conditions */
+.now{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:20px}
+.tasks{display:grid;gap:8px;margin-top:14px}
+.task{display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center;padding:10px 12px;border-radius:8px;background:var(--soft)}
+.chip{font:600 .68rem var(--mono);text-transform:uppercase;letter-spacing:.06em;padding:3px 8px;border-radius:999px;color:#fff;white-space:nowrap}
+.chip.indoor{background:var(--indoor)} .chip.sow{background:var(--sow)} .chip.plant{background:var(--plant)}
+.chip.harvest{background:var(--harvest)} .chip.care{background:var(--care)} .chip.propagate{background:var(--prop)}
+:root[data-theme="dark"] .chip{color:#10160F}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .chip{color:#10160F}}
+.task .when{font:.78rem var(--mono);color:var(--muted);white-space:nowrap}
+.task .tip{display:block;font-size:.84rem;color:var(--muted)}
+.ready{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.ready span{font-size:.88rem;padding:4px 10px;border-radius:999px;border:1px solid var(--harvest);color:var(--ink)}
+.subhead{margin-top:18px;font:600 .8rem var(--mono);text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+.cond .big{font:800 3.4rem/1 var(--display);font-variant-numeric:tabular-nums;margin-top:8px}
+.cond .big small{font:500 1rem var(--body);color:var(--muted);margin-left:4px}
+.kv{display:grid;gap:0;margin-top:12px}
+.kv div{display:flex;justify-content:space-between;gap:12px;padding:7px 0;border-top:1px solid var(--line);font-size:.93rem}
+.kv span:first-child{color:var(--muted)}
+.kv span:last-child{font-family:var(--mono);font-size:.85rem;font-variant-numeric:tabular-nums;text-align:right}
+.signal{margin-top:12px;padding:10px 12px;border-radius:8px;font-size:.9rem;border:1px dashed var(--line)}
+
+/* calendar */
+.calhead{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:12px}
+.tabs{display:flex;flex-wrap:wrap;gap:6px}
+.tab{padding:6px 12px;border-radius:999px;border:1px solid var(--line);background:transparent;cursor:pointer;font-size:.88rem;font-weight:600;color:var(--muted)}
+.tab[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--ground)}
+.legend{display:flex;flex-wrap:wrap;gap:14px;font-size:.85rem;color:var(--muted);margin-top:12px}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{width:14px;height:8px;border-radius:2px;display:inline-block}
+.legend i.line{width:2px;height:12px;border-radius:0}
+.gantt-scroll{overflow-x:auto;margin-top:14px;-webkit-overflow-scrolling:touch}
+.gantt{min-width:720px;padding-top:22px}
+.grow{display:grid;grid-template-columns:200px 1fr;align-items:center;min-height:30px;border-top:1px solid var(--line)}
+.grow.head{border-top:0;min-height:22px}
+.grow .name{font-size:.9rem;font-weight:600;padding-right:10px;line-height:1.2}
+.grow .name small{display:block;font-weight:400;font-size:.76rem;color:var(--muted)}
+.track{position:relative;height:30px;background-image:linear-gradient(to right,var(--line) 1px,transparent 1px);background-size:calc(100%/12) 100%}
+.months{position:relative;height:22px}
+.months span{position:absolute;top:0;font:.7rem var(--mono);color:var(--muted);text-transform:uppercase;letter-spacing:.05em;transform:translateX(4px)}
+.bar{position:absolute;top:9px;height:12px;border-radius:3px;opacity:.92}
+.bar.indoor{background:var(--indoor)} .bar.sow{background:var(--sow)} .bar.plant{background:var(--plant)}
+.bar.harvest{background:var(--harvest)} .bar.care{background:var(--care);opacity:.55} .bar.propagate{background:var(--prop)}
+.vline{position:absolute;top:0;bottom:0;width:0;border-left:2px solid var(--frost);pointer-events:none}
+.vline.today{border-left:2px solid var(--ink)}
+.overlay{position:relative}
+.overlay .lines{position:absolute;top:0;bottom:0;left:200px;right:0;pointer-events:none}
+.overlay .lines .vline{top:20px}
+.flag{position:absolute;top:0;font:600 .66rem var(--mono);padding:1px 5px;border-radius:3px;white-space:nowrap;transform:translateX(-50%);background:var(--frost);color:#fff}
+.flag.today{background:var(--ink);color:var(--ground)}
+.adjust{display:flex;flex-wrap:wrap;gap:12px;align-items:end;margin-top:14px;font-size:.88rem;color:var(--muted)}
+.adjust label{display:grid;gap:3px}
+.adjust input{padding:6px 8px;border:1px solid var(--line);border-radius:6px;background:var(--panel)}
+
+/* climate */
+.climate{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:20px}
+.chart svg{width:100%;height:auto;display:block;margin-top:10px}
+.chart text{font:10px var(--mono);fill:var(--muted)}
+table{width:100%;border-collapse:collapse;font-size:.86rem;font-variant-numeric:tabular-nums;margin-top:10px}
+th,td{padding:5px 4px;text-align:right;border-top:1px solid var(--line)}
+th:first-child,td:first-child{text-align:left}
+th{font:500 .68rem var(--mono);text-transform:uppercase;letter-spacing:.06em;color:var(--muted);border-top:0}
+td.frost{color:var(--frost);font-weight:600}
+
+/* sun & uv */
+.sky{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px}
+.sky .chart svg{margin-top:12px}
+.readout{display:flex;flex-wrap:wrap;align-items:flex-end;gap:10px 16px;margin-top:8px}
+.readout .big{font:800 3.4rem/1 var(--display);font-variant-numeric:tabular-nums}
+.readout .big small{font:500 1rem var(--body);color:var(--muted);margin-left:4px}
+.uvchip{display:inline-flex;align-items:center;gap:6px;padding:3px 10px;border-radius:999px;border:1px solid var(--line);font-weight:600;font-size:.88rem;margin-bottom:6px}
+.uvchip i{width:10px;height:10px;border-radius:50%;display:inline-block}
+.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:8px;overflow:hidden;margin-top:14px}
+.stats > div{background:var(--panel);padding:10px 12px}
+.stats .v{font:700 1.25rem/1.1 var(--display);font-variant-numeric:tabular-nums;margin-top:3px}
+.stats .n{font-size:.8rem;color:var(--muted);margin-top:2px}
+.pv{display:flex;flex-wrap:wrap;gap:12px;align-items:end;margin-top:12px;font-size:.88rem;color:var(--muted)}
+.pv label{display:grid;gap:3px}
+.pv input{width:7.5em;padding:6px 8px;border:1px solid var(--line);border-radius:6px;background:var(--panel)}
+.fine{font-size:.82rem;color:var(--muted);margin:10px 0 0;max-width:65ch}
+@media (max-width:900px){.sky{grid-template-columns:1fr}}
+@media (max-width:420px){.stats{grid-template-columns:1fr}}
+
+/* chat */
+.chat{display:grid;gap:12px}
+.msgs{display:grid;gap:10px;max-height:460px;overflow-y:auto;padding:4px}
+.msg{max-width:78ch;padding:10px 14px;border-radius:12px;white-space:pre-wrap;line-height:1.5}
+.msg.user{justify-self:end;background:var(--accent);color:var(--accent-ink);border-bottom-right-radius:4px}
+.msg.bot{justify-self:start;background:var(--soft);border-bottom-left-radius:4px}
+.msg.note{justify-self:center;background:transparent;color:var(--muted);font-size:.88rem;text-align:center}
+.suggest{display:flex;flex-wrap:wrap;gap:8px}
+.suggest button{padding:6px 12px;border-radius:999px;border:1px solid var(--line);background:var(--panel);cursor:pointer;font-size:.88rem}
+.suggest button:hover{border-color:var(--accent)}
+.composer{display:flex;gap:8px;align-items:flex-end}
+.composer textarea{flex:1;min-height:46px;max-height:160px;resize:vertical;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--panel)}
+footer{font-size:.82rem;color:var(--muted);text-align:center;max-width:70ch;margin:0 auto}
+
+@media (max-width:900px){.now,.climate{grid-template-columns:1fr}.frost{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:420px){.frost{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+
+<script id="station-data" type="application/json">__STATION_DATA__</script>
+
+<div class="wrap">
+  <header class="top">
+    <div>
+      <div class="eyebrow" id="place">High desert garden</div>
+      <h1 id="title">West Cajon Garden</h1>
+      <div class="meta">
+        <span id="elev"></span>
+        <span id="snap"></span>
+      </div>
+    </div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap">
+      <a class="btn" id="liveLink" href="#" target="_blank" rel="noopener">Live station ↗</a>
+      <a class="btn" id="calLink" href="#" target="_blank" rel="noopener" hidden>Add to Google Calendar ↗</a>
+      <a class="btn primary" href="#ask">Ask the garden</a>
+    </div>
+  </header>
+
+  <section class="frost" aria-label="Frost dates">
+    <div><div class="eyebrow">Last spring frost</div><div class="v cold" id="fLast">--</div><div class="n" id="fLastN"></div></div>
+    <div><div class="eyebrow">First fall frost</div><div class="v cold" id="fFirst">--</div><div class="n" id="fFirstN"></div></div>
+    <div><div class="eyebrow">Frost-free season</div><div class="v" id="season">--</div><div class="n">days between frosts</div></div>
+    <div><div class="eyebrow">Frost nights on record</div><div class="v" id="fNights">--</div><div class="n" id="fColdest"></div></div>
+  </section>
+
+  <div class="now">
+    <section class="panel">
+      <div class="eyebrow" id="weekLabel">This week</div>
+      <h2>In the garden now</h2>
+      <div class="tasks" id="nowList"></div>
+      <div class="subhead">Ready to harvest or in bloom</div>
+      <div class="ready" id="readyList"></div>
+      <div class="subhead">Coming up in the next 4 weeks</div>
+      <div class="tasks" id="soonList"></div>
+    </section>
+    <section class="panel cond">
+      <div class="eyebrow" id="condLabel">Station snapshot</div>
+      <div class="big" id="cTemp">--<small>°F</small></div>
+      <div class="muted" id="cHiLo"></div>
+      <div class="kv">
+        <div><span>Humidity</span><span id="cHum">--</span></div>
+        <div><span>Wind</span><span id="cWind">--</span></div>
+        <div><span>Rain this month</span><span id="cRainM">--</span></div>
+        <div><span>Rain this year</span><span id="cRainY">--</span></div>
+        <div><span>Last rain</span><span id="cLastRain">--</span></div>
+        <div><span>UV index</span><span id="cUV">--</span></div>
+      </div>
+      <div class="signal" id="signal"></div>
+    </section>
+  </div>
+
+  <section class="panel">
+    <div class="calhead">
+      <div>
+        <div class="eyebrow">Planting &amp; harvest calendar</div>
+        <h2>The year at West Cajon</h2>
+      </div>
+      <div class="tabs" role="group" aria-label="Filter crops">
+        <button class="tab" data-cat="all" aria-pressed="true" type="button">All</button>
+        <button class="tab" data-cat="veg" aria-pressed="false" type="button">Vegetables</button>
+        <button class="tab" data-cat="herb" aria-pressed="false" type="button">Herbs</button>
+        <button class="tab" data-cat="fruit" aria-pressed="false" type="button">Fruit trees</button>
+        <button class="tab" data-cat="flower" aria-pressed="false" type="button">Flowers</button>
+        <button class="tab" data-cat="native" aria-pressed="false" type="button">Native plants</button>
+        <button class="tab" data-cat="lawn" aria-pressed="false" type="button">Lawn &amp; grasses</button>
+      </div>
+    </div>
+    <div class="legend">
+      <span><i style="background:var(--indoor)"></i>Start indoors</span>
+      <span><i style="background:var(--sow)"></i>Sow outdoors</span>
+      <span><i style="background:var(--plant)"></i>Plant out</span>
+      <span><i style="background:var(--harvest)"></i>Harvest / bloom</span>
+      <span><i style="background:var(--prop)"></i>Propagate</span>
+      <span><i style="background:var(--care);opacity:.6"></i>Care</span>
+      <span><i class="line" style="background:var(--frost)"></i>Frost dates</span>
+    </div>
+    <div class="gantt-scroll">
+      <div class="gantt overlay" id="gantt"></div>
+    </div>
+    <div class="adjust">
+      <label for="adjL">Last spring frost<input type="date" id="adjL"></label>
+      <label for="adjF">First fall frost<input type="date" id="adjF"></label>
+      <button class="btn" type="button" id="adjReset">Use station dates</button>
+      <span id="adjNote">Dates come from your station. Adjust them to plan more cautiously.</span>
+    </div>
+  </section>
+
+  <div class="climate">
+    <section class="panel chart">
+      <div class="eyebrow">Last 12 months at the station</div>
+      <h2>Highs, lows and rain</h2>
+      <div id="climateChart"></div>
+    </section>
+    <section class="panel">
+      <div class="eyebrow">Last 14 days</div>
+      <h2>Recent nights</h2>
+      <div style="overflow-x:auto"><table id="recent"><thead><tr><th>Day</th><th>High</th><th>Low</th><th>Rain</th><th>Gust</th></tr></thead><tbody></tbody></table></div>
+    </section>
+  </div>
+
+  <div class="sky" id="sun">
+    <section class="panel chart">
+      <div class="eyebrow" id="uvLabel">UV index</div>
+      <h2>Sun strength</h2>
+      <div class="readout">
+        <div class="big" id="uvNow">--<small>UV</small></div>
+        <div>
+          <div class="uvchip" id="uvChip"><i></i><span>--</span></div>
+          <div class="muted" id="uvPeak"></div>
+        </div>
+      </div>
+      <div class="signal" id="uvAdvice"></div>
+      <div class="subhead">Daily peak UV, last 14 days</div>
+      <div id="uvChart"></div>
+      <div class="legend" id="uvLegend"></div>
+    </section>
+    <section class="panel chart">
+      <div class="eyebrow">Solar potential</div>
+      <h2>What panels here could make</h2>
+      <div class="pv">
+        <label for="pvKw">System size (kW)<input type="number" id="pvKw" min="0.5" max="100" step="0.5" value="6"></label>
+        <label for="pvPr">System efficiency (%)<input type="number" id="pvPr" min="50" max="95" step="1" value="80"></label>
+      </div>
+      <div class="stats">
+        <div><div class="eyebrow">Today so far</div><div class="v" id="pvToday">--</div><div class="n" id="pvTodayN"></div></div>
+        <div><div class="eyebrow">Last 14 days</div><div class="v" id="pv14">--</div><div class="n" id="pv14N"></div></div>
+        <div><div class="eyebrow">Past 12 months</div><div class="v" id="pvYear">--</div><div class="n" id="pvYearN"></div></div>
+      </div>
+      <div class="subhead">Estimated output by month</div>
+      <div id="pvChart"></div>
+      <p class="fine">Estimated from the station's sun sensor: sun hours × system size × efficiency. The sensor lies flat, and panels tilted toward the south usually collect more, especially in winter. Winter readings here also look low, possibly from shading, so treat these numbers as a floor.</p>
+    </section>
+  </div>
+
+  <section class="panel chat" id="ask">
+    <div>
+      <div class="eyebrow">Garden chat</div>
+      <h2>Ask about your garden</h2>
+      <p class="muted" style="margin:6px 0 0;max-width:65ch">Answers use your station's frost dates, rainfall and recent temperatures along with this calendar.</p>
+    </div>
+    <div class="msgs" id="msgs" aria-live="polite"></div>
+    <div class="suggest" id="suggest">
+      <button type="button">What should I plant this week?</button>
+      <button type="button">When is it safe to put tomatoes out?</button>
+      <button type="button">How often should I water right now?</button>
+      <button type="button">Which fruit trees do well here?</button>
+      <button type="button">How do I protect plants from the wind?</button>
+    </div>
+    <form class="composer" id="chatForm">
+      <textarea id="chatInput" placeholder="Ask about planting, watering, frost, pests…" rows="2" aria-label="Your question"></textarea>
+      <button class="btn primary" type="submit" id="sendBtn">Send</button>
+      <button class="btn" type="button" id="stopBtn" hidden>Stop</button>
+    </form>
+  </section>
+
+  <footer id="foot"></footer>
+</div>
+
+<script>
+(() => {
+const D = JSON.parse(document.getElementById("station-data").textContent);
+const $ = id => document.getElementById(id);
+const store = {
+  get(k){ try { return localStorage.getItem(k); } catch { return null; } },
+  set(k,v){ try { localStorage.setItem(k,v); } catch {} },
+  del(k){ try { localStorage.removeItem(k); } catch {} }
+};
+const MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+const today = new Date(); today.setHours(12,0,0,0);
+const YEAR = today.getFullYear();
+const YDAYS = (new Date(YEAR,11,31) - new Date(YEAR,0,0)) / 864e5;
+const doyOf = (m, d) => Math.round((new Date(YEAR, m - 1, d, 12) - new Date(YEAR, 0, 0, 12)) / 864e5);
+const dateOf = doy => new Date(YEAR, 0, doy, 12);
+const fmtMD = dt => MONTHS[dt.getMonth()] + " " + dt.getDate();
+const fmtISO = iso => { if (!iso) return "--"; const [y,m,d] = iso.split("-").map(Number); return MONTHS[m-1] + " " + d + ", " + y; };
+const TODAY = doyOf(today.getMonth() + 1, today.getDate());
+
+// ---------- frost dates ----------
+function mdFromISO(iso){ if (!iso) return null; const [, m, d] = iso.split("-").map(Number); return [m, d]; }
+const stationL = mdFromISO(D.frost.lastSpring) || [4, 27];
+const stationF = mdFromISO(D.frost.firstFall) || [11, 1];
+let L, F;
+function setFrost(){
+  const l = mdFromISO(store.get("gc_L")) || stationL, f = mdFromISO(store.get("gc_F")) || stationF;
+  L = doyOf(l[0], l[1]); F = doyOf(f[0], f[1]);
+  $("adjL").value = YEAR + "-" + String(l[0]).padStart(2,"0") + "-" + String(l[1]).padStart(2,"0");
+  $("adjF").value = YEAR + "-" + String(f[0]).padStart(2,"0") + "-" + String(f[1]).padStart(2,"0");
+  const custom = store.get("gc_L") || store.get("gc_F");
+  $("adjNote").textContent = custom ? "Using your adjusted frost dates." : "Dates come from your station. Adjust them to plan more cautiously.";
+}
+
+// ---------- crops ----------
+// Offsets: "L+2" = 2 weeks after last spring frost, "F-8" = 8 weeks before first fall frost, "MM-DD" = fixed date.
+const CROPS = __CROPS__;
+const CAT = {veg:"Vegetables",herb:"Herbs",fruit:"Fruit trees",flower:"Flowers",native:"Native plants",lawn:"Lawn & grasses"};
+const LABEL = {indoor:"Start indoors",sow:"Sow",plant:"Plant out",harvest:"Harvest",care:"Care",propagate:"Propagate"};
+const labelFor = (c, t) => t === "harvest" && (c.c === "flower" || c.c === "native") ? "Bloom" : t === "sow" && /Garlic|Onion|Potato/.test(c.n) ? "Plant" : LABEL[t];
+
+function parseSpec(s){
+  const m = /^([LF])([+-]\d+)?$/.exec(s);
+  if (m) return (m[1] === "L" ? L : F) + (m[2] ? +m[2] * 7 : 0);
+  const [mm, dd] = s.split("-").map(Number);
+  return doyOf(mm, dd);
+}
+function eventsOf(c){
+  const out = [];
+  const hasHarvest = c.ev.some(e => e[0] === "harvest");
+  for (const [t, a, b, note] of c.ev){
+    const s = parseSpec(a), e = parseSpec(b);
+    out.push({t, s, e, note});
+    if (!hasHarvest && c.dtm && (t === "sow" || t === "plant")){
+      let hs = s + c.dtm, he = c.cont ? (c.tender ? F : F + 21) : e + c.dtm + 21;
+      if (c.tender) he = Math.min(he, F);
+      if (he > hs) out.push({t:"harvest", s:hs, e:he});
+    }
+  }
+  return out;
+}
+// split ranges that wrap past the year's ends
+function segments(ev){
+  const segs = [];
+  let {s, e} = ev;
+  if (s < 1){ segs.push([s + YDAYS, YDAYS]); s = 1; }
+  if (e > YDAYS){ segs.push([1, e - YDAYS]); e = YDAYS; }
+  segs.push([s, e]);
+  return segs;
+}
+const inRange = (d, s, e) => segments({s, e}).some(([a, b]) => d >= a && d <= b);
+
+// ---------- header, frost strip ----------
+function renderHeader(){
+  const st = D.station;
+  $("title").textContent = st.name + " Garden";
+  $("place").textContent = st.place + " · High desert";
+  $("elev").textContent = st.elevationFt ? st.elevationFt.toLocaleString() + " ft elevation" : "";
+  const up = new Date(D.updated);
+  $("snap").textContent = D.live ? "Live station data · updated " + up.toLocaleTimeString([], {hour:"numeric", minute:"2-digit"}) : "Station data as of " + fmtMD(up) + ", " + up.getFullYear();
+  $("liveLink").href = st.dashboard;
+  if (D.links && D.links.ics){
+    $("calLink").href = "https://calendar.google.com/calendar/render?cid=" + encodeURIComponent(D.links.ics.replace(/^https:/, "webcal:"));
+    $("calLink").hidden = false;
+  }
+  $("fLast").textContent = D.frost.lastSpring ? fmtISO(D.frost.lastSpring).replace(/, \d+$/, "") : "--";
+  $("fLastN").textContent = D.frost.lastSpring ? "Recorded " + D.frost.lastSpring.slice(0,4) : "No spring frost recorded";
+  $("fFirst").textContent = D.frost.firstFall ? fmtISO(D.frost.firstFall).replace(/, \d+$/, "") : "--";
+  $("fFirstN").textContent = D.frost.firstFall ? "Recorded " + D.frost.firstFall.slice(0,4) : "No fall frost recorded";
+  $("season").textContent = (doyOf(...stationF) - doyOf(...stationL)) + " days";
+  $("fNights").textContent = D.frost.nights;
+  $("fColdest").textContent = D.frost.coldest ? "Coldest " + D.frost.coldest.t + "°F on " + fmtISO(D.frost.coldest.d) : "";
+  $("foot").innerHTML = "Weather from the " + st.name + " Ambient Weather station, record since " + fmtISO(D.frost.recordStart) +
+    ". Planting windows are counted from your frost dates and are a starting point. Watch the forecast in spring and fall.";
+}
+
+// ---------- conditions ----------
+const DIRS = ["N","NNE","NE","ENE","E","ESE","SE","SSE","S","SSW","SW","WSW","W","WNW","NW","NNW"];
+function renderConditions(){
+  const c = D.current, up = new Date(c.dateutc || D.updated);
+  $("condLabel").textContent = D.live ? "Live · " + up.toLocaleTimeString([], {hour:"numeric", minute:"2-digit"}) : "Station snapshot · " + fmtMD(up);
+  $("cTemp").firstChild.nodeValue = c.tempf != null ? Math.round(c.tempf) : "--";
+  $("cHiLo").textContent = c.todayHi != null ? (D.live ? "Today: high " : "That day: high ") + Math.round(c.todayHi) + "°, low " + Math.round(c.todayLo) + "°" : "";
+  $("cHum").textContent = c.humidity != null ? c.humidity + "%" : "--";
+  $("cWind").textContent = c.windspeedmph != null ? Math.round(c.windspeedmph) + " mph " + (c.winddir != null ? DIRS[Math.round(c.winddir/22.5)%16] : "") + ", gust " + Math.round(c.maxdailygust || c.windgustmph || 0) : "--";
+  $("cRainM").textContent = c.monthlyrainin != null ? c.monthlyrainin.toFixed(2) + " in" : "--";
+  $("cRainY").textContent = c.yearlyrainin != null ? c.yearlyrainin.toFixed(2) + " in" : "--";
+  $("cLastRain").textContent = c.lastRain ? fmtMD(new Date(c.lastRain)) + ", " + new Date(c.lastRain).getFullYear() : "--";
+  $("cUV").textContent = c.uv != null ? c.uv : "--";
+
+  const r = D.recent, frostN = r.filter(x => x.lo <= 32).length, hot = r.filter(x => x.hi >= 95).length;
+  const rain = r.reduce((a, x) => a + (x.rain || 0), 0), windy = r.filter(x => x.gust >= 35).length;
+  const lines = [];
+  if (frostN) lines.push(frostN + " frost night" + (frostN > 1 ? "s" : "") + " in the last 2 weeks. Cover tender plants.");
+  if (hot) lines.push(hot + " day" + (hot > 1 ? "s" : "") + " at 95°F or hotter lately. Water deeply in the early morning.");
+  if (windy) lines.push(windy + " day" + (windy > 1 ? "s" : "") + " with gusts over 35 mph. Check stakes and row covers.");
+  lines.push(rain >= 0.5 ? rain.toFixed(2) + " in of rain in 2 weeks. You can skip a watering." : "Only " + rain.toFixed(2) + " in of rain in 2 weeks. Keep irrigating.");
+  $("signal").innerHTML = lines.map(l => "<div>" + l + "</div>").join("");
+}
+
+// ---------- tasks ----------
+function taskList(from, to){
+  const out = [];
+  for (const c of CROPS) for (const ev of eventsOf(c)){
+    for (const [a, b] of segments(ev)){
+      const overlaps = a <= to && b >= from;
+      if (!overlaps) continue;
+      out.push({c, ev, a, b});
+      break;
+    }
+  }
+  return out;
+}
+function taskHTML({c, ev, a, b}, mode){
+  const when = mode === "now" ? "until " + fmtMD(dateOf(b)) : "from " + fmtMD(dateOf(a));
+  const tip = ev.note || c.tip ? '<span class="tip">' + (ev.note || c.tip) + "</span>" : "";
+  return '<div class="task"><span class="chip ' + ev.t + '">' + labelFor(c, ev.t) + '</span><div><b>' + c.n + "</b>" + tip + '</div><span class="when">' + when + "</span></div>";
+}
+function renderTasks(){
+  const wk = new Date(today); wk.setDate(wk.getDate() - wk.getDay());
+  $("weekLabel").textContent = "Week of " + fmtMD(wk);
+  const order = {plant:0, sow:1, indoor:2, propagate:3, care:4, harvest:5};
+  const now = taskList(TODAY, TODAY + 6).filter(x => x.a <= TODAY + 6).sort((x, y) => order[x.ev.t] - order[y.ev.t]);
+  const nowKeys = new Set(now.map(x => x.c.n + x.ev.t));
+  const soon = taskList(TODAY + 7, TODAY + 28).filter(x => x.a > TODAY + 6 && !nowKeys.has(x.c.n + x.ev.t)).sort((x, y) => x.a - y.a);
+  const work = now.filter(x => x.ev.t !== "harvest"), ready = now.filter(x => x.ev.t === "harvest");
+  $("nowList").innerHTML = work.length ? work.map(x => taskHTML(x, "now")).join("") : '<div class="muted">No planting this week. Weed, mulch and plan.</div>';
+  $("readyList").innerHTML = ready.length ? ready.map(x => "<span>" + x.c.n + "</span>").join("") : '<span style="border-color:var(--line)">Nothing yet</span>';
+  $("soonList").innerHTML = soon.length ? soon.slice(0, 8).map(x => taskHTML(x, "soon")).join("") : '<div class="muted">Nothing new starts in the next 4 weeks.</div>';
+}
+
+// ---------- gantt ----------
+let cat = store.get("gc_cat") || "all";
+const pct = d => ((d - 1) / YDAYS * 100).toFixed(2) + "%";
+function renderGantt(){
+  document.querySelectorAll(".tab").forEach(b => b.setAttribute("aria-pressed", b.dataset.cat === cat));
+  let html = '<div class="grow head"><div></div><div class="months">' + MONTHS.map((m, i) => '<span style="left:' + pct(doyOf(i + 1, 1)) + '">' + m + "</span>").join("") + "</div></div>";
+  let lastCat = null;
+  for (const c of CROPS){
+    if (cat !== "all" && c.c !== cat) continue;
+    const sub = cat === "all" && c.c !== lastCat ? "<small>" + CAT[c.c] + "</small>" : "";
+    lastCat = c.c;
+    let bars = "";
+    for (const ev of eventsOf(c)) for (const [a, b] of segments(ev)){
+      const title = labelFor(c, ev.t) + ": " + fmtMD(dateOf(a)) + " – " + fmtMD(dateOf(b)) + (ev.note ? ". " + ev.note : "");
+      bars += '<div class="bar ' + ev.t + '" style="left:' + pct(a) + ';width:calc(' + pct(b) + " - " + pct(a) + ' + 2px)" title="' + title + '"></div>';
+    }
+    html += '<div class="grow"><div class="name">' + sub + c.n + '</div><div class="track">' + bars + "</div></div>";
+  }
+  html += '<div class="lines">' +
+    '<div class="vline" style="left:' + pct(L) + '"></div><span class="flag" style="left:' + pct(L) + '">Last frost</span>' +
+    '<div class="vline" style="left:' + pct(F) + '"></div><span class="flag" style="left:' + pct(F) + '">First frost</span>' +
+    '<div class="vline today" style="left:' + pct(TODAY) + '"></div><span class="flag today" style="left:' + pct(TODAY) + '">Today</span></div>';
+  $("gantt").innerHTML = html;
+}
+
+// ---------- climate ----------
+function renderClimate(){
+  const ms = D.months;
+  if (!ms.length){ $("climateChart").innerHTML = '<p class="muted">No history yet.</p>'; return; }
+  const W = 640, H = 260, pl = 36, pr = 8, pt = 12, pb = 56;
+  const lo = Math.floor(Math.min(20, ...ms.map(m => m.min)) / 10) * 10, hi = Math.ceil(Math.max(...ms.map(m => m.max)) / 10) * 10;
+  const y = v => pt + (hi - v) / (hi - lo) * (H - pt - pb);
+  const bw = (W - pl - pr) / ms.length, x = i => pl + i * bw + bw / 2;
+  const maxRain = Math.max(1, ...ms.map(m => m.rain));
+  let g = "";
+  for (let v = lo; v <= hi; v += 20){
+    g += '<line x1="' + pl + '" x2="' + (W - pr) + '" y1="' + y(v) + '" y2="' + y(v) + '" stroke="var(--line)"/>';
+    g += '<text x="' + (pl - 6) + '" y="' + (y(v) + 3) + '" text-anchor="end">' + v + "°</text>";
+  }
+  g += '<line x1="' + pl + '" x2="' + (W - pr) + '" y1="' + y(32) + '" y2="' + y(32) + '" stroke="var(--frost)" stroke-dasharray="4 3"/>';
+  g += '<text x="' + (W - pr) + '" y="' + (y(32) - 4) + '" text-anchor="end" style="fill:var(--frost)">32° frost</text>';
+  ms.forEach((m, i) => {
+    const cx = x(i), w = Math.min(18, bw * 0.45);
+    g += '<line x1="' + cx + '" x2="' + cx + '" y1="' + y(m.max) + '" y2="' + y(m.min) + '" stroke="var(--muted)" stroke-width="1" opacity=".5"/>';
+    g += '<rect x="' + (cx - w/2) + '" y="' + y(m.hi) + '" width="' + w + '" height="' + Math.max(2, y(m.lo) - y(m.hi)) + '" rx="3" fill="var(--heat)" opacity=".85"><title>' + m.ym + ": avg high " + m.hi + "°, avg low " + m.lo + "°, range " + m.min + "–" + m.max + "°</title></rect>";
+    if (m.frost) g += '<circle cx="' + cx + '" cy="' + y(m.min) + '" r="3.5" fill="var(--frost)"/>';
+    const [yy, mm] = m.ym.split("-").map(Number);
+    g += '<text x="' + cx + '" y="' + (H - pb + 14) + '" text-anchor="middle">' + MONTHS[mm - 1] + "</text>";
+    const rh = m.rain / maxRain * 22;
+    g += '<rect x="' + (cx - w/2) + '" y="' + (H - 6 - rh) + '" width="' + w + '" height="' + Math.max(1, rh) + '" rx="2" fill="var(--rain)"><title>' + m.rain + ' in rain</title></rect>';
+    if (m.rain >= 0.5) g += '<text x="' + cx + '" y="' + (H - 9 - rh) + '" text-anchor="middle" style="fill:var(--rain)">' + m.rain.toFixed(1) + "</text>";
+  });
+  g += '<text x="' + pl + '" y="' + (H - pb + 30) + '" style="fill:var(--rain)">Rain (in)</text>';
+  $("climateChart").innerHTML = '<svg viewBox="0 0 ' + W + " " + H + '" role="img" aria-label="Monthly average high and low temperatures and rainfall for the last 12 months">' + g + "</svg>" +
+    '<div class="legend" style="margin-top:6px"><span><i style="background:var(--heat)"></i>Avg low to avg high</span><span><i class="line" style="background:var(--muted)"></i>Coldest to hottest</span><span><i style="background:var(--frost);border-radius:50%;width:8px"></i>Month had frost</span></div>';
+}
+function renderRecent(){
+  $("recent").querySelector("tbody").innerHTML = D.recent.slice().reverse().map(r => {
+    const d = new Date(r.d + "T12:00:00");
+    return "<tr><td>" + d.toLocaleDateString([], {weekday:"short"}) + " " + fmtMD(d) + "</td><td>" + Math.round(r.hi) + "°</td><td" + (r.lo <= 32 ? ' class="frost"' : "") + ">" + Math.round(r.lo) + "°</td><td>" + (r.rain ? r.rain.toFixed(2) : "–") + "</td><td>" + Math.round(r.gust) + "</td></tr>";
+  }).join("");
+}
+
+// ---------- sun & UV ----------
+function niceStep(max){
+  const raw = Math.max(max, 1e-6) / 4, p = 10 ** Math.floor(Math.log10(raw));
+  return [1, 2, 2.5, 5, 10].map(x => x * p).find(x => x >= raw);
+}
+function bars({vals, labels, titles, color, step, fmt, guide, endLabel}){
+  const W = 640, H = 190, pl = 40, pr = 8, pt = 16, pb = 24;
+  const max = Math.max(guide ? guide.v : 0, ...vals.filter(v => v != null));
+  step = step || niceStep(max);
+  const top = Math.max(step, Math.ceil(max / step) * step);
+  const y = v => pt + (1 - v / top) * (H - pt - pb);
+  const bw = (W - pl - pr) / vals.length, w = Math.min(26, bw * 0.62);
+  let g = "";
+  for (let v = 0; v <= top + 1e-9; v += step){
+    g += '<line x1="' + pl + '" x2="' + (W - pr) + '" y1="' + y(v) + '" y2="' + y(v) + '" stroke="var(--line)"/>';
+    g += '<text x="' + (pl - 6) + '" y="' + (y(v) + 3) + '" text-anchor="end">' + fmt(v) + "</text>";
+  }
+  if (guide){
+    g += '<line x1="' + pl + '" x2="' + (W - pr) + '" y1="' + y(guide.v) + '" y2="' + y(guide.v) + '" stroke="var(--muted)" stroke-dasharray="4 3"/>';
+    g += '<text x="' + (W - pr) + '" y="' + (y(guide.v) - 4) + '" text-anchor="end">' + guide.label + "</text>";
+  }
+  let last = -1;
+  vals.forEach((v, i) => {
+    const cx = pl + i * bw + bw / 2;
+    g += '<text x="' + cx + '" y="' + (H - pb + 15) + '" text-anchor="middle">' + labels[i] + "</text>";
+    if (v == null) return;
+    last = i;
+    g += '<rect x="' + (cx - w / 2) + '" y="' + y(v) + '" width="' + w + '" height="' + Math.max(1, y(0) - y(v)) + '" rx="3" fill="' + color(v, i) + '"><title>' + titles[i] + "</title></rect>";
+  });
+  if (endLabel && last >= 0){
+    const cx = pl + last * bw + bw / 2;
+    g += '<text x="' + cx + '" y="' + (y(vals[last]) - 5) + '" text-anchor="middle" style="fill:var(--ink);font-weight:500">' + endLabel(vals[last]) + "</text>";
+  }
+  return '<svg viewBox="0 0 ' + W + " " + H + '" role="img">' + g + "</svg>";
+}
+const UVCAT = [[3, "Low", "uv1"], [6, "Moderate", "uv2"], [8, "High", "uv3"], [11, "Very high", "uv4"], [Infinity, "Extreme", "uv5"]];
+const uvCat = v => UVCAT.find(c => v < c[0]);
+const hm = s => { if (!s) return ""; const [h, m] = s.split(":").map(Number); return (h % 12 || 12) + ":" + String(m).padStart(2, "0") + (h < 12 ? " am" : " pm"); };
+const dayOf = iso => new Date(iso + "T12:00:00");
+function renderUV(){
+  const c = D.current, u = c.uv;
+  $("uvLabel").textContent = "UV index · " + fmtMD(new Date(c.dateutc || D.updated));
+  $("uvNow").firstChild.nodeValue = u != null ? u : "--";
+  if (u != null){
+    const k = uvCat(u);
+    $("uvChip").querySelector("i").style.background = "var(--" + k[2] + ")";
+    $("uvChip").querySelector("span").textContent = k[1];
+  }
+  $("uvPeak").textContent = c.todayUV != null ? "Peak that day: " + c.todayUV + (c.todayUVAt ? " at " + hm(c.todayUVAt) : "") : "";
+  const r = D.recent, uvs = r.map(x => x.uv).filter(v => v != null), hi = uvs.length ? Math.max(...uvs) : 0;
+  $("uvAdvice").textContent = hi >= 8 ? "UV reached " + hi + " in the last 2 weeks. Put 30–40% shade cloth over lettuce, peppers and new transplants, and do garden work before 10 am or after 4 pm."
+    : hi >= 6 ? "UV peaked at " + hi + " in the last 2 weeks. Transplant and water in the morning, and give seedlings afternoon shade."
+    : "UV has stayed moderate. A good stretch for transplanting and midday garden work.";
+  $("uvChart").innerHTML = bars({
+    vals: r.map(x => x.uv), labels: r.map(x => dayOf(x.d).getDate()),
+    titles: r.map(x => fmtMD(dayOf(x.d)) + ": peak UV " + x.uv + (x.uvAt ? " at " + hm(x.uvAt) : "")),
+    color: v => "var(--" + uvCat(v)[2] + ")", step: 2, fmt: v => v,
+    guide: {v: 8, label: "8 very high"}
+  });
+  $("uvLegend").innerHTML = UVCAT.map(k => '<span><i style="background:var(--' + k[2] + ')"></i>' + k[1] + "</span>").join("");
+}
+const DIM = ym => { const [y, m] = ym.split("-").map(Number); return new Date(y, m, 0).getDate(); };
+const kwh = v => (v >= 100 ? Math.round(v).toLocaleString() : v.toFixed(1)) + " kWh";
+function renderSolar(){
+  const kw = Math.max(0, +$("pvKw").value || 0), pr = Math.min(100, Math.max(0, +$("pvPr").value || 0)) / 100, f = kw * pr;
+  const c = D.current;
+  $("pvToday").textContent = c.todaySun != null ? kwh(c.todaySun * f) : "--";
+  $("pvTodayN").textContent = c.todaySun != null ? c.todaySun.toFixed(1) + " sun hours so far" : "";
+  const d14 = D.recent.filter(x => x.sun != null), avg = d14.length ? d14.reduce((a, x) => a + x.sun, 0) / d14.length : null;
+  $("pv14").textContent = avg != null ? kwh(avg * f) + "/day" : "--";
+  $("pv14N").textContent = avg != null ? avg.toFixed(1) + " sun hours a day" : "";
+  const ms = D.months.filter(m => m.sun != null), total = ms.reduce((a, m) => a + m.sun * DIM(m.ym) * f, 0);
+  $("pvYear").textContent = ms.length ? kwh(total) : "--";
+  $("pvYearN").textContent = ms.length ? "about " + kwh(total / ms.length) + " a month" + (ms.length < 12 ? " (" + ms.length + " months of data)" : "") : "";
+  $("pvChart").innerHTML = bars({
+    vals: D.months.map(m => m.sun != null ? m.sun * DIM(m.ym) * f : null),
+    labels: D.months.map(m => MONTHS[+m.ym.slice(5) - 1]),
+    titles: D.months.map(m => m.ym + ": " + (m.sun != null ? kwh(m.sun * DIM(m.ym) * f) + ", " + m.sun.toFixed(1) + " sun hours a day" : "no data")),
+    color: () => "var(--sun)", fmt: v => Math.round(v).toLocaleString(),
+    endLabel: v => Math.round(v).toLocaleString()
+  });
+}
+for (const [id, key] of [["pvKw", "gc_kw"], ["pvPr", "gc_pr"]]){
+  const saved = store.get(key);
+  if (saved) $(id).value = saved;
+  $(id).addEventListener("input", e => { store.set(key, e.target.value); renderSolar(); });
+}
+
+// ---------- chat ----------
+const turns = [];
+let sample = null, ctl = null, busy = false;
+function addMsg(role, text){
+  const el = document.createElement("div");
+  el.className = "msg " + role; el.textContent = text;
+  $("msgs").appendChild(el); $("msgs").scrollTop = $("msgs").scrollHeight;
+  return el;
+}
+function context(){
+  const weekTasks = taskList(TODAY, TODAY + 6).map(x => labelFor(x.c, x.ev.t) + " " + x.c.n).join("; ");
+  const soonTasks = taskList(TODAY + 7, TODAY + 28).filter(x => x.a > TODAY + 6).map(x => labelFor(x.c, x.ev.t) + " " + x.c.n + " from " + fmtMD(dateOf(x.a))).join("; ");
+  return [
+    "You are a friendly, practical garden advisor for one home garden. Answer the gardener's questions using the facts below. Keep answers short (under 180 words), concrete, with dates where useful. Use plain text with simple dashes for lists; no markdown headings. If the station data is more than a week old, mention that the readings are a snapshot.",
+    "",
+    "LOCATION: " + D.station.name + " station, " + D.station.place + " — Mojave high desert, about " + (D.station.elevationFt || 4300) + " ft, USDA zone 8a. Typical conditions: sandy alkaline soil, low humidity, strong spring winds, hot dry summers, cold nights, occasional winter snow, summer monsoon storms.",
+    "TODAY: " + today.toDateString(),
+    "FROST DATES used by the calendar: last spring frost " + fmtMD(dateOf(L)) + ", first fall frost " + fmtMD(dateOf(F)) + ". Station record: last spring frost " + D.frost.lastSpring + ", first fall frost " + D.frost.firstFall + ", " + D.frost.nights + " frost nights since " + D.frost.recordStart + ", coldest " + (D.frost.coldest ? D.frost.coldest.t + "°F on " + D.frost.coldest.d : "n/a") + ".",
+    "STATION SNAPSHOT (" + D.updated + "): " + JSON.stringify(D.current),
+    "LAST 14 DAYS (date, high, low, rain in, max gust mph, peak UV, sun hours): " + D.recent.map(r => [r.d, r.hi, r.lo, r.rain, r.gust, r.uv, r.sun].join(",")).join(" | "),
+    "LAST 12 MONTHS (month, avg high, avg low, min, max, rain in, frost nights): " + D.months.map(m => [m.ym, m.hi, m.lo, m.min, m.max, m.rain, m.frost].join(",")).join(" | "),
+    "CALENDAR — this week: " + (weekTasks || "nothing scheduled") + ". Next 4 weeks: " + (soonTasks || "nothing new") + ".",
+    "The gardener grows vegetables, herbs, fruit trees (including blue elderberry), flowers, California native plants, a lawn and native grasses."
+  ].join("\n");
+}
+const ERR = {
+  not_granted:"Chat needs your permission to use Claude. Reload the page to be asked again.",
+  sampling_disabled:"Chat isn't available on this account.",
+  rate_limited:"Too many questions at once or you've hit your usage limit. Try again in a bit.",
+  session_expired:"Sign in to Claude again to use the chat.",
+  refused:"Claude couldn't answer that one. Try rephrasing.",
+  prompt_too_large:"The conversation got too long. Reload the page to start fresh."
+};
+async function ask(q){
+  q = q.trim(); if (!q || busy) return;
+  if (!sample){ chatUnavailable(); return; }
+  busy = true; $("sendBtn").disabled = true; $("stopBtn").hidden = false;
+  addMsg("user", q); turns.push({role:"user", content:q});
+  while (turns.length > 12) turns.splice(0, 2);
+  const bubble = addMsg("bot", "Thinking…");
+  ctl = new AbortController();
+  try {
+    const { text, truncated } = await sample([{role:"user", content: context()}, {role:"assistant", content:"Understood. I'll use your station data and calendar."}, ...turns], {
+      cache:false, signal:ctl.signal,
+      onText:({text}) => { bubble.textContent = text; $("msgs").scrollTop = $("msgs").scrollHeight; }
+    });
+    bubble.textContent = text + (truncated ? "\n\n(Answer cut short. Ask a narrower question.)" : "");
+    turns.push({role:"assistant", content:text});
+  } catch (e){
+    turns.pop();
+    if (e.code === "cancelled"){ bubble.textContent = e.text || "Stopped."; }
+    else if (e.code === "not_granted" || e.code === "sampling_disabled"){ bubble.remove(); addMsg("note", ERR[e.code]); $("chatForm").hidden = true; $("suggest").hidden = true; }
+    else { bubble.textContent = (e.text ? e.text + "\n\n" : "") + (ERR[e.code] || "Something went wrong reaching Claude. Try again."); }
+  } finally {
+    busy = false; $("sendBtn").disabled = false; $("stopBtn").hidden = true;
+  }
+}
+$("chatForm").addEventListener("submit", e => { e.preventDefault(); const v = $("chatInput").value; $("chatInput").value = ""; ask(v); });
+$("chatInput").addEventListener("keydown", e => { if (e.key === "Enter" && !e.shiftKey){ e.preventDefault(); $("chatForm").requestSubmit(); } });
+$("stopBtn").onclick = () => ctl?.abort();
+$("suggest").addEventListener("click", e => { if (e.target.tagName === "BUTTON") ask(e.target.textContent); });
+addMsg("note", "Ask anything about planting, watering, frost or harvest.");
+(async () => {
+  try { sample = window.claude ? await window.claude.use("sample") : null; } catch { sample = null; }
+  if (!sample) chatUnavailable();
+})();
+function chatUnavailable(){
+  $("msgs").innerHTML = ""; $("chatForm").hidden = true; $("suggest").hidden = true;
+  const el = addMsg("note", "The garden chat runs on Claude. ");
+  if (D.links && D.links.claude){
+    const a = document.createElement("a");
+    a.href = D.links.claude; a.target = "_blank"; a.rel = "noopener"; a.textContent = "Open the chat on claude.ai ↗";
+    el.appendChild(a);
+  }
+}
+
+// ---------- controls ----------
+document.querySelectorAll(".tab").forEach(b => b.onclick = () => { cat = b.dataset.cat; store.set("gc_cat", cat); renderGantt(); });
+$("adjL").onchange = e => { if (e.target.value){ store.set("gc_L", e.target.value); rerender(); } };
+$("adjF").onchange = e => { if (e.target.value){ store.set("gc_F", e.target.value); rerender(); } };
+$("adjReset").onclick = () => { store.del("gc_L"); store.del("gc_F"); rerender(); };
+function rerender(){ setFrost(); renderTasks(); renderGantt(); }
+
+setFrost(); renderHeader(); renderConditions(); renderTasks(); renderGantt(); renderClimate(); renderRecent(); renderUV(); renderSolar();
+
+// ---------- live station data ----------
+const AW = "https://lightning.ambientweather.net";
+const SLUG = (D.station.dashboard || "").split("/").pop();
+const tzDate = ms => new Intl.DateTimeFormat("en-CA", {timeZone:"America/Los_Angeles"}).format(new Date(ms));
+const tzTime = ms => new Intl.DateTimeFormat("en-GB", {timeZone:"America/Los_Angeles", hour:"2-digit", minute:"2-digit"}).format(new Date(ms));
+async function goLive(){
+  try {
+    const dev = (await (await fetch(AW + "/devices?public.slug=" + SLUG)).json()).data[0];
+    const ld = dev.lastData, hl = ld.hl || {};
+    const keep = ["tempf","feelsLike","humidity","windspeedmph","windgustmph","maxdailygust","winddir","uv","solarradiation",
+      "hourlyrainin","dailyrainin","weeklyrainin","monthlyrainin","yearlyrainin","baromrelin","dateutc","lastRain"];
+    const cur = {}; keep.forEach(k => cur[k] = ld[k]);
+    const ht = hl.tempf || {}, hs = hl.solarradiation || {}, hu = hl.uv || {};
+    Object.assign(cur, {todayHi: ht.h, todayLo: ht.l, todaySun: hs.s != null ? +(hs.s / 60000).toFixed(2) : null,
+      todaySunPeak: hs.h, todayUV: hu.h, todayUVAt: hu.h && hu.ht ? tzTime(hu.ht) : null});
+    await new Promise(r => setTimeout(r, 1100));
+    const start = Date.now() - 16 * 864e5;
+    const days = (await (await fetch(AW + "/device-data?macAddress=" + encodeURIComponent(dev.macAddress) + "&dataKey=deviceSummaries&start=" + start + "&stats=summary")).json()).data || [];
+    const recent = days.filter(r => r.tempf && r.tempf.h != null).map(r => {
+      const sr = r.solarradiation || {}, uv = r.uv || {};
+      return {d: tzDate(r.dateutc), hi: r.tempf.h, lo: r.tempf.l, rain: (r.dailyrainin || {}).h || 0, gust: (r.maxdailygust || {}).h || 0,
+        sun: (sr.c || 0) >= 1200 ? +(sr.s / sr.c * 24 / 1000).toFixed(2) : null, uv: uv.h ?? null, uvAt: uv.h && uv.ht ? tzTime(uv.ht) : null};
+    }).filter(r => r.d < tzDate(Date.now())).sort((a, b) => a.d < b.d ? -1 : 1).slice(-14);
+    D.current = cur;
+    if (recent.length >= 7) D.recent = recent;
+    D.updated = new Date(ld.dateutc || Date.now()).toISOString();
+    D.live = true;
+    renderHeader(); renderConditions(); renderRecent(); renderUV(); renderSolar();
+  } catch { /* offline, or inside claude.ai where outside requests are blocked: keep the weekly snapshot */ }
+}
+if (!window.claude){ goLive(); setInterval(() => { if (!document.hidden) goLive(); }, 5 * 60 * 1000); }
+})();
+</script>

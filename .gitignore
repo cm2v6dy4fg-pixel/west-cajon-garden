@@ -1,0 +1,8 @@
+# built output (GitHub Actions rebuilds site/ every week)
+site/
+garden.html
+# local Claude task records (calendar event ids)
+garden_events.json
+garden_calendar_sync.json
+__pycache__/
+.DS_Store

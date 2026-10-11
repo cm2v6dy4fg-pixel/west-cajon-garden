@@ -1,0 +1,941 @@
+[
+ {
+  "n": "Tomatoes",
+  "c": "veg",
+  "dtm": 75,
+  "tender": 1,
+  "cont": 1,
+  "ev": [
+   [
+    "indoor",
+    "L-7",
+    "L-5"
+   ],
+   [
+    "plant",
+    "L+2",
+    "L+4"
+   ],
+   [
+    "propagate",
+    "L+7",
+    "L+11",
+    "Root 6-in suckers in water or damp potting mix for a second crop that ripens before frost."
+   ]
+  ],
+  "tip": "Shade cloth over 95°F helps fruit set. Stake firmly against wind."
+ },
+ {
+  "n": "Peppers",
+  "c": "veg",
+  "dtm": 75,
+  "tender": 1,
+  "cont": 1,
+  "ev": [
+   [
+    "indoor",
+    "L-9",
+    "L-7"
+   ],
+   [
+    "plant",
+    "L+3",
+    "L+5"
+   ]
+  ],
+  "tip": "Wait for nights above 50°F."
+ },
+ {
+  "n": "Eggplant",
+  "c": "veg",
+  "dtm": 80,
+  "tender": 1,
+  "cont": 1,
+  "ev": [
+   [
+    "indoor",
+    "L-9",
+    "L-7"
+   ],
+   [
+    "plant",
+    "L+3",
+    "L+5"
+   ]
+  ]
+ },
+ {
+  "n": "Zucchini & summer squash",
+  "c": "veg",
+  "dtm": 50,
+  "tender": 1,
+  "cont": 1,
+  "ev": [
+   [
+    "sow",
+    "L+1",
+    "L+8"
+   ]
+  ]
+ },
+ {
+  "n": "Winter squash & pumpkins",
+  "c": "veg",
+  "dtm": 100,
+  "tender": 1,
+  "ev": [
+   [
+    "sow",
+    "L+1",
+    "L+4"
+   ]
+  ]
+ },
+ {
+  "n": "Cucumbers",
+  "c": "veg",
+  "dtm": 55,
+  "tender": 1,
+  "cont": 1,
+  "ev": [
+   [
+    "sow",
+    "L+2",
+    "L+8"
+   ]
+  ]
+ },
+ {
+  "n": "Melons",
+  "c": "veg",
+  "dtm": 85,
+  "tender": 1,
+  "ev": [
+   [
+    "sow",
+    "L+2",
+    "L+5"
+   ]
+  ],
+  "tip": "Loves the desert heat. Water deeply, less often."
+ },
+ {
+  "n": "Bush beans",
+  "c": "veg",
+  "dtm": 55,
+  "tender": 1,
+  "ev": [
+   [
+    "sow",
+    "L+1",
+    "L+10"
+   ]
+  ]
+ },
+ {
+  "n": "Sweet corn",
+  "c": "veg",
+  "dtm": 80,
+  "tender": 1,
+  "ev": [
+   [
+    "sow",
+    "L+1",
+    "L+6"
+   ]
+  ],
+  "tip": "Plant in blocks of 4+ rows so the wind can pollinate it."
+ },
+ {
+  "n": "Potatoes",
+  "c": "veg",
+  "dtm": 90,
+  "ev": [
+   [
+    "sow",
+    "L-3",
+    "L+1"
+   ]
+  ]
+ },
+ {
+  "n": "Onions (sets)",
+  "c": "veg",
+  "dtm": 110,
+  "ev": [
+   [
+    "sow",
+    "L-6",
+    "L-3"
+   ]
+  ],
+  "tip": "Use intermediate-day or day-neutral varieties such as Candy; short-day types bulb too small here."
+ },
+ {
+  "n": "Garlic",
+  "c": "veg",
+  "ev": [
+   [
+    "sow",
+    "F-4",
+    "F+1"
+   ],
+   [
+    "harvest",
+    "06-10",
+    "07-15"
+   ]
+  ],
+  "tip": "Plant cloves in fall; harvest next summer once lower leaves brown."
+ },
+ {
+  "n": "Peas",
+  "c": "veg",
+  "dtm": 60,
+  "ev": [
+   [
+    "sow",
+    "L-8",
+    "L-4"
+   ]
+  ]
+ },
+ {
+  "n": "Lettuce",
+  "c": "veg",
+  "dtm": 45,
+  "ev": [
+   [
+    "sow",
+    "L-6",
+    "L+1"
+   ],
+   [
+    "sow",
+    "F-9",
+    "F-5"
+   ]
+  ]
+ },
+ {
+  "n": "Spinach",
+  "c": "veg",
+  "dtm": 40,
+  "ev": [
+   [
+    "sow",
+    "L-6",
+    "L-2"
+   ],
+   [
+    "sow",
+    "F-8",
+    "F-4"
+   ]
+  ]
+ },
+ {
+  "n": "Radishes",
+  "c": "veg",
+  "dtm": 28,
+  "ev": [
+   [
+    "sow",
+    "L-6",
+    "L+2"
+   ],
+   [
+    "sow",
+    "F-8",
+    "F-3"
+   ]
+  ]
+ },
+ {
+  "n": "Carrots",
+  "c": "veg",
+  "dtm": 70,
+  "ev": [
+   [
+    "sow",
+    "L-4",
+    "L+2"
+   ],
+   [
+    "sow",
+    "F-14",
+    "F-10"
+   ]
+  ]
+ },
+ {
+  "n": "Beets",
+  "c": "veg",
+  "dtm": 55,
+  "ev": [
+   [
+    "sow",
+    "L-4",
+    "L+2"
+   ],
+   [
+    "sow",
+    "F-12",
+    "F-8"
+   ]
+  ]
+ },
+ {
+  "n": "Broccoli & cabbage",
+  "c": "veg",
+  "dtm": 65,
+  "ev": [
+   [
+    "indoor",
+    "L-10",
+    "L-8"
+   ],
+   [
+    "plant",
+    "L-4",
+    "L-2"
+   ],
+   [
+    "plant",
+    "F-12",
+    "F-10"
+   ]
+  ],
+  "tip": "Give fall transplants afternoon shade for their first 2 weeks of late-summer heat."
+ },
+ {
+  "n": "Kale & chard",
+  "c": "veg",
+  "dtm": 55,
+  "ev": [
+   [
+    "sow",
+    "L-4",
+    "L+2"
+   ],
+   [
+    "sow",
+    "F-12",
+    "F-8"
+   ]
+  ],
+  "tip": "Kale sweetens after light frost."
+ },
+ {
+  "n": "Seed saving",
+  "c": "veg",
+  "ev": [
+   [
+    "propagate",
+    "F-10",
+    "F",
+    "Save seed from your best open-pollinated tomatoes, peppers, beans, squash, sunflowers, zinnias, cosmos and marigolds. Dry fully, then store cool and dark."
+   ]
+  ],
+  "tip": "Hybrid (F1) varieties won't come true from seed."
+ },
+ {
+  "n": "Basil",
+  "c": "herb",
+  "dtm": 60,
+  "tender": 1,
+  "cont": 1,
+  "ev": [
+   [
+    "indoor",
+    "L-6",
+    "L-4"
+   ],
+   [
+    "plant",
+    "L+2",
+    "L+5"
+   ],
+   [
+    "propagate",
+    "L+6",
+    "L+14",
+    "Root 4-in tip cuttings in a glass of water; pot up once roots are 1 in long."
+   ]
+  ]
+ },
+ {
+  "n": "Cilantro",
+  "c": "herb",
+  "dtm": 45,
+  "ev": [
+   [
+    "sow",
+    "L-4",
+    "L+1"
+   ],
+   [
+    "sow",
+    "F-8",
+    "F-4"
+   ]
+  ],
+  "tip": "Bolts in summer heat. Grow it in spring and fall."
+ },
+ {
+  "n": "Dill",
+  "c": "herb",
+  "dtm": 55,
+  "ev": [
+   [
+    "sow",
+    "L",
+    "L+4"
+   ]
+  ]
+ },
+ {
+  "n": "Parsley",
+  "c": "herb",
+  "dtm": 75,
+  "ev": [
+   [
+    "indoor",
+    "L-10",
+    "L-8"
+   ],
+   [
+    "plant",
+    "L-2",
+    "L+1"
+   ]
+  ]
+ },
+ {
+  "n": "Chives",
+  "c": "herb",
+  "dtm": 80,
+  "ev": [
+   [
+    "sow",
+    "L-4",
+    "L"
+   ],
+   [
+    "propagate",
+    "L-4",
+    "L",
+    "Dig and split clumps into groups of 5–10 bulbs; replant at the same depth."
+   ]
+  ]
+ },
+ {
+  "n": "Rosemary, thyme, sage, oregano",
+  "c": "herb",
+  "ev": [
+   [
+    "plant",
+    "L+2",
+    "L+8"
+   ],
+   [
+    "plant",
+    "F-9",
+    "F-6"
+   ],
+   [
+    "harvest",
+    "L+6",
+    "F"
+   ],
+   [
+    "propagate",
+    "L+1",
+    "L+5",
+    "Take 4-in softwood cuttings, strip the lower leaves and root in gritty mix in bright shade."
+   ],
+   [
+    "propagate",
+    "F-11",
+    "F-8",
+    "Second round: semi-hardwood cuttings root well in late summer. Keep them in a cold frame over winter."
+   ]
+  ],
+  "tip": "Drought-tough once rooted. Choose hardy rosemary such as 'Arp' or 'Hill Hardy' for cold, windy winters."
+ },
+ {
+  "n": "Cannabis",
+  "c": "herb",
+  "tender": 1,
+  "ev": [
+   [
+    "indoor",
+    "L-4",
+    "L-2"
+   ],
+   [
+    "plant",
+    "L+2",
+    "L+4"
+   ],
+   [
+    "harvest",
+    "09-20",
+    "10-31"
+   ],
+   [
+    "propagate",
+    "L+3",
+    "L+7",
+    "Clone from vegetative plants before flowering. Clones count toward the 6-plant limit."
+   ]
+  ],
+  "tip": "California allows 6 plants per home. San Bernardino County may require a locked greenhouse or other enclosure, so check before planting in open ground. Stake it against the wind."
+ },
+ {
+  "n": "Bare-root fruit trees",
+  "c": "fruit",
+  "ev": [
+   [
+    "plant",
+    "01-15",
+    "03-15"
+   ]
+  ],
+  "tip": "Plant while dormant. Late-blooming varieties dodge April frosts."
+ },
+ {
+  "n": "Winter pruning",
+  "c": "fruit",
+  "ev": [
+   [
+    "care",
+    "01-05",
+    "02-25"
+   ]
+  ]
+ },
+ {
+  "n": "Fruit tree grafting & budding",
+  "c": "fruit",
+  "ev": [
+   [
+    "propagate",
+    "01-05",
+    "02-10",
+    "Cut pencil-thick dormant scions and store them wrapped in the fridge."
+   ],
+   [
+    "propagate",
+    "03-01",
+    "04-15",
+    "Whip-and-tongue or cleft graft stored scions as rootstock buds break."
+   ],
+   [
+    "propagate",
+    "08-01",
+    "09-10",
+    "Chip or T-bud when bark slips; unwrap buds after 3 weeks."
+   ]
+  ],
+  "tip": "Graft apples to apples and stone fruit to stone fruit."
+ },
+ {
+  "n": "Bloom frost watch",
+  "c": "fruit",
+  "ev": [
+   [
+    "care",
+    "03-01",
+    "L+1"
+   ]
+  ],
+  "tip": "Cover blossoms on nights forecast below 30°F."
+ },
+ {
+  "n": "Deep watering & mulch",
+  "c": "fruit",
+  "ev": [
+   [
+    "care",
+    "05-01",
+    "09-30"
+   ]
+  ],
+  "tip": "Soak the root zone every 7–10 days in summer."
+ },
+ {
+  "n": "Cherries",
+  "c": "fruit",
+  "ev": [
+   [
+    "harvest",
+    "06-01",
+    "06-30"
+   ]
+  ],
+  "tip": "Phelan's cold winters give cherries the chill they need. Plant a self-fertile variety such as Stella or Lapins, and net against birds."
+ },
+ {
+  "n": "Apricots",
+  "c": "fruit",
+  "ev": [
+   [
+    "harvest",
+    "06-10",
+    "07-10"
+   ]
+  ],
+  "tip": "Bloom early and often lose flowers to March frost. Pick late-blooming varieties and plant in the warmest, most sheltered spot."
+ },
+ {
+  "n": "Peaches & nectarines",
+  "c": "fruit",
+  "ev": [
+   [
+    "harvest",
+    "07-05",
+    "08-31"
+   ]
+  ]
+ },
+ {
+  "n": "Pears",
+  "c": "fruit",
+  "ev": [
+   [
+    "harvest",
+    "08-10",
+    "09-30"
+   ]
+  ]
+ },
+ {
+  "n": "Apples",
+  "c": "fruit",
+  "ev": [
+   [
+    "harvest",
+    "08-10",
+    "10-31"
+   ]
+  ]
+ },
+ {
+  "n": "Blue elderberry",
+  "c": "fruit",
+  "ev": [
+   [
+    "plant",
+    "01-15",
+    "03-15"
+   ],
+   [
+    "plant",
+    "F-8",
+    "F-3"
+   ],
+   [
+    "care",
+    "01-05",
+    "02-15"
+   ],
+   [
+    "harvest",
+    "07-15",
+    "09-15"
+   ],
+   [
+    "propagate",
+    "01-05",
+    "02-28",
+    "Stick 10-in dormant hardwood cuttings (2+ nodes) in pots or straight into moist ground."
+   ]
+  ],
+  "tip": "Native and drought-tough. Prune out old canes in winter. Pick only dark-blue clusters and cook before eating: raw berries, stems and leaves are toxic."
+ },
+ {
+  "n": "Sunflowers",
+  "c": "flower",
+  "dtm": 75,
+  "tender": 1,
+  "ev": [
+   [
+    "sow",
+    "L",
+    "L+8"
+   ]
+  ]
+ },
+ {
+  "n": "Zinnias",
+  "c": "flower",
+  "dtm": 60,
+  "tender": 1,
+  "cont": 1,
+  "ev": [
+   [
+    "sow",
+    "L+1",
+    "L+6"
+   ]
+  ]
+ },
+ {
+  "n": "Cosmos",
+  "c": "flower",
+  "dtm": 60,
+  "tender": 1,
+  "cont": 1,
+  "ev": [
+   [
+    "sow",
+    "L",
+    "L+6"
+   ]
+  ]
+ },
+ {
+  "n": "Marigolds",
+  "c": "flower",
+  "dtm": 55,
+  "tender": 1,
+  "cont": 1,
+  "ev": [
+   [
+    "indoor",
+    "L-6",
+    "L-4"
+   ],
+   [
+    "plant",
+    "L+1",
+    "L+4"
+   ]
+  ]
+ },
+ {
+  "n": "Sweet peas",
+  "c": "flower",
+  "dtm": 75,
+  "ev": [
+   [
+    "sow",
+    "L-8",
+    "L-5"
+   ]
+  ],
+  "tip": "Choose heat-tolerant varieties. They fade once June heat arrives."
+ },
+ {
+  "n": "California poppies & wildflowers",
+  "c": "flower",
+  "ev": [
+   [
+    "sow",
+    "F-3",
+    "F+4"
+   ],
+   [
+    "harvest",
+    "03-15",
+    "05-31"
+   ]
+  ],
+  "tip": "Sow before winter rain; they bloom in spring."
+ },
+ {
+  "n": "Spring bulbs",
+  "c": "flower",
+  "ev": [
+   [
+    "plant",
+    "F-4",
+    "F+2"
+   ],
+   [
+    "harvest",
+    "03-10",
+    "04-30"
+   ],
+   [
+    "propagate",
+    "06-15",
+    "08-31",
+    "Dig and divide crowded daffodil and iris clumps after the leaves die back."
+   ]
+  ],
+  "tip": "Tulips, daffodils and iris. Gophers eat tulips, so plant them in wire baskets; daffodils are gopher-proof."
+ },
+ {
+  "n": "Lavender, salvia, penstemon",
+  "c": "flower",
+  "ev": [
+   [
+    "plant",
+    "F-9",
+    "F-5"
+   ],
+   [
+    "plant",
+    "L",
+    "L+4"
+   ],
+   [
+    "propagate",
+    "L+2",
+    "L+6",
+    "Take softwood tip cuttings; lavender and salvia root in 3–4 weeks in gritty mix."
+   ]
+  ]
+ },
+ {
+  "n": "Native shrubs (desert willow, apache plume, CA buckwheat)",
+  "c": "native",
+  "ev": [
+   [
+    "plant",
+    "F-8",
+    "F-2"
+   ],
+   [
+    "harvest",
+    "04-15",
+    "07-15"
+   ],
+   [
+    "propagate",
+    "08-15",
+    "10-31",
+    "Collect seed as pods and plumes dry. Desert willow also roots from summer cuttings."
+   ]
+  ],
+  "tip": "Plant in fall so winter rain roots them. Water every 1–2 weeks the first summer, then only in long dry spells."
+ },
+ {
+  "n": "Native perennials (desert marigold, globemallow, CA fuchsia)",
+  "c": "native",
+  "ev": [
+   [
+    "plant",
+    "F-8",
+    "F-2"
+   ],
+   [
+    "plant",
+    "L",
+    "L+3"
+   ],
+   [
+    "harvest",
+    "04-01",
+    "10-15"
+   ],
+   [
+    "propagate",
+    "L-2",
+    "L+4",
+    "Divide CA fuchsia runners; let desert marigold and globemallow self-sow and move seedlings."
+   ]
+  ],
+  "tip": "Lean soil, no fertilizer. Cut back by half in late winter."
+ },
+ {
+  "n": "Yucca, cholla & agave",
+  "c": "native",
+  "ev": [
+   [
+    "plant",
+    "L+4",
+    "L+14"
+   ],
+   [
+    "propagate",
+    "L+2",
+    "L+12",
+    "Pull agave and yucca pups; let cholla joints callus a week before planting. Wear thick gloves."
+   ]
+  ],
+  "tip": "Choose cold-hardy agaves such as Parry's or Utah agave. Plant in fast-draining soil and water sparingly. Wild Joshua trees are protected, so buy nursery-grown plants."
+ },
+ {
+  "n": "Cool-season lawn (tall fescue)",
+  "c": "lawn",
+  "ev": [
+   [
+    "sow",
+    "F-8",
+    "F-5"
+   ],
+   [
+    "sow",
+    "L-3",
+    "L"
+   ]
+  ],
+  "tip": "Fall seeding beats spring. Keep seed moist with short daily waterings until it sprouts. Mow at 3–4 in. Uses more water than anything else on this list."
+ },
+ {
+  "n": "Lawn: aerate & fertilize",
+  "c": "lawn",
+  "ev": [
+   [
+    "care",
+    "F-9",
+    "F-7"
+   ],
+   [
+    "care",
+    "L-2",
+    "L+1"
+   ]
+  ]
+ },
+ {
+  "n": "Lawn: deep summer watering",
+  "c": "lawn",
+  "ev": [
+   [
+    "care",
+    "06-01",
+    "09-15"
+   ]
+  ],
+  "tip": "Water deeply 2–3 times a week before 8 am instead of a little every day."
+ },
+ {
+  "n": "Bermuda lawn (warm-season)",
+  "c": "lawn",
+  "ev": [
+   [
+    "sow",
+    "L+4",
+    "L+10"
+   ]
+  ],
+  "tip": "Needs heat to sprout. Turns brown and dormant after the first frost."
+ },
+ {
+  "n": "Native bunchgrasses (deergrass, blue grama, needlegrass)",
+  "c": "lawn",
+  "ev": [
+   [
+    "plant",
+    "F-8",
+    "F-2"
+   ],
+   [
+    "sow",
+    "L+3",
+    "L+8"
+   ],
+   [
+    "propagate",
+    "L-4",
+    "L+1",
+    "Divide clumps with a spade as new growth starts; keep divisions watered for a month."
+   ]
+  ],
+  "tip": "Low-water alternative to lawn. Cut deergrass back hard in late winter."
+ }
+]
