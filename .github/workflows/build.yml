@@ -2,7 +2,7 @@ name: Garden build
 
 on:
   schedule:
-    - cron: "0 13 * * *"   # daily 13:00 UTC (6 AM Pacific in summer, 5 AM in winter), keeps the storm-watch forecast fresh
+    - cron: "0 0,13,19 * * *"   # 3x daily: 6 AM, noon, 5 PM Pacific in summer (an hour earlier in winter), keeps the storm watch and garden chat fresh
   workflow_dispatch:
   push:
     branches: [main]
