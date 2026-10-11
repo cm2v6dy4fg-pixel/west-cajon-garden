@@ -1,0 +1,14 @@
+{
+  "name": "west-cajon-garden",
+  "owner": {
+    "name": "cm2v6dy4fg-pixel"
+  },
+  "description": "Claude Code plugins for the West Cajon garden calendar.",
+  "plugins": [
+    {
+      "name": "garden",
+      "source": "./plugins/garden",
+      "description": "Planting helper for the West Cajon garden: what to plant or harvest now, adding crops, and crops.json validation."
+    }
+  ]
+}

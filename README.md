@@ -13,6 +13,20 @@ West Cajon Ambient Weather station's own frost dates and weather history.
 station's public Ambient Weather share link (no API keys). It then rebuilds the page and the calendar feed,
 and publishes them to GitHub Pages. It also pulls an 8-day National Weather Service forecast for Storm watch. `data/station.json` keeps each day's snapshot.
 
+## Claude Code plugin
+
+`plugins/garden` adds garden commands to Claude Code. Install it with:
+
+```
+/plugin install garden --marketplace cm2v6dy4fg-pixel/west-cajon-garden
+```
+
+Then, inside a checkout of this repo:
+
+- `/garden:whats-next [weeks]`: what to plant, start or harvest now and in the coming weeks
+- `/garden:add-crop <crop>`: add or update a crop in `crops.json`
+- A `garden-calendar` skill that explains the `crops.json` format, and a hook that validates `crops.json` after each edit
+
 ## Files
 
 - `build_garden.py`: fetches station data and builds the page and `.ics` feed

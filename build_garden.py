@@ -92,8 +92,8 @@ def calendar_events(crops, frost, today, horizon_days=42, lookback_days=7):
                     elif c.get("tip"):
                         desc += " " + c["tip"]
                     desc += f"\n\nWest Cajon garden calendar: {SITE_URL}"
-                    out.append({"key": f"{slug}-{t}-{i}-{start.year}", "date": start.isoformat(),
-                                "summary": title, "description": desc})
+                    out.append({"key": f"{slug}-{t}-{i}-{start.year}", "date": start.isoformat(), "end": end.isoformat(),
+                                "type": t, "crop": c["n"], "summary": title, "description": desc})
     out.sort(key=lambda e: (e["date"], e["summary"]))
     return out
 

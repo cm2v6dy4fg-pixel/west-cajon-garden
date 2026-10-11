@@ -1,0 +1,16 @@
+{
+  "description": "Check crops.json after Claude edits it",
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/scripts/validate_crops.py\" --hook"
+          }
+        ]
+      }
+    ]
+  }
+}
