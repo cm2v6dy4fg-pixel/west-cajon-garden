@@ -263,6 +263,7 @@ def main():
     (HERE / "garden.html").write_text(out)
     (HERE / "data").mkdir(exist_ok=True)
     (HERE / "data" / "station.json").write_text(json.dumps(data, indent=1) + "\n")
+    (HERE / "data" / "chat.html").write_text(out)  # republished to the claude.ai garden chat by a Claude routine
     site = HERE / "site"
     site.mkdir(exist_ok=True)
     (site / "index.html").write_text("<!doctype html>\n<html lang=\"en\">\n<head>\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1, viewport-fit=cover\">\n" + out + "\n</html>\n")

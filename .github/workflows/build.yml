@@ -32,7 +32,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/station.json
+          git add data/station.json data/chat.html
           git diff --cached --quiet || git commit -m "Station data $(date -u +%F)"
           git pull --rebase -X theirs && git push
       - uses: actions/configure-pages@v6
