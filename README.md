@@ -33,6 +33,9 @@ Then, inside a checkout of this repo:
   question about the farm's layout, water, trees, animals, soil, income, permits or funding.
 - `scripts/farm_math.py`: hauled-water cost, roof and land runoff, microcatchment (C:CA) sizing, and net $ per 1,000 gal
 
+The garden chat also gets `farm.md`, a short public-safe brief of the farm plan (site, the owner's decisions, design
+rules, ranked plan changes, permits). Edit that file when the plan changes; the next build carries it into the chat.
+
 The garden chat page on claude.ai can't fetch the station itself. Each build saves the finished page as
 `data/chat.html`, and a scheduled Claude routine republishes it to the chat page about 40 minutes later.
 (`python3 build_garden.py --offline` rebuilds `garden.html` from the saved data without fetching.)

@@ -153,7 +153,10 @@ def build_ics(events, stamp):
 def render(data, crops):
     src = (HERE / "garden.src.html").read_text()
     out = src.replace("__STATION_DATA__", json.dumps(data, separators=(",", ":")).replace("</", "<\\/"))
-    return out.replace("__CROPS__", json.dumps(crops, ensure_ascii=False, separators=(",", ":")))
+    out = out.replace("__CROPS__", json.dumps(crops, ensure_ascii=False, separators=(",", ":")))
+    farm = (HERE / "farm.md").read_text()
+    farm = farm[farm.index("## Site"):]  # farm brief for the garden chat, minus the file's own header
+    return out.replace("__FARM__", json.dumps(farm, ensure_ascii=False).replace("</", "<\\/"))
 
 
 def render_offline():
