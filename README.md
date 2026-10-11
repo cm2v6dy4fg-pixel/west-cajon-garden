@@ -9,9 +9,9 @@ West Cajon Ambient Weather station's own frost dates and weather history.
 
 ## How it updates
 
-`.github/workflows/weekly.yml` runs every Sunday. It runs `build_garden.py`, which pulls data from the
+`.github/workflows/build.yml` runs every morning. It runs `build_garden.py`, which pulls data from the
 station's public Ambient Weather share link (no API keys). It then rebuilds the page and the calendar feed,
-and publishes them to GitHub Pages. `data/station.json` keeps each week's snapshot.
+and publishes them to GitHub Pages. It also pulls an 8-day National Weather Service forecast for Storm watch. `data/station.json` keeps each day's snapshot.
 
 ## Files
 

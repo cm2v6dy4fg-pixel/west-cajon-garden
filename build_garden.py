@@ -16,7 +16,10 @@ HERE = Path(__file__).resolve().parent
 
 
 def get(url):
-    req = urllib.request.Request(url, headers={"User-Agent": "garden-calendar/1.0"})
+    headers = {"User-Agent": "west-cajon-garden/1.0 (github.com/cm2v6dy4fg-pixel/west-cajon-garden)"}
+    if "weather.gov" in url:
+        headers["Accept"] = "application/geo+json"
+    req = urllib.request.Request(url, headers=headers)
     with urllib.request.urlopen(req, timeout=30) as r:
         return json.load(r)
 
@@ -93,6 +96,28 @@ def calendar_events(crops, frost, today, horizon_days=42, lookback_days=7):
                                 "summary": title, "description": desc})
     out.sort(key=lambda e: (e["date"], e["summary"]))
     return out
+
+
+def nws_forecast(info, tz):
+    """8-day high/low/rain-chance from the National Weather Service (free, no keys). Returns None on any failure,
+    and the page then says the forecast needs a refresh instead of showing stale or made-up numbers."""
+    try:
+        c = ((info.get("coords") or {}).get("coords")) or {}
+        point = get(f"https://api.weather.gov/points/{round(c['lat'], 2)},{round(c['lon'], 2)}")["properties"]
+        periods = get(point["forecast"])["properties"]["periods"]
+        days = {}
+        for p in periods:
+            d = p["startTime"][:10]
+            t = p["temperature"] if p.get("temperatureUnit") == "F" else round(p["temperature"] * 1.8 + 32, 1)
+            pop = (p.get("probabilityOfPrecipitation") or {}).get("value") or 0
+            day = days.setdefault(d, {"d": d, "high": None, "low": None, "precip": 0})
+            day["high" if p["isDaytime"] else "low"] = t
+            day["precip"] = max(day["precip"], pop)
+        out = [x for x in sorted(days.values(), key=lambda x: x["d"]) if x["high"] is not None and x["low"] is not None]
+        return {"fetched": dt.datetime.now(tz).isoformat(timespec="minutes"), "days": out} if out else None
+    except Exception as e:  # forecast is a bonus; never fail the build over it
+        print("Forecast unavailable:", e)
+        return None
 
 
 def ics_escape(t):
@@ -203,6 +228,7 @@ def main():
                     "dashboard": DASHBOARD},
         "updated": dt.datetime.now(tz).isoformat(timespec="minutes"),
         "current": cur,
+        "forecast": nws_forecast(info, tz),
         "frost": {"lastSpring": last_spring.isoformat() if last_spring else None,
                   "firstFall": first_fall.isoformat() if first_fall else None,
                   "nights": len(frosts),

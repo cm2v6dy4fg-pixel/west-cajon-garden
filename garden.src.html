@@ -1,3 +1,4 @@
+
 <meta charset="utf-8">
 <title>West Cajon Garden</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -157,6 +158,61 @@ footer{font-size:.82rem;color:var(--muted);text-align:center;max-width:70ch;marg
 @media (max-width:900px){.now,.climate{grid-template-columns:1fr}.frost{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:420px){.frost{grid-template-columns:1fr}}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+
+/* storm watch */
+.storm{display:grid;gap:14px}
+.storm-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-start;gap:10px 16px}
+.storm-head > div{min-width:0}
+.storm-head p{margin:6px 0 0;max-width:62ch}
+.level{font:600 .72rem var(--mono);text-transform:uppercase;letter-spacing:.08em;padding:5px 11px;border-radius:999px;border:1.5px solid var(--line);white-space:nowrap}
+.level.l1{border-color:var(--care)} .level.l2{border-color:var(--plant)} .level.l3{border-color:var(--harvest)}
+.storm-days{display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:8px}
+.sd{min-width:0;padding:10px 10px 12px;border-radius:8px;background:var(--soft);border-top:3px solid var(--line);display:grid;gap:4px;align-content:start}
+.sd.s1{border-top-color:var(--care)} .sd.s2{border-top-color:var(--plant)} .sd.s3{border-top-color:var(--harvest)}
+.sd .dn{font:600 .72rem var(--mono);text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+.sd .hl{font:700 1.05rem/1.1 var(--display);font-variant-numeric:tabular-nums}
+.sd .hl small{font:500 .85rem var(--body);color:var(--muted);margin-left:2px}
+.sd .pr{display:grid;gap:3px;font:.74rem var(--mono);color:var(--muted);font-variant-numeric:tabular-nums}
+.sd .pbar{height:5px;border-radius:3px;background:var(--line);overflow:hidden}
+.sd .pbar i{display:block;height:100%;background:var(--rain)}
+.sd .tags{display:flex;flex-wrap:wrap;gap:4px;min-height:22px}
+.tag{font:600 .62rem var(--mono);text-transform:uppercase;letter-spacing:.05em;padding:2px 6px;border-radius:4px;border:1px solid var(--line);color:var(--ink);background:var(--panel)}
+.storm-acts{margin:0;padding:0;list-style:none;display:grid;gap:8px}
+.storm-acts li{padding:10px 12px;border-radius:8px;background:var(--soft);font-size:.95rem}
+.storm-foot{display:flex;flex-wrap:wrap;align-items:center;gap:10px 14px;font-size:.85rem;color:var(--muted)}
+.storm-foot .note{flex:1 1 220px;min-width:0}
+@media (max-width:900px){.storm-days{grid-template-columns:repeat(4,minmax(0,1fr))}}
+
+/* mobile touch + layout refinements */
+.tablewrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+@media (max-width:640px){
+  body{padding-inline:12px;padding-block:16px 48px}
+  .wrap{gap:16px}
+  .panel{padding:16px}
+  .btn{padding:11px 16px;min-height:44px;touch-action:manipulation}
+  .tab{padding:9px 14px;min-height:40px;touch-action:manipulation}
+  .top{flex-direction:column;align-items:stretch;gap:10px}
+  .top > div:last-child{display:flex;gap:8px}
+  .top > div:last-child .btn{flex:1;justify-content:center;text-align:center}
+  .frost > div{padding:12px 14px}
+  .frost .v{font-size:1.3rem}
+  .cond .big,.readout .big{font-size:2.6rem}
+  .adjust{flex-direction:column;align-items:stretch;gap:10px}
+  .adjust label{width:100%}
+  .adjust input{width:100%;min-height:42px;font-size:16px}
+  .adjust button{width:100%}
+  .pv{flex-direction:column;align-items:stretch}
+  .pv input{width:100%;min-height:42px;font-size:16px}
+  .composer{flex-direction:column;align-items:stretch}
+  .composer textarea{min-height:64px;font-size:16px}
+  .composer button{width:100%;min-height:44px}
+  .suggest button{min-height:38px;font-size:.84rem}
+  .task{grid-template-columns:auto 1fr;row-gap:2px}
+  .task .when{grid-column:1/-1;justify-self:start;padding-left:0}
+  .storm-days{gap:6px}
+  .sd{padding:8px 8px 10px}
+  .storm-foot .btn{width:100%;justify-content:center}
+}
 </style>
 
 <script id="station-data" type="application/json">__STATION_DATA__</script>
@@ -183,6 +239,27 @@ footer{font-size:.82rem;color:var(--muted);text-align:center;max-width:70ch;marg
     <div><div class="eyebrow">First fall frost</div><div class="v cold" id="fFirst">--</div><div class="n" id="fFirstN"></div></div>
     <div><div class="eyebrow">Frost-free season</div><div class="v" id="season">--</div><div class="n">days between frosts</div></div>
     <div><div class="eyebrow">Frost nights on record</div><div class="v" id="fNights">--</div><div class="n" id="fColdest"></div></div>
+  </section>
+
+  <section class="panel storm" id="storm" aria-labelledby="stormH">
+    <div class="storm-head">
+      <div>
+        <div class="eyebrow">Storm watch · next 8 days</div>
+        <h2 id="stormH">Checking the forecast</h2>
+        <p class="muted" id="stormSub"></p>
+      </div>
+      <span class="level" id="stormLevel"></span>
+    </div>
+    <div class="signal" id="stormStale" hidden></div>
+    <div class="storm-days" id="stormDays"></div>
+    <div>
+      <div class="subhead" style="margin-top:0">What to do</div>
+      <ul class="storm-acts" id="stormActs" style="margin-top:10px"></ul>
+    </div>
+    <div class="storm-foot">
+      <a class="btn" id="nwsLink" href="https://forecast.weather.gov/MapClick.php?lat=34.4&amp;lon=-117.6" target="_blank" rel="noopener">Live forecast and alerts ↗</a>
+      <span class="note" id="stormAge"></span>
+    </div>
   </section>
 
   <div class="now">
@@ -256,7 +333,7 @@ footer{font-size:.82rem;color:var(--muted);text-align:center;max-width:70ch;marg
     <section class="panel">
       <div class="eyebrow">Last 14 days</div>
       <h2>Recent nights</h2>
-      <div style="overflow-x:auto"><table id="recent"><thead><tr><th>Day</th><th>High</th><th>Low</th><th>Rain</th><th>Gust</th></tr></thead><tbody></tbody></table></div>
+      <div class="tablewrap"><table id="recent"><thead><tr><th>Day</th><th>High</th><th>Low</th><th>Rain</th><th>Gust</th></tr></thead><tbody></tbody></table></div>
     </section>
   </div>
 
@@ -307,6 +384,7 @@ footer{font-size:.82rem;color:var(--muted);text-align:center;max-width:70ch;marg
       <button type="button">How often should I water right now?</button>
       <button type="button">Which fruit trees do well here?</button>
       <button type="button">How do I protect plants from the wind?</button>
+      <button type="button">Do I need to prepare for the coming storm?</button>
     </div>
     <form class="composer" id="chatForm">
       <textarea id="chatInput" placeholder="Ask about planting, watering, frost, pests…" rows="2" aria-label="Your question"></textarea>
@@ -410,7 +488,7 @@ function renderHeader(){
   $("fNights").textContent = D.frost.nights;
   $("fColdest").textContent = D.frost.coldest ? "Coldest " + D.frost.coldest.t + "°F on " + fmtISO(D.frost.coldest.d) : "";
   $("foot").innerHTML = "Weather from the " + st.name + " Ambient Weather station, record since " + fmtISO(D.frost.recordStart) +
-    ". Planting windows are counted from your frost dates and are a starting point. Watch the forecast in spring and fall.";
+    ". Planting windows are counted from your frost dates and are a starting point. Watch the forecast in spring and fall. Storm watch reads a saved regional forecast, so use the live forecast link for current alerts.";
 }
 
 // ---------- conditions ----------
@@ -619,6 +697,97 @@ for (const [id, key] of [["pvKw", "gc_kw"], ["pvPr", "gc_pr"]]){
   $(id).addEventListener("input", e => { store.set(key, e.target.value); renderSolar(); });
 }
 
+// ---------- storm watch ----------
+const WD = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+const isoOf = dt => dt.getFullYear() + "-" + String(dt.getMonth() + 1).padStart(2, "0") + "-" + String(dt.getDate()).padStart(2, "0");
+const fromISO = s => new Date(s + "T12:00:00");
+const dayWord = s => { const d = fromISO(s), diff = Math.round((d - today) / 864e5); return diff === 0 ? "today" : diff === 1 ? "tomorrow" : WD[d.getDay()]; };
+const cap = s => s.charAt(0).toUpperCase() + s.slice(1);
+function forecastDays(){
+  const f = D.forecast;
+  if (!f || !f.days) return [];
+  const t = isoOf(today);
+  return f.days.filter(x => x.d >= t);
+}
+// lvl: 0 calm, 1 heads up, 2 watch, 3 alert
+function rateDay(x){
+  const tags = [], add = (n, t, k) => tags.push({n, t, k});
+  if (x.low <= 32) add(3, "Freeze", "freeze"); else if (x.low <= 36) add(2, "Frost", "frost"); else if (x.low <= 44) add(1, "Cool", "cool");
+  if (x.precip >= 80) add(3, "Rain", "rain"); else if (x.precip >= 50) add(2, "Rain", "rain"); else if (x.precip >= 30) add(1, "Showers", "showers");
+  if (x.high >= 105) add(3, "Heat", "heat"); else if (x.high >= 100) add(2, "Heat", "heat");
+  tags.sort((a, b) => b.n - a.n);
+  return {lvl: tags.length ? tags[0].n : 0, tags};
+}
+function renderStorm(){
+  const f = D.forecast, rated = forecastDays().map(x => ({x, ...rateDay(x)}));
+  const LV = ["Clear", "", "Watch", "Alert"];
+  const names = rs => rs.map(r => dayWord(r.x.d)).join(" and ");
+  if (!rated.length){
+    $("stormH").textContent = "Forecast needs a refresh";
+    $("stormSub").textContent = "The saved forecast has run out. Open the live forecast for current conditions.";
+    $("stormLevel").textContent = "No data"; $("stormLevel").className = "level";
+    $("stormDays").hidden = true;
+    $("stormActs").innerHTML = "<li>Check the live forecast before planning the week.</li>";
+    $("stormAge").textContent = "";
+    return;
+  }
+  $("stormDays").hidden = false;
+  const top = rated.filter(r => r.lvl >= 2);
+  const minLo = Math.min(...rated.map(r => r.x.low)), maxP = Math.max(...rated.map(r => r.x.precip));
+  const facts = "Lowest night " + Math.round(minLo) + "°, highest rain chance " + maxP + "%.";
+  let head, sub = facts;
+  if (top.length){
+    const first = top[0], t = first.tags[0], when = dayWord(first.x.d);
+    head = t.k === "rain" ? "Rain likely " + when + ", " + first.x.precip + "%"
+      : t.k === "freeze" ? "Freeze " + when + ", low " + Math.round(first.x.low) + "°"
+      : t.k === "frost" ? "Frost risk " + when + ", low " + Math.round(first.x.low) + "°"
+      : "Heat " + when + ", high " + Math.round(first.x.high) + "°";
+    const others = top.slice(1).map(r => dayWord(r.x.d) + " (" + r.tags[0].t.toLowerCase() + ")");
+    sub = (others.length ? "Also watching " + others.join(", ") + ". " : "") + facts;
+  } else {
+    head = "No storms or frost in the forecast";
+  }
+  const mx = Math.max(0, ...rated.map(r => r.lvl >= 2 ? r.lvl : 0));
+  $("stormH").textContent = cap(head);
+  $("stormSub").textContent = sub;
+  $("stormLevel").textContent = LV[mx]; $("stormLevel").className = "level" + (mx ? " l" + mx : "");
+
+  $("stormDays").innerHTML = rated.map(({x, lvl, tags}) => {
+    const d = fromISO(x.d), nm = dayWord(x.d) === "today" ? "Today" : d.toLocaleDateString([], {weekday:"short"}) + " " + d.getDate();
+    return '<div class="sd s' + lvl + '"><div class="dn">' + nm + '</div>' +
+      '<div class="hl">' + Math.round(x.high) + '°<small>/' + Math.round(x.low) + '°</small></div>' +
+      '<div class="pr"><span>' + x.precip + '% rain</span><span class="pbar"><i style="width:' + x.precip + '%"></i></span></div>' +
+      '<div class="tags">' + (tags.length ? tags.map(t => '<span class="tag">' + t.t + '</span>').join("") : '<span class="tag">Calm</span>') + "</div></div>";
+  }).join("");
+
+  const acts = [];
+  const rainD = rated.filter(r => r.x.precip >= 50), frostD = rated.filter(r => r.x.low <= 36), coolD = rated.filter(r => r.x.low > 36 && r.x.low <= 44), heatD = rated.filter(r => r.x.high >= 100);
+  if (rainD.length){
+    const gust = Math.max(0, ...D.months.map(m => m.gust || 0));
+    acts.push("Turn irrigation off for " + names(rainD) + ".");
+    acts.push("Before the rain, clear gutters, downspouts and swale inlets so runoff goes where you want it.");
+    acts.push("Tie down loose row cover, shade cloth and light pots. Your station logged gusts up to " + Math.round(gust) + " mph in the past year.");
+  }
+  if (frostD.length){
+    acts.push("Cover tender plants and fruit blossoms before sunset on " + names(frostD) + ". Use frost cloth, not plastic touching the leaves.");
+    if (frostD.some(r => r.x.low <= 32)) acts.push("Unhook hoses and wrap exposed irrigation fittings and spigots.");
+  } else if (coolD.length){
+    acts.push("Basil and peppers suffer when nights drop into the 40s. Bring pots in or cover them on " + names(coolD) + ".");
+  }
+  if (heatD.length) acts.push("Shade cloth over beds on " + names(heatD) + ", and water deeply before 9 a.m.");
+  if (!acts.length) acts.push("Nothing to prepare. Keep to your normal watering.");
+  $("stormActs").innerHTML = acts.map(a => "<li>" + a + "</li>").join("");
+
+  const fetched = new Date(f.fetched), ageH = (Date.now() - fetched) / 36e5;
+  $("stormAge").textContent = "Forecast saved " + fetched.toLocaleDateString([], {month:"short", day:"numeric"}) + " at " + fetched.toLocaleTimeString([], {hour:"numeric", minute:"2-digit"}) + ". It gives the chance of rain, not amounts.";
+  const stale = $("stormStale");
+  if (ageH > 36){
+    const n = Math.floor(ageH / 24);
+    stale.hidden = false;
+    stale.textContent = "This forecast is " + (n === 1 ? "1 day" : n + " days") + " old. Open the live forecast before you act on it.";
+  } else stale.hidden = true;
+}
+
 // ---------- chat ----------
 const turns = [];
 let sample = null, ctl = null, busy = false;
@@ -638,6 +807,7 @@ function context(){
     "TODAY: " + today.toDateString(),
     "FROST DATES used by the calendar: last spring frost " + fmtMD(dateOf(L)) + ", first fall frost " + fmtMD(dateOf(F)) + ". Station record: last spring frost " + D.frost.lastSpring + ", first fall frost " + D.frost.firstFall + ", " + D.frost.nights + " frost nights since " + D.frost.recordStart + ", coldest " + (D.frost.coldest ? D.frost.coldest.t + "°F on " + D.frost.coldest.d : "n/a") + ".",
     "STATION SNAPSHOT (" + D.updated + "): " + JSON.stringify(D.current),
+    "SAVED FORECAST (saved " + (D.forecast ? D.forecast.fetched : "never") + ", regional forecast for the station location, chance of rain only and no amounts or wind): " + (forecastDays().map(x => x.d + " high " + x.high + " low " + x.low + " rain " + x.precip + "%").join(" | ") || "none left"),
     "LAST 14 DAYS (date, high, low, rain in, max gust mph, peak UV, sun hours): " + D.recent.map(r => [r.d, r.hi, r.lo, r.rain, r.gust, r.uv, r.sun].join(",")).join(" | "),
     "LAST 12 MONTHS (month, avg high, avg low, min, max, rain in, frost nights): " + D.months.map(m => [m.ym, m.hi, m.lo, m.min, m.max, m.rain, m.frost].join(",")).join(" | "),
     "CALENDAR — this week: " + (weekTasks || "nothing scheduled") + ". Next 4 weeks: " + (soonTasks || "nothing new") + ".",
@@ -702,7 +872,7 @@ $("adjF").onchange = e => { if (e.target.value){ store.set("gc_F", e.target.valu
 $("adjReset").onclick = () => { store.del("gc_L"); store.del("gc_F"); rerender(); };
 function rerender(){ setFrost(); renderTasks(); renderGantt(); }
 
-setFrost(); renderHeader(); renderConditions(); renderTasks(); renderGantt(); renderClimate(); renderRecent(); renderUV(); renderSolar();
+setFrost(); renderHeader(); renderStorm(); renderConditions(); renderTasks(); renderGantt(); renderClimate(); renderRecent(); renderUV(); renderSolar();
 
 // ---------- live station data ----------
 const AW = "https://lightning.ambientweather.net";
