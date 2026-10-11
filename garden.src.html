@@ -216,6 +216,7 @@ footer{font-size:.82rem;color:var(--muted);text-align:center;max-width:70ch;marg
 </style>
 
 <script id="station-data" type="application/json">__STATION_DATA__</script>
+<script id="farm-brief" type="application/json">__FARM__</script>
 
 <div class="wrap">
   <header class="top">
@@ -375,7 +376,7 @@ footer{font-size:.82rem;color:var(--muted);text-align:center;max-width:70ch;marg
     <div>
       <div class="eyebrow">Garden chat</div>
       <h2>Ask about your garden</h2>
-      <p class="muted" style="margin:6px 0 0;max-width:65ch">Answers use your station's frost dates, rainfall and recent temperatures along with this calendar.</p>
+      <p class="muted" style="margin:6px 0 0;max-width:65ch">Answers use your station's frost dates, rainfall and recent temperatures along with this calendar and the farm plan.</p>
     </div>
     <div class="msgs" id="msgs" aria-live="polite"></div>
     <div class="suggest" id="suggest">
@@ -385,6 +386,7 @@ footer{font-size:.82rem;color:var(--muted);text-align:center;max-width:70ch;marg
       <button type="button">Which fruit trees do well here?</button>
       <button type="button">How do I protect plants from the wind?</button>
       <button type="button">Do I need to prepare for the coming storm?</button>
+      <button type="button">What should I do first on the farm?</button>
     </div>
     <form class="composer" id="chatForm">
       <textarea id="chatInput" placeholder="Ask about planting, watering, frost, pests…" rows="2" aria-label="Your question"></textarea>
@@ -432,6 +434,7 @@ function setFrost(){
 // ---------- crops ----------
 // Offsets: "L+2" = 2 weeks after last spring frost, "F-8" = 8 weeks before first fall frost, "MM-DD" = fixed date.
 const CROPS = __CROPS__;
+const FARM = JSON.parse(document.getElementById("farm-brief").textContent).trim();
 const CAT = {veg:"Vegetables",herb:"Herbs",fruit:"Fruit trees",flower:"Flowers",native:"Native plants",lawn:"Lawn & grasses"};
 const LABEL = {indoor:"Start indoors",sow:"Sow",plant:"Plant out",harvest:"Harvest",care:"Care",propagate:"Propagate"};
 const labelFor = (c, t) => t === "harvest" && (c.c === "flower" || c.c === "native") ? "Bloom" : t === "sow" && /Garlic|Onion|Potato/.test(c.n) ? "Plant" : LABEL[t];
@@ -816,7 +819,7 @@ function context(){
   const adjusted = store.get("gc_L") || store.get("gc_F");
   const storm = $("stormH").textContent + ". " + $("stormSub").textContent + " Suggested: " + [...$("stormActs").querySelectorAll("li")].map(li => li.textContent).join(" ");
   return [
-    "You are a friendly, practical garden advisor for one home garden. Answer using the facts below, and be specific to this garden: name real dates from the crop guide, use the crop's tip, and cite station numbers (recent lows, rain totals, gusts) when they bear on the answer. Keep answers under 250 words, plain text with simple dashes for lists, no markdown headings. If a crop or topic isn't in the guide, say so and give advice suited to this site. If the station data is more than a week old, say the readings are a snapshot.",
+    "You are a friendly, practical advisor for one home garden and the 5-acre high-desert farm around it. Answer using the facts below, and be specific to this site: name real dates from the crop guide, use the crop's tip, and cite station numbers (recent lows, rain totals, gusts) when they bear on the answer. For farm questions (water, earthworks, trees, animals, soil, restoration, income, permits, funding) use the farm brief: follow the owner's decisions and design rules, show the $ per 1,000 gal math when water cost matters, and say that rules and fees were researched in October 2026 and should be confirmed with the agency. Keep answers under 250 words, plain text with simple dashes for lists, no markdown headings. If a crop or topic isn't in the guide, say so and give advice suited to this site. If the station data is more than a week old, say the readings are a snapshot.",
     "",
     "LOCATION: " + D.station.name + " station, " + D.station.place + " — Mojave high desert, " + (D.station.elevationFt || 4300) + " ft, USDA zone 8a. Sandy alkaline soil, low humidity, strong spring winds, hot dry summers, cold nights, occasional winter snow, summer monsoon storms, gophers.",
     "TODAY: " + today.toDateString(),
@@ -829,6 +832,8 @@ function context(){
     "CALENDAR — this week: " + (weekTasks || "nothing scheduled") + ". Next 4 weeks: " + (soonTasks || "nothing new") + ".",
     "CROP GUIDE (every crop the gardener grows, with this year's windows from the frost dates above):",
     cropGuide(),
+    "FARM BRIEF:",
+    FARM,
     "Links: full page " + ((D.links && D.links.site) || "") + ", calendar feed " + ((D.links && D.links.ics) || "") + ", live station " + D.station.dashboard + "."
   ].join("\n");
 }
@@ -849,7 +854,7 @@ async function ask(q){
   const bubble = addMsg("bot", "Thinking…");
   ctl = new AbortController();
   try {
-    const { text, truncated } = await sample([{role:"user", content: context()}, {role:"assistant", content:"Understood. I'll answer from your station data, forecast and crop guide."}, ...turns], {
+    const { text, truncated } = await sample([{role:"user", content: context()}, {role:"assistant", content:"Understood. I'll answer from your station data, forecast, crop guide and farm brief."}, ...turns], {
       cache:false, signal:ctl.signal,
       onText:({text}) => { bubble.textContent = text; $("msgs").scrollTop = $("msgs").scrollHeight; }
     });
@@ -868,7 +873,7 @@ $("chatForm").addEventListener("submit", e => { e.preventDefault(); const v = $(
 $("chatInput").addEventListener("keydown", e => { if (e.key === "Enter" && !e.shiftKey){ e.preventDefault(); $("chatForm").requestSubmit(); } });
 $("stopBtn").onclick = () => ctl?.abort();
 $("suggest").addEventListener("click", e => { if (e.target.tagName === "BUTTON") ask(e.target.textContent); });
-addMsg("note", "Ask anything about planting, watering, frost or harvest.");
+addMsg("note", "Ask anything about planting, watering, frost, harvest or the farm plan.");
 (async () => {
   try { sample = window.claude ? await window.claude.use("sample") : null; } catch { sample = null; }
   if (!sample) chatUnavailable();
