@@ -1,0 +1,927 @@
+
+<meta charset="utf-8">
+<title>West Cajon Garden</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Source+Sans+3:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --ground:#F2F3EC; --panel:#FBFBF7; --ink:#1D2A21; --muted:#5E6A5F; --line:#D5D9CC; --soft:#E7EADF;
+  --accent:#2F6B4F; --accent-ink:#FFFFFF;
+  --indoor:#7E62C4; --sow:#3A8A57; --plant:#C98424; --harvest:#C2463A; --care:#4D7E9E; --prop:#A8457F;
+  --frost:#3E74C9; --heat:#C2572E; --rain:#1F8A86; --sun:#C9900E;
+  --uv1:#3E8E4A; --uv2:#B8920F; --uv3:#D26A1E; --uv4:#C23A33; --uv5:#7B4FB8;
+  --display:"Bricolage Grotesque","Avenir Next",system-ui,sans-serif;
+  --body:"Source Sans 3",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --ground:#121813; --panel:#1A221C; --ink:#E3E9E1; --muted:#95A396; --line:#2D3930; --soft:#222C24;
+    --accent:#6FBF92; --accent-ink:#0F1A12;
+    --indoor:#A58CEB; --sow:#63BD83; --plant:#E3A44A; --harvest:#EE6F62; --care:#79AED0; --prop:#E07DB8;
+    --frost:#7FA8F0; --heat:#F08A5D; --rain:#4CC6C0; --sun:#E8B940;
+    --uv1:#6CC47A; --uv2:#E3C24A; --uv3:#F0914A; --uv4:#EE6F62; --uv5:#A88AE8; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#121813; --panel:#1A221C; --ink:#E3E9E1; --muted:#95A396; --line:#2D3930; --soft:#222C24;
+  --accent:#6FBF92; --accent-ink:#0F1A12;
+  --indoor:#A58CEB; --sow:#63BD83; --plant:#E3A44A; --harvest:#EE6F62; --care:#79AED0; --prop:#E07DB8;
+  --frost:#7FA8F0; --heat:#F08A5D; --rain:#4CC6C0; --sun:#E8B940;
+    --uv1:#6CC47A; --uv2:#E3C24A; --uv3:#F0914A; --uv4:#EE6F62; --uv5:#A88AE8; color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--ground);color:var(--ink);font:16px/1.5 var(--body);padding-inline:16px;padding-block:24px 56px}
+.wrap{max-width:1120px;margin:0 auto;display:grid;gap:20px}
+h1,h2,h3{font-family:var(--display);margin:0;text-wrap:balance;line-height:1.1}
+h1{font-size:clamp(2rem,5vw,3rem);font-weight:800;letter-spacing:-.02em}
+h2{font-size:1.35rem;font-weight:700}
+.eyebrow{font:500 .72rem var(--mono);text-transform:uppercase;letter-spacing:.1em;color:var(--muted)}
+.muted{color:var(--muted)}
+a{color:var(--accent)}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:20px}
+.num{font-variant-numeric:tabular-nums}
+button,input,textarea{font:inherit;color:inherit}
+button:focus-visible,input:focus-visible,textarea:focus-visible,a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+/* header */
+.top{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:16px}
+.top .meta{display:flex;flex-wrap:wrap;gap:8px 16px;margin-top:8px;font-size:.92rem;color:var(--muted)}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:8px;border:1px solid var(--line);background:var(--panel);text-decoration:none;color:var(--ink);font-weight:600;font-size:.9rem;cursor:pointer}
+.btn:hover{border-color:var(--accent)}
+.btn.primary{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+
+/* frost strip */
+.frost{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.frost > div{background:var(--panel);padding:14px 18px}
+.frost .v{font:700 1.5rem/1.1 var(--display);margin-top:4px}
+.frost .n{font-size:.85rem;color:var(--muted);margin-top:2px}
+.frost .v.cold{color:var(--frost)}
+
+/* now + conditions */
+.now{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:20px}
+.tasks{display:grid;gap:8px;margin-top:14px}
+.task{display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center;padding:10px 12px;border-radius:8px;background:var(--soft)}
+.chip{font:600 .68rem var(--mono);text-transform:uppercase;letter-spacing:.06em;padding:3px 8px;border-radius:999px;color:#fff;white-space:nowrap}
+.chip.indoor{background:var(--indoor)} .chip.sow{background:var(--sow)} .chip.plant{background:var(--plant)}
+.chip.harvest{background:var(--harvest)} .chip.care{background:var(--care)} .chip.propagate{background:var(--prop)}
+:root[data-theme="dark"] .chip{color:#10160F}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .chip{color:#10160F}}
+.task .when{font:.78rem var(--mono);color:var(--muted);white-space:nowrap}
+.task .tip{display:block;font-size:.84rem;color:var(--muted)}
+.ready{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.ready span{font-size:.88rem;padding:4px 10px;border-radius:999px;border:1px solid var(--harvest);color:var(--ink)}
+.subhead{margin-top:18px;font:600 .8rem var(--mono);text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+.cond .big{font:800 3.4rem/1 var(--display);font-variant-numeric:tabular-nums;margin-top:8px}
+.cond .big small{font:500 1rem var(--body);color:var(--muted);margin-left:4px}
+.kv{display:grid;gap:0;margin-top:12px}
+.kv div{display:flex;justify-content:space-between;gap:12px;padding:7px 0;border-top:1px solid var(--line);font-size:.93rem}
+.kv span:first-child{color:var(--muted)}
+.kv span:last-child{font-family:var(--mono);font-size:.85rem;font-variant-numeric:tabular-nums;text-align:right}
+.signal{margin-top:12px;padding:10px 12px;border-radius:8px;font-size:.9rem;border:1px dashed var(--line)}
+
+/* calendar */
+.calhead{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:12px}
+.tabs{display:flex;flex-wrap:wrap;gap:6px}
+.tab{padding:6px 12px;border-radius:999px;border:1px solid var(--line);background:transparent;cursor:pointer;font-size:.88rem;font-weight:600;color:var(--muted)}
+.tab[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--ground)}
+.legend{display:flex;flex-wrap:wrap;gap:14px;font-size:.85rem;color:var(--muted);margin-top:12px}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{width:14px;height:8px;border-radius:2px;display:inline-block}
+.legend i.line{width:2px;height:12px;border-radius:0}
+.gantt-scroll{overflow-x:auto;margin-top:14px;-webkit-overflow-scrolling:touch}
+.gantt{min-width:720px;padding-top:22px}
+.grow{display:grid;grid-template-columns:200px 1fr;align-items:center;min-height:30px;border-top:1px solid var(--line)}
+.grow.head{border-top:0;min-height:22px}
+.grow .name{font-size:.9rem;font-weight:600;padding-right:10px;line-height:1.2}
+.grow .name small{display:block;font-weight:400;font-size:.76rem;color:var(--muted)}
+.track{position:relative;height:30px;background-image:linear-gradient(to right,var(--line) 1px,transparent 1px);background-size:calc(100%/12) 100%}
+.months{position:relative;height:22px}
+.months span{position:absolute;top:0;font:.7rem var(--mono);color:var(--muted);text-transform:uppercase;letter-spacing:.05em;transform:translateX(4px)}
+.bar{position:absolute;top:9px;height:12px;border-radius:3px;opacity:.92}
+.bar.indoor{background:var(--indoor)} .bar.sow{background:var(--sow)} .bar.plant{background:var(--plant)}
+.bar.harvest{background:var(--harvest)} .bar.care{background:var(--care);opacity:.55} .bar.propagate{background:var(--prop)}
+.vline{position:absolute;top:0;bottom:0;width:0;border-left:2px solid var(--frost);pointer-events:none}
+.vline.today{border-left:2px solid var(--ink)}
+.overlay{position:relative}
+.overlay .lines{position:absolute;top:0;bottom:0;left:200px;right:0;pointer-events:none}
+.overlay .lines .vline{top:20px}
+.flag{position:absolute;top:0;font:600 .66rem var(--mono);padding:1px 5px;border-radius:3px;white-space:nowrap;transform:translateX(-50%);background:var(--frost);color:#fff}
+.flag.today{background:var(--ink);color:var(--ground)}
+.adjust{display:flex;flex-wrap:wrap;gap:12px;align-items:end;margin-top:14px;font-size:.88rem;color:var(--muted)}
+.adjust label{display:grid;gap:3px}
+.adjust input{padding:6px 8px;border:1px solid var(--line);border-radius:6px;background:var(--panel)}
+
+/* climate */
+.climate{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:20px}
+.chart svg{width:100%;height:auto;display:block;margin-top:10px}
+.chart text{font:10px var(--mono);fill:var(--muted)}
+table{width:100%;border-collapse:collapse;font-size:.86rem;font-variant-numeric:tabular-nums;margin-top:10px}
+th,td{padding:5px 4px;text-align:right;border-top:1px solid var(--line)}
+th:first-child,td:first-child{text-align:left}
+th{font:500 .68rem var(--mono);text-transform:uppercase;letter-spacing:.06em;color:var(--muted);border-top:0}
+td.frost{color:var(--frost);font-weight:600}
+
+/* sun & uv */
+.sky{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px}
+.sky .chart svg{margin-top:12px}
+.readout{display:flex;flex-wrap:wrap;align-items:flex-end;gap:10px 16px;margin-top:8px}
+.readout .big{font:800 3.4rem/1 var(--display);font-variant-numeric:tabular-nums}
+.readout .big small{font:500 1rem var(--body);color:var(--muted);margin-left:4px}
+.uvchip{display:inline-flex;align-items:center;gap:6px;padding:3px 10px;border-radius:999px;border:1px solid var(--line);font-weight:600;font-size:.88rem;margin-bottom:6px}
+.uvchip i{width:10px;height:10px;border-radius:50%;display:inline-block}
+.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:8px;overflow:hidden;margin-top:14px}
+.stats > div{background:var(--panel);padding:10px 12px}
+.stats .v{font:700 1.25rem/1.1 var(--display);font-variant-numeric:tabular-nums;margin-top:3px}
+.stats .n{font-size:.8rem;color:var(--muted);margin-top:2px}
+.pv{display:flex;flex-wrap:wrap;gap:12px;align-items:end;margin-top:12px;font-size:.88rem;color:var(--muted)}
+.pv label{display:grid;gap:3px}
+.pv input{width:7.5em;padding:6px 8px;border:1px solid var(--line);border-radius:6px;background:var(--panel)}
+.fine{font-size:.82rem;color:var(--muted);margin:10px 0 0;max-width:65ch}
+@media (max-width:900px){.sky{grid-template-columns:1fr}}
+@media (max-width:420px){.stats{grid-template-columns:1fr}}
+
+/* chat */
+.chat{display:grid;gap:12px}
+.msgs{display:grid;gap:10px;max-height:460px;overflow-y:auto;padding:4px}
+.msg{max-width:78ch;padding:10px 14px;border-radius:12px;white-space:pre-wrap;line-height:1.5}
+.msg.user{justify-self:end;background:var(--accent);color:var(--accent-ink);border-bottom-right-radius:4px}
+.msg.bot{justify-self:start;background:var(--soft);border-bottom-left-radius:4px}
+.msg.note{justify-self:center;background:transparent;color:var(--muted);font-size:.88rem;text-align:center}
+.suggest{display:flex;flex-wrap:wrap;gap:8px}
+.suggest button{padding:6px 12px;border-radius:999px;border:1px solid var(--line);background:var(--panel);cursor:pointer;font-size:.88rem}
+.suggest button:hover{border-color:var(--accent)}
+.composer{display:flex;gap:8px;align-items:flex-end}
+.composer textarea{flex:1;min-height:46px;max-height:160px;resize:vertical;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--panel)}
+footer{font-size:.82rem;color:var(--muted);text-align:center;max-width:70ch;margin:0 auto}
+
+@media (max-width:900px){.now,.climate{grid-template-columns:1fr}.frost{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:420px){.frost{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+
+/* storm watch */
+.storm{display:grid;gap:14px}
+.storm-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-start;gap:10px 16px}
+.storm-head > div{min-width:0}
+.storm-head p{margin:6px 0 0;max-width:62ch}
+.level{font:600 .72rem var(--mono);text-transform:uppercase;letter-spacing:.08em;padding:5px 11px;border-radius:999px;border:1.5px solid var(--line);white-space:nowrap}
+.level.l1{border-color:var(--care)} .level.l2{border-color:var(--plant)} .level.l3{border-color:var(--harvest)}
+.storm-days{display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:8px}
+.sd{min-width:0;padding:10px 10px 12px;border-radius:8px;background:var(--soft);border-top:3px solid var(--line);display:grid;gap:4px;align-content:start}
+.sd.s1{border-top-color:var(--care)} .sd.s2{border-top-color:var(--plant)} .sd.s3{border-top-color:var(--harvest)}
+.sd .dn{font:600 .72rem var(--mono);text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+.sd .hl{font:700 1.05rem/1.1 var(--display);font-variant-numeric:tabular-nums}
+.sd .hl small{font:500 .85rem var(--body);color:var(--muted);margin-left:2px}
+.sd .pr{display:grid;gap:3px;font:.74rem var(--mono);color:var(--muted);font-variant-numeric:tabular-nums}
+.sd .pbar{height:5px;border-radius:3px;background:var(--line);overflow:hidden}
+.sd .pbar i{display:block;height:100%;background:var(--rain)}
+.sd .tags{display:flex;flex-wrap:wrap;gap:4px;min-height:22px}
+.tag{font:600 .62rem var(--mono);text-transform:uppercase;letter-spacing:.05em;padding:2px 6px;border-radius:4px;border:1px solid var(--line);color:var(--ink);background:var(--panel)}
+.storm-acts{margin:0;padding:0;list-style:none;display:grid;gap:8px}
+.storm-acts li{padding:10px 12px;border-radius:8px;background:var(--soft);font-size:.95rem}
+.storm-foot{display:flex;flex-wrap:wrap;align-items:center;gap:10px 14px;font-size:.85rem;color:var(--muted)}
+.storm-foot .note{flex:1 1 220px;min-width:0}
+@media (max-width:900px){.storm-days{grid-template-columns:repeat(4,minmax(0,1fr))}}
+
+/* mobile touch + layout refinements */
+.tablewrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+@media (max-width:640px){
+  body{padding-inline:12px;padding-block:16px 48px}
+  .wrap{gap:16px}
+  .panel{padding:16px}
+  .btn{padding:11px 16px;min-height:44px;touch-action:manipulation}
+  .tab{padding:9px 14px;min-height:40px;touch-action:manipulation}
+  .top{flex-direction:column;align-items:stretch;gap:10px}
+  .top > div:last-child{display:flex;gap:8px}
+  .top > div:last-child .btn{flex:1;justify-content:center;text-align:center}
+  .frost > div{padding:12px 14px}
+  .frost .v{font-size:1.3rem}
+  .cond .big,.readout .big{font-size:2.6rem}
+  .adjust{flex-direction:column;align-items:stretch;gap:10px}
+  .adjust label{width:100%}
+  .adjust input{width:100%;min-height:42px;font-size:16px}
+  .adjust button{width:100%}
+  .pv{flex-direction:column;align-items:stretch}
+  .pv input{width:100%;min-height:42px;font-size:16px}
+  .composer{flex-direction:column;align-items:stretch}
+  .composer textarea{min-height:64px;font-size:16px}
+  .composer button{width:100%;min-height:44px}
+  .suggest button{min-height:38px;font-size:.84rem}
+  .task{grid-template-columns:auto 1fr;row-gap:2px}
+  .task .when{grid-column:1/-1;justify-self:start;padding-left:0}
+  .storm-days{gap:6px}
+  .sd{padding:8px 8px 10px}
+  .storm-foot .btn{width:100%;justify-content:center}
+}
+</style>
+
+<script id="station-data" type="application/json">{"links":{"claude":"https://claude.ai/artifact/Mne7tpPjZjDPy2MYCRkvVm","site":"https://cm2v6dy4fg-pixel.github.io/west-cajon-garden/","ics":"https://cm2v6dy4fg-pixel.github.io/west-cajon-garden/garden.ics"},"station":{"name":"West Cajon","place":"Phelan, CA","elevationFt":4355,"dashboard":"https://ambientweather.net/dashboard/b937402f7843146297e761ffeb631e2a"},"updated":"2026-10-11T14:18-07:00","current":{"tempf":54.5,"feelsLike":54.5,"humidity":88,"windspeedmph":7.61,"windgustmph":11.41,"maxdailygust":27.29,"winddir":118,"uv":4,"solarradiation":472.07,"hourlyrainin":0,"dailyrainin":0.472,"weeklyrainin":0.492,"monthlyrainin":0.492,"yearlyrainin":23.343,"baromrelin":29.56,"dateutc":1791753420000,"lastRain":1791735600000,"todayHi":58.5,"todayLo":52.3,"todaySun":1.39,"todaySunPeak":1017.25,"todayUV":9,"todayUVAt":"13:07"},"forecast":{"fetched":"2026-10-11T14:18-07:00","days":[{"d":"2026-10-11","high":58,"low":42,"precip":64},{"d":"2026-10-12","high":52,"low":36,"precip":64},{"d":"2026-10-13","high":57,"low":41,"precip":0},{"d":"2026-10-14","high":62,"low":45,"precip":0},{"d":"2026-10-15","high":66,"low":48,"precip":0},{"d":"2026-10-16","high":68,"low":49,"precip":1},{"d":"2026-10-17","high":69,"low":49,"precip":1}]},"frost":{"lastSpring":"2026-04-27","firstFall":"2025-11-18","nights":12,"coldest":{"d":"2026-02-20","t":25.9},"hottest":{"d":"2025-08-22","t":99.5},"recordStart":"2025-08-18"},"months":[{"ym":"2025-11","days":30,"hi":63.2,"lo":43.8,"max":81.9,"min":31.3,"rain":6.24,"frost":2,"gust":35.34,"sun":1.95,"uv":4.1,"uvMax":6},{"ym":"2025-12","days":31,"hi":61.3,"lo":43.4,"max":74.1,"min":32,"rain":10.77,"frost":1,"gust":60.4,"sun":1.72,"uv":3.0,"uvMax":5},{"ym":"2026-01","days":31,"hi":56.4,"lo":40.5,"max":66.4,"min":31.1,"rain":2.15,"frost":1,"gust":36.46,"sun":1.86,"uv":3.7,"uvMax":5},{"ym":"2026-02","days":28,"hi":60.3,"lo":40.5,"max":77.2,"min":25.9,"rain":3.53,"frost":5,"gust":52.57,"sun":2.75,"uv":4.9,"uvMax":7},{"ym":"2026-03","days":31,"hi":73.3,"lo":48.0,"max":89.8,"min":36.3,"rain":0.05,"frost":0,"gust":31.99,"sun":4.04,"uv":6.2,"uvMax":8},{"ym":"2026-04","days":30,"hi":64.7,"lo":39.2,"max":78.6,"min":30.4,"rain":0.6,"frost":3,"gust":31.99,"sun":4.7,"uv":7.7,"uvMax":10},{"ym":"2026-05","days":31,"hi":71.2,"lo":43.5,"max":90.1,"min":32.9,"rain":0,"frost":0,"gust":31.99,"sun":5.9,"uv":7.9,"uvMax":11},{"ym":"2026-06","days":30,"hi":78.6,"lo":48.8,"max":88.9,"min":39.7,"rain":0,"frost":0,"gust":23.93,"sun":6.29,"uv":8.2,"uvMax":11},{"ym":"2026-07","days":31,"hi":87.6,"lo":57.5,"max":98.8,"min":43.2,"rain":0.01,"frost":0,"gust":25.05,"sun":5.58,"uv":7.6,"uvMax":11},{"ym":"2026-08","days":31,"hi":90.7,"lo":60.8,"max":97.5,"min":52,"rain":0,"frost":0,"gust":26.17,"sun":5.07,"uv":7.4,"uvMax":9},{"ym":"2026-09","days":30,"hi":80.1,"lo":53.3,"max":96.3,"min":43,"rain":0.99,"frost":0,"gust":29.75,"sun":3.95,"uv":6.5,"uvMax":10},{"ym":"2026-10","days":10,"hi":86.6,"lo":59.4,"max":90.7,"min":52.3,"rain":0.15,"frost":0,"gust":30.87,"sun":3.43,"uv":5.7,"uvMax":6}],"recent":[{"d":"2026-09-27","hi":77.9,"lo":57.9,"rain":0,"gust":29.75,"sun":2.35,"uv":8,"uvAt":"11:35"},{"d":"2026-09-28","hi":71.1,"lo":48.4,"rain":0,"gust":23.93,"sun":3.17,"uv":7,"uvAt":"13:47"},{"d":"2026-09-29","hi":76.8,"lo":59.2,"rain":0,"gust":27.29,"sun":3.92,"uv":8,"uvAt":"12:45"},{"d":"2026-09-30","hi":84.9,"lo":56.5,"rain":0,"gust":17.22,"sun":3.98,"uv":6,"uvAt":"11:45"},{"d":"2026-10-01","hi":90,"lo":56.5,"rain":0,"gust":14.76,"sun":3.83,"uv":6,"uvAt":"11:52"},{"d":"2026-10-02","hi":89.4,"lo":64.9,"rain":0,"gust":14.76,"sun":3.86,"uv":6,"uvAt":"11:55"},{"d":"2026-10-03","hi":85.5,"lo":62.1,"rain":0,"gust":19.46,"sun":3.85,"uv":6,"uvAt":"12:01"},{"d":"2026-10-04","hi":88,"lo":60.3,"rain":0,"gust":21.7,"sun":3.83,"uv":6,"uvAt":"12:01"},{"d":"2026-10-05","hi":87.4,"lo":59.9,"rain":0,"gust":13.65,"sun":3.72,"uv":6,"uvAt":"12:57"},{"d":"2026-10-06","hi":88.3,"lo":63.5,"rain":0,"gust":18.34,"sun":3.72,"uv":6,"uvAt":"12:34"},{"d":"2026-10-07","hi":90.7,"lo":62.1,"rain":0,"gust":11.41,"sun":3.37,"uv":6,"uvAt":"11:41"},{"d":"2026-10-08","hi":89.1,"lo":59.5,"rain":0,"gust":18.34,"sun":3.0,"uv":6,"uvAt":"13:34"},{"d":"2026-10-09","hi":83.3,"lo":52.7,"rain":0,"gust":21.7,"sun":3.63,"uv":5,"uvAt":"10:54"},{"d":"2026-10-10","hi":74.1,"lo":52.3,"rain":0.15,"gust":30.87,"sun":1.53,"uv":4,"uvAt":"12:55"}]}</script>
+
+<div class="wrap">
+  <header class="top">
+    <div>
+      <div class="eyebrow" id="place">High desert garden</div>
+      <h1 id="title">West Cajon Garden</h1>
+      <div class="meta">
+        <span id="elev"></span>
+        <span id="snap"></span>
+      </div>
+    </div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap">
+      <a class="btn" id="liveLink" href="#" target="_blank" rel="noopener">Live station ↗</a>
+      <a class="btn" id="calLink" href="#" target="_blank" rel="noopener" hidden>Add to Google Calendar ↗</a>
+      <a class="btn primary" href="#ask">Ask the garden</a>
+    </div>
+  </header>
+
+  <section class="frost" aria-label="Frost dates">
+    <div><div class="eyebrow">Last spring frost</div><div class="v cold" id="fLast">--</div><div class="n" id="fLastN"></div></div>
+    <div><div class="eyebrow">First fall frost</div><div class="v cold" id="fFirst">--</div><div class="n" id="fFirstN"></div></div>
+    <div><div class="eyebrow">Frost-free season</div><div class="v" id="season">--</div><div class="n">days between frosts</div></div>
+    <div><div class="eyebrow">Frost nights on record</div><div class="v" id="fNights">--</div><div class="n" id="fColdest"></div></div>
+  </section>
+
+  <section class="panel storm" id="storm" aria-labelledby="stormH">
+    <div class="storm-head">
+      <div>
+        <div class="eyebrow">Storm watch · next 8 days</div>
+        <h2 id="stormH">Checking the forecast</h2>
+        <p class="muted" id="stormSub"></p>
+      </div>
+      <span class="level" id="stormLevel"></span>
+    </div>
+    <div class="signal" id="stormStale" hidden></div>
+    <div class="storm-days" id="stormDays"></div>
+    <div>
+      <div class="subhead" style="margin-top:0">What to do</div>
+      <ul class="storm-acts" id="stormActs" style="margin-top:10px"></ul>
+    </div>
+    <div class="storm-foot">
+      <a class="btn" id="nwsLink" href="https://forecast.weather.gov/MapClick.php?lat=34.4&amp;lon=-117.6" target="_blank" rel="noopener">Live forecast and alerts ↗</a>
+      <span class="note" id="stormAge"></span>
+    </div>
+  </section>
+
+  <div class="now">
+    <section class="panel">
+      <div class="eyebrow" id="weekLabel">This week</div>
+      <h2>In the garden now</h2>
+      <div class="tasks" id="nowList"></div>
+      <div class="subhead">Ready to harvest or in bloom</div>
+      <div class="ready" id="readyList"></div>
+      <div class="subhead">Coming up in the next 4 weeks</div>
+      <div class="tasks" id="soonList"></div>
+    </section>
+    <section class="panel cond">
+      <div class="eyebrow" id="condLabel">Station snapshot</div>
+      <div class="big" id="cTemp">--<small>°F</small></div>
+      <div class="muted" id="cHiLo"></div>
+      <div class="kv">
+        <div><span>Humidity</span><span id="cHum">--</span></div>
+        <div><span>Wind</span><span id="cWind">--</span></div>
+        <div><span>Rain this month</span><span id="cRainM">--</span></div>
+        <div><span>Rain this year</span><span id="cRainY">--</span></div>
+        <div><span>Last rain</span><span id="cLastRain">--</span></div>
+        <div><span>UV index</span><span id="cUV">--</span></div>
+      </div>
+      <div class="signal" id="signal"></div>
+    </section>
+  </div>
+
+  <section class="panel">
+    <div class="calhead">
+      <div>
+        <div class="eyebrow">Planting &amp; harvest calendar</div>
+        <h2>The year at West Cajon</h2>
+      </div>
+      <div class="tabs" role="group" aria-label="Filter crops">
+        <button class="tab" data-cat="all" aria-pressed="true" type="button">All</button>
+        <button class="tab" data-cat="veg" aria-pressed="false" type="button">Vegetables</button>
+        <button class="tab" data-cat="herb" aria-pressed="false" type="button">Herbs</button>
+        <button class="tab" data-cat="fruit" aria-pressed="false" type="button">Fruit trees</button>
+        <button class="tab" data-cat="flower" aria-pressed="false" type="button">Flowers</button>
+        <button class="tab" data-cat="native" aria-pressed="false" type="button">Native plants</button>
+        <button class="tab" data-cat="lawn" aria-pressed="false" type="button">Lawn &amp; grasses</button>
+      </div>
+    </div>
+    <div class="legend">
+      <span><i style="background:var(--indoor)"></i>Start indoors</span>
+      <span><i style="background:var(--sow)"></i>Sow outdoors</span>
+      <span><i style="background:var(--plant)"></i>Plant out</span>
+      <span><i style="background:var(--harvest)"></i>Harvest / bloom</span>
+      <span><i style="background:var(--prop)"></i>Propagate</span>
+      <span><i style="background:var(--care);opacity:.6"></i>Care</span>
+      <span><i class="line" style="background:var(--frost)"></i>Frost dates</span>
+    </div>
+    <div class="gantt-scroll">
+      <div class="gantt overlay" id="gantt"></div>
+    </div>
+    <div class="adjust">
+      <label for="adjL">Last spring frost<input type="date" id="adjL"></label>
+      <label for="adjF">First fall frost<input type="date" id="adjF"></label>
+      <button class="btn" type="button" id="adjReset">Use station dates</button>
+      <span id="adjNote">Dates come from your station. Adjust them to plan more cautiously.</span>
+    </div>
+  </section>
+
+  <div class="climate">
+    <section class="panel chart">
+      <div class="eyebrow">Last 12 months at the station</div>
+      <h2>Highs, lows and rain</h2>
+      <div id="climateChart"></div>
+    </section>
+    <section class="panel">
+      <div class="eyebrow">Last 14 days</div>
+      <h2>Recent nights</h2>
+      <div class="tablewrap"><table id="recent"><thead><tr><th>Day</th><th>High</th><th>Low</th><th>Rain</th><th>Gust</th></tr></thead><tbody></tbody></table></div>
+    </section>
+  </div>
+
+  <div class="sky" id="sun">
+    <section class="panel chart">
+      <div class="eyebrow" id="uvLabel">UV index</div>
+      <h2>Sun strength</h2>
+      <div class="readout">
+        <div class="big" id="uvNow">--<small>UV</small></div>
+        <div>
+          <div class="uvchip" id="uvChip"><i></i><span>--</span></div>
+          <div class="muted" id="uvPeak"></div>
+        </div>
+      </div>
+      <div class="signal" id="uvAdvice"></div>
+      <div class="subhead">Daily peak UV, last 14 days</div>
+      <div id="uvChart"></div>
+      <div class="legend" id="uvLegend"></div>
+    </section>
+    <section class="panel chart">
+      <div class="eyebrow">Solar potential</div>
+      <h2>What panels here could make</h2>
+      <div class="pv">
+        <label for="pvKw">System size (kW)<input type="number" id="pvKw" min="0.5" max="100" step="0.5" value="6"></label>
+        <label for="pvPr">System efficiency (%)<input type="number" id="pvPr" min="50" max="95" step="1" value="80"></label>
+      </div>
+      <div class="stats">
+        <div><div class="eyebrow">Today so far</div><div class="v" id="pvToday">--</div><div class="n" id="pvTodayN"></div></div>
+        <div><div class="eyebrow">Last 14 days</div><div class="v" id="pv14">--</div><div class="n" id="pv14N"></div></div>
+        <div><div class="eyebrow">Past 12 months</div><div class="v" id="pvYear">--</div><div class="n" id="pvYearN"></div></div>
+      </div>
+      <div class="subhead">Estimated output by month</div>
+      <div id="pvChart"></div>
+      <p class="fine">Estimated from the station's sun sensor: sun hours × system size × efficiency. The sensor lies flat, and panels tilted toward the south usually collect more, especially in winter. Winter readings here also look low, possibly from shading, so treat these numbers as a floor.</p>
+    </section>
+  </div>
+
+  <section class="panel chat" id="ask">
+    <div>
+      <div class="eyebrow">Garden chat</div>
+      <h2>Ask about your garden</h2>
+      <p class="muted" style="margin:6px 0 0;max-width:65ch">Answers use your station's frost dates, rainfall and recent temperatures along with this calendar.</p>
+    </div>
+    <div class="msgs" id="msgs" aria-live="polite"></div>
+    <div class="suggest" id="suggest">
+      <button type="button">What should I plant this week?</button>
+      <button type="button">When is it safe to put tomatoes out?</button>
+      <button type="button">How often should I water right now?</button>
+      <button type="button">Which fruit trees do well here?</button>
+      <button type="button">How do I protect plants from the wind?</button>
+      <button type="button">Do I need to prepare for the coming storm?</button>
+    </div>
+    <form class="composer" id="chatForm">
+      <textarea id="chatInput" placeholder="Ask about planting, watering, frost, pests…" rows="2" aria-label="Your question"></textarea>
+      <button class="btn primary" type="submit" id="sendBtn">Send</button>
+      <button class="btn" type="button" id="stopBtn" hidden>Stop</button>
+    </form>
+  </section>
+
+  <footer id="foot"></footer>
+</div>
+
+<script>
+(() => {
+const D = JSON.parse(document.getElementById("station-data").textContent);
+const $ = id => document.getElementById(id);
+const store = {
+  get(k){ try { return localStorage.getItem(k); } catch { return null; } },
+  set(k,v){ try { localStorage.setItem(k,v); } catch {} },
+  del(k){ try { localStorage.removeItem(k); } catch {} }
+};
+const MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+const today = new Date(); today.setHours(12,0,0,0);
+const YEAR = today.getFullYear();
+const YDAYS = (new Date(YEAR,11,31) - new Date(YEAR,0,0)) / 864e5;
+const doyOf = (m, d) => Math.round((new Date(YEAR, m - 1, d, 12) - new Date(YEAR, 0, 0, 12)) / 864e5);
+const dateOf = doy => new Date(YEAR, 0, doy, 12);
+const fmtMD = dt => MONTHS[dt.getMonth()] + " " + dt.getDate();
+const fmtISO = iso => { if (!iso) return "--"; const [y,m,d] = iso.split("-").map(Number); return MONTHS[m-1] + " " + d + ", " + y; };
+const TODAY = doyOf(today.getMonth() + 1, today.getDate());
+
+// ---------- frost dates ----------
+function mdFromISO(iso){ if (!iso) return null; const [, m, d] = iso.split("-").map(Number); return [m, d]; }
+const stationL = mdFromISO(D.frost.lastSpring) || [4, 27];
+const stationF = mdFromISO(D.frost.firstFall) || [11, 1];
+let L, F;
+function setFrost(){
+  const l = mdFromISO(store.get("gc_L")) || stationL, f = mdFromISO(store.get("gc_F")) || stationF;
+  L = doyOf(l[0], l[1]); F = doyOf(f[0], f[1]);
+  $("adjL").value = YEAR + "-" + String(l[0]).padStart(2,"0") + "-" + String(l[1]).padStart(2,"0");
+  $("adjF").value = YEAR + "-" + String(f[0]).padStart(2,"0") + "-" + String(f[1]).padStart(2,"0");
+  const custom = store.get("gc_L") || store.get("gc_F");
+  $("adjNote").textContent = custom ? "Using your adjusted frost dates." : "Dates come from your station. Adjust them to plan more cautiously.";
+}
+
+// ---------- crops ----------
+// Offsets: "L+2" = 2 weeks after last spring frost, "F-8" = 8 weeks before first fall frost, "MM-DD" = fixed date.
+const CROPS = [{"n":"Tomatoes","c":"veg","dtm":75,"tender":1,"cont":1,"ev":[["indoor","L-7","L-5"],["plant","L+2","L+4"],["propagate","L+7","L+11","Root 6-in suckers in water or damp potting mix for a second crop that ripens before frost."]],"tip":"Shade cloth over 95°F helps fruit set. Stake firmly against wind."},{"n":"Peppers","c":"veg","dtm":75,"tender":1,"cont":1,"ev":[["indoor","L-9","L-7"],["plant","L+3","L+5"]],"tip":"Wait for nights above 50°F."},{"n":"Eggplant","c":"veg","dtm":80,"tender":1,"cont":1,"ev":[["indoor","L-9","L-7"],["plant","L+3","L+5"]]},{"n":"Zucchini & summer squash","c":"veg","dtm":50,"tender":1,"cont":1,"ev":[["sow","L+1","L+8"]]},{"n":"Winter squash & pumpkins","c":"veg","dtm":100,"tender":1,"ev":[["sow","L+1","L+4"]]},{"n":"Cucumbers","c":"veg","dtm":55,"tender":1,"cont":1,"ev":[["sow","L+2","L+8"]]},{"n":"Melons","c":"veg","dtm":85,"tender":1,"ev":[["sow","L+2","L+5"]],"tip":"Loves the desert heat. Water deeply, less often."},{"n":"Bush beans","c":"veg","dtm":55,"tender":1,"ev":[["sow","L+1","L+10"]]},{"n":"Sweet corn","c":"veg","dtm":80,"tender":1,"ev":[["sow","L+1","L+6"]],"tip":"Plant in blocks of 4+ rows so the wind can pollinate it."},{"n":"Potatoes","c":"veg","dtm":90,"ev":[["sow","L-3","L+1"]]},{"n":"Onions (sets)","c":"veg","dtm":110,"ev":[["sow","L-6","L-3"]],"tip":"Use intermediate-day or day-neutral varieties such as Candy; short-day types bulb too small here."},{"n":"Garlic","c":"veg","ev":[["sow","F-4","F+1"],["harvest","06-10","07-15"]],"tip":"Plant cloves in fall; harvest next summer once lower leaves brown."},{"n":"Peas","c":"veg","dtm":60,"ev":[["sow","L-8","L-4"]]},{"n":"Lettuce","c":"veg","dtm":45,"ev":[["sow","L-6","L+1"],["sow","F-9","F-5"]]},{"n":"Spinach","c":"veg","dtm":40,"ev":[["sow","L-6","L-2"],["sow","F-8","F-4"]]},{"n":"Radishes","c":"veg","dtm":28,"ev":[["sow","L-6","L+2"],["sow","F-8","F-3"]]},{"n":"Carrots","c":"veg","dtm":70,"ev":[["sow","L-4","L+2"],["sow","F-14","F-10"]]},{"n":"Beets","c":"veg","dtm":55,"ev":[["sow","L-4","L+2"],["sow","F-12","F-8"]]},{"n":"Broccoli & cabbage","c":"veg","dtm":65,"ev":[["indoor","L-10","L-8"],["plant","L-4","L-2"],["plant","F-12","F-10"]],"tip":"Give fall transplants afternoon shade for their first 2 weeks of late-summer heat."},{"n":"Kale & chard","c":"veg","dtm":55,"ev":[["sow","L-4","L+2"],["sow","F-12","F-8"]],"tip":"Kale sweetens after light frost."},{"n":"Seed saving","c":"veg","ev":[["propagate","F-10","F","Save seed from your best open-pollinated tomatoes, peppers, beans, squash, sunflowers, zinnias, cosmos and marigolds. Dry fully, then store cool and dark."]],"tip":"Hybrid (F1) varieties won't come true from seed."},{"n":"Basil","c":"herb","dtm":60,"tender":1,"cont":1,"ev":[["indoor","L-6","L-4"],["plant","L+2","L+5"],["propagate","L+6","L+14","Root 4-in tip cuttings in a glass of water; pot up once roots are 1 in long."]]},{"n":"Cilantro","c":"herb","dtm":45,"ev":[["sow","L-4","L+1"],["sow","F-8","F-4"]],"tip":"Bolts in summer heat. Grow it in spring and fall."},{"n":"Dill","c":"herb","dtm":55,"ev":[["sow","L","L+4"]]},{"n":"Parsley","c":"herb","dtm":75,"ev":[["indoor","L-10","L-8"],["plant","L-2","L+1"]]},{"n":"Chives","c":"herb","dtm":80,"ev":[["sow","L-4","L"],["propagate","L-4","L","Dig and split clumps into groups of 5–10 bulbs; replant at the same depth."]]},{"n":"Rosemary, thyme, sage, oregano","c":"herb","ev":[["plant","L+2","L+8"],["plant","F-9","F-6"],["harvest","L+6","F"],["propagate","L+1","L+5","Take 4-in softwood cuttings, strip the lower leaves and root in gritty mix in bright shade."],["propagate","F-11","F-8","Second round: semi-hardwood cuttings root well in late summer. Keep them in a cold frame over winter."]],"tip":"Drought-tough once rooted. Choose hardy rosemary such as 'Arp' or 'Hill Hardy' for cold, windy winters."},{"n":"Cannabis","c":"herb","tender":1,"ev":[["indoor","L-4","L-2"],["plant","L+2","L+4"],["harvest","09-20","10-31"],["propagate","L+3","L+7","Clone from vegetative plants before flowering. Clones count toward the 6-plant limit."]],"tip":"California allows 6 plants per home. San Bernardino County may require a locked greenhouse or other enclosure, so check before planting in open ground. Stake it against the wind."},{"n":"Bare-root fruit trees","c":"fruit","ev":[["plant","01-15","03-15"]],"tip":"Plant while dormant. Late-blooming varieties dodge April frosts."},{"n":"Winter pruning","c":"fruit","ev":[["care","01-05","02-25"]]},{"n":"Fruit tree grafting & budding","c":"fruit","ev":[["propagate","01-05","02-10","Cut pencil-thick dormant scions and store them wrapped in the fridge."],["propagate","03-01","04-15","Whip-and-tongue or cleft graft stored scions as rootstock buds break."],["propagate","08-01","09-10","Chip or T-bud when bark slips; unwrap buds after 3 weeks."]],"tip":"Graft apples to apples and stone fruit to stone fruit."},{"n":"Bloom frost watch","c":"fruit","ev":[["care","03-01","L+1"]],"tip":"Cover blossoms on nights forecast below 30°F."},{"n":"Deep watering & mulch","c":"fruit","ev":[["care","05-01","09-30"]],"tip":"Soak the root zone every 7–10 days in summer."},{"n":"Cherries","c":"fruit","ev":[["harvest","06-01","06-30"]],"tip":"Phelan's cold winters give cherries the chill they need. Plant a self-fertile variety such as Stella or Lapins, and net against birds."},{"n":"Apricots","c":"fruit","ev":[["harvest","06-10","07-10"]],"tip":"Bloom early and often lose flowers to March frost. Pick late-blooming varieties and plant in the warmest, most sheltered spot."},{"n":"Peaches & nectarines","c":"fruit","ev":[["harvest","07-05","08-31"]]},{"n":"Pears","c":"fruit","ev":[["harvest","08-10","09-30"]]},{"n":"Apples","c":"fruit","ev":[["harvest","08-10","10-31"]]},{"n":"Blue elderberry","c":"fruit","ev":[["plant","01-15","03-15"],["plant","F-8","F-3"],["care","01-05","02-15"],["harvest","07-15","09-15"],["propagate","01-05","02-28","Stick 10-in dormant hardwood cuttings (2+ nodes) in pots or straight into moist ground."]],"tip":"Native and drought-tough. Prune out old canes in winter. Pick only dark-blue clusters and cook before eating: raw berries, stems and leaves are toxic."},{"n":"Sunflowers","c":"flower","dtm":75,"tender":1,"ev":[["sow","L","L+8"]]},{"n":"Zinnias","c":"flower","dtm":60,"tender":1,"cont":1,"ev":[["sow","L+1","L+6"]]},{"n":"Cosmos","c":"flower","dtm":60,"tender":1,"cont":1,"ev":[["sow","L","L+6"]]},{"n":"Marigolds","c":"flower","dtm":55,"tender":1,"cont":1,"ev":[["indoor","L-6","L-4"],["plant","L+1","L+4"]]},{"n":"Sweet peas","c":"flower","dtm":75,"ev":[["sow","L-8","L-5"]],"tip":"Choose heat-tolerant varieties. They fade once June heat arrives."},{"n":"California poppies & wildflowers","c":"flower","ev":[["sow","F-3","F+4"],["harvest","03-15","05-31"]],"tip":"Sow before winter rain; they bloom in spring."},{"n":"Spring bulbs","c":"flower","ev":[["plant","F-4","F+2"],["harvest","03-10","04-30"],["propagate","06-15","08-31","Dig and divide crowded daffodil and iris clumps after the leaves die back."]],"tip":"Tulips, daffodils and iris. Gophers eat tulips, so plant them in wire baskets; daffodils are gopher-proof."},{"n":"Lavender, salvia, penstemon","c":"flower","ev":[["plant","F-9","F-5"],["plant","L","L+4"],["propagate","L+2","L+6","Take softwood tip cuttings; lavender and salvia root in 3–4 weeks in gritty mix."]]},{"n":"Native shrubs (desert willow, apache plume, CA buckwheat)","c":"native","ev":[["plant","F-8","F-2"],["harvest","04-15","07-15"],["propagate","08-15","10-31","Collect seed as pods and plumes dry. Desert willow also roots from summer cuttings."]],"tip":"Plant in fall so winter rain roots them. Water every 1–2 weeks the first summer, then only in long dry spells."},{"n":"Native perennials (desert marigold, globemallow, CA fuchsia)","c":"native","ev":[["plant","F-8","F-2"],["plant","L","L+3"],["harvest","04-01","10-15"],["propagate","L-2","L+4","Divide CA fuchsia runners; let desert marigold and globemallow self-sow and move seedlings."]],"tip":"Lean soil, no fertilizer. Cut back by half in late winter."},{"n":"Yucca, cholla & agave","c":"native","ev":[["plant","L+4","L+14"],["propagate","L+2","L+12","Pull agave and yucca pups; let cholla joints callus a week before planting. Wear thick gloves."]],"tip":"Choose cold-hardy agaves such as Parry's or Utah agave. Plant in fast-draining soil and water sparingly. Wild Joshua trees are protected, so buy nursery-grown plants."},{"n":"Cool-season lawn (tall fescue)","c":"lawn","ev":[["sow","F-8","F-5"],["sow","L-3","L"]],"tip":"Fall seeding beats spring. Keep seed moist with short daily waterings until it sprouts. Mow at 3–4 in. Uses more water than anything else on this list."},{"n":"Lawn: aerate & fertilize","c":"lawn","ev":[["care","F-9","F-7"],["care","L-2","L+1"]]},{"n":"Lawn: deep summer watering","c":"lawn","ev":[["care","06-01","09-15"]],"tip":"Water deeply 2–3 times a week before 8 am instead of a little every day."},{"n":"Bermuda lawn (warm-season)","c":"lawn","ev":[["sow","L+4","L+10"]],"tip":"Needs heat to sprout. Turns brown and dormant after the first frost."},{"n":"Native bunchgrasses (deergrass, blue grama, needlegrass)","c":"lawn","ev":[["plant","F-8","F-2"],["sow","L+3","L+8"],["propagate","L-4","L+1","Divide clumps with a spade as new growth starts; keep divisions watered for a month."]],"tip":"Low-water alternative to lawn. Cut deergrass back hard in late winter."}];
+const CAT = {veg:"Vegetables",herb:"Herbs",fruit:"Fruit trees",flower:"Flowers",native:"Native plants",lawn:"Lawn & grasses"};
+const LABEL = {indoor:"Start indoors",sow:"Sow",plant:"Plant out",harvest:"Harvest",care:"Care",propagate:"Propagate"};
+const labelFor = (c, t) => t === "harvest" && (c.c === "flower" || c.c === "native") ? "Bloom" : t === "sow" && /Garlic|Onion|Potato/.test(c.n) ? "Plant" : LABEL[t];
+
+function parseSpec(s){
+  const m = /^([LF])([+-]\d+)?$/.exec(s);
+  if (m) return (m[1] === "L" ? L : F) + (m[2] ? +m[2] * 7 : 0);
+  const [mm, dd] = s.split("-").map(Number);
+  return doyOf(mm, dd);
+}
+function eventsOf(c){
+  const out = [];
+  const hasHarvest = c.ev.some(e => e[0] === "harvest");
+  for (const [t, a, b, note] of c.ev){
+    const s = parseSpec(a), e = parseSpec(b);
+    out.push({t, s, e, note});
+    if (!hasHarvest && c.dtm && (t === "sow" || t === "plant")){
+      let hs = s + c.dtm, he = c.cont ? (c.tender ? F : F + 21) : e + c.dtm + 21;
+      if (c.tender) he = Math.min(he, F);
+      if (he > hs) out.push({t:"harvest", s:hs, e:he});
+    }
+  }
+  return out;
+}
+// split ranges that wrap past the year's ends
+function segments(ev){
+  const segs = [];
+  let {s, e} = ev;
+  if (s < 1){ segs.push([s + YDAYS, YDAYS]); s = 1; }
+  if (e > YDAYS){ segs.push([1, e - YDAYS]); e = YDAYS; }
+  segs.push([s, e]);
+  return segs;
+}
+const inRange = (d, s, e) => segments({s, e}).some(([a, b]) => d >= a && d <= b);
+
+// ---------- header, frost strip ----------
+function renderHeader(){
+  const st = D.station;
+  $("title").textContent = st.name + " Garden";
+  $("place").textContent = st.place + " · High desert";
+  $("elev").textContent = st.elevationFt ? st.elevationFt.toLocaleString() + " ft elevation" : "";
+  const up = new Date(D.updated);
+  $("snap").textContent = D.live ? "Live station data · updated " + up.toLocaleTimeString([], {hour:"numeric", minute:"2-digit"}) : "Station data as of " + fmtMD(up) + ", " + up.getFullYear();
+  $("liveLink").href = st.dashboard;
+  if (D.links && D.links.ics){
+    $("calLink").href = "https://calendar.google.com/calendar/render?cid=" + encodeURIComponent(D.links.ics.replace(/^https:/, "webcal:"));
+    $("calLink").hidden = false;
+  }
+  $("fLast").textContent = D.frost.lastSpring ? fmtISO(D.frost.lastSpring).replace(/, \d+$/, "") : "--";
+  $("fLastN").textContent = D.frost.lastSpring ? "Recorded " + D.frost.lastSpring.slice(0,4) : "No spring frost recorded";
+  $("fFirst").textContent = D.frost.firstFall ? fmtISO(D.frost.firstFall).replace(/, \d+$/, "") : "--";
+  $("fFirstN").textContent = D.frost.firstFall ? "Recorded " + D.frost.firstFall.slice(0,4) : "No fall frost recorded";
+  $("season").textContent = (doyOf(...stationF) - doyOf(...stationL)) + " days";
+  $("fNights").textContent = D.frost.nights;
+  $("fColdest").textContent = D.frost.coldest ? "Coldest " + D.frost.coldest.t + "°F on " + fmtISO(D.frost.coldest.d) : "";
+  $("foot").innerHTML = "Weather from the " + st.name + " Ambient Weather station, record since " + fmtISO(D.frost.recordStart) +
+    ". Planting windows are counted from your frost dates and are a starting point. Watch the forecast in spring and fall. Storm watch reads a saved regional forecast, so use the live forecast link for current alerts.";
+}
+
+// ---------- conditions ----------
+const DIRS = ["N","NNE","NE","ENE","E","ESE","SE","SSE","S","SSW","SW","WSW","W","WNW","NW","NNW"];
+function renderConditions(){
+  const c = D.current, up = new Date(c.dateutc || D.updated);
+  $("condLabel").textContent = D.live ? "Live · " + up.toLocaleTimeString([], {hour:"numeric", minute:"2-digit"}) : "Station snapshot · " + fmtMD(up);
+  $("cTemp").firstChild.nodeValue = c.tempf != null ? Math.round(c.tempf) : "--";
+  $("cHiLo").textContent = c.todayHi != null ? (D.live ? "Today: high " : "That day: high ") + Math.round(c.todayHi) + "°, low " + Math.round(c.todayLo) + "°" : "";
+  $("cHum").textContent = c.humidity != null ? c.humidity + "%" : "--";
+  $("cWind").textContent = c.windspeedmph != null ? Math.round(c.windspeedmph) + " mph " + (c.winddir != null ? DIRS[Math.round(c.winddir/22.5)%16] : "") + ", gust " + Math.round(c.maxdailygust || c.windgustmph || 0) : "--";
+  $("cRainM").textContent = c.monthlyrainin != null ? c.monthlyrainin.toFixed(2) + " in" : "--";
+  $("cRainY").textContent = c.yearlyrainin != null ? c.yearlyrainin.toFixed(2) + " in" : "--";
+  $("cLastRain").textContent = c.lastRain ? fmtMD(new Date(c.lastRain)) + ", " + new Date(c.lastRain).getFullYear() : "--";
+  $("cUV").textContent = c.uv != null ? c.uv : "--";
+
+  const r = D.recent, frostN = r.filter(x => x.lo <= 32).length, hot = r.filter(x => x.hi >= 95).length;
+  const rain = r.reduce((a, x) => a + (x.rain || 0), 0), windy = r.filter(x => x.gust >= 35).length;
+  const lines = [];
+  if (frostN) lines.push(frostN + " frost night" + (frostN > 1 ? "s" : "") + " in the last 2 weeks. Cover tender plants.");
+  if (hot) lines.push(hot + " day" + (hot > 1 ? "s" : "") + " at 95°F or hotter lately. Water deeply in the early morning.");
+  if (windy) lines.push(windy + " day" + (windy > 1 ? "s" : "") + " with gusts over 35 mph. Check stakes and row covers.");
+  lines.push(rain >= 0.5 ? rain.toFixed(2) + " in of rain in 2 weeks. You can skip a watering." : "Only " + rain.toFixed(2) + " in of rain in 2 weeks. Keep irrigating.");
+  $("signal").innerHTML = lines.map(l => "<div>" + l + "</div>").join("");
+}
+
+// ---------- tasks ----------
+function taskList(from, to){
+  const out = [];
+  for (const c of CROPS) for (const ev of eventsOf(c)){
+    for (const [a, b] of segments(ev)){
+      const overlaps = a <= to && b >= from;
+      if (!overlaps) continue;
+      out.push({c, ev, a, b});
+      break;
+    }
+  }
+  return out;
+}
+function taskHTML({c, ev, a, b}, mode){
+  const when = mode === "now" ? "until " + fmtMD(dateOf(b)) : "from " + fmtMD(dateOf(a));
+  const tip = ev.note || c.tip ? '<span class="tip">' + (ev.note || c.tip) + "</span>" : "";
+  return '<div class="task"><span class="chip ' + ev.t + '">' + labelFor(c, ev.t) + '</span><div><b>' + c.n + "</b>" + tip + '</div><span class="when">' + when + "</span></div>";
+}
+function renderTasks(){
+  const wk = new Date(today); wk.setDate(wk.getDate() - wk.getDay());
+  $("weekLabel").textContent = "Week of " + fmtMD(wk);
+  const order = {plant:0, sow:1, indoor:2, propagate:3, care:4, harvest:5};
+  const now = taskList(TODAY, TODAY + 6).filter(x => x.a <= TODAY + 6).sort((x, y) => order[x.ev.t] - order[y.ev.t]);
+  const nowKeys = new Set(now.map(x => x.c.n + x.ev.t));
+  const soon = taskList(TODAY + 7, TODAY + 28).filter(x => x.a > TODAY + 6 && !nowKeys.has(x.c.n + x.ev.t)).sort((x, y) => x.a - y.a);
+  const work = now.filter(x => x.ev.t !== "harvest"), ready = now.filter(x => x.ev.t === "harvest");
+  $("nowList").innerHTML = work.length ? work.map(x => taskHTML(x, "now")).join("") : '<div class="muted">No planting this week. Weed, mulch and plan.</div>';
+  $("readyList").innerHTML = ready.length ? ready.map(x => "<span>" + x.c.n + "</span>").join("") : '<span style="border-color:var(--line)">Nothing yet</span>';
+  $("soonList").innerHTML = soon.length ? soon.slice(0, 8).map(x => taskHTML(x, "soon")).join("") : '<div class="muted">Nothing new starts in the next 4 weeks.</div>';
+}
+
+// ---------- gantt ----------
+let cat = store.get("gc_cat") || "all";
+const pct = d => ((d - 1) / YDAYS * 100).toFixed(2) + "%";
+function renderGantt(){
+  document.querySelectorAll(".tab").forEach(b => b.setAttribute("aria-pressed", b.dataset.cat === cat));
+  let html = '<div class="grow head"><div></div><div class="months">' + MONTHS.map((m, i) => '<span style="left:' + pct(doyOf(i + 1, 1)) + '">' + m + "</span>").join("") + "</div></div>";
+  let lastCat = null;
+  for (const c of CROPS){
+    if (cat !== "all" && c.c !== cat) continue;
+    const sub = cat === "all" && c.c !== lastCat ? "<small>" + CAT[c.c] + "</small>" : "";
+    lastCat = c.c;
+    let bars = "";
+    for (const ev of eventsOf(c)) for (const [a, b] of segments(ev)){
+      const title = labelFor(c, ev.t) + ": " + fmtMD(dateOf(a)) + " – " + fmtMD(dateOf(b)) + (ev.note ? ". " + ev.note : "");
+      bars += '<div class="bar ' + ev.t + '" style="left:' + pct(a) + ';width:calc(' + pct(b) + " - " + pct(a) + ' + 2px)" title="' + title + '"></div>';
+    }
+    html += '<div class="grow"><div class="name">' + sub + c.n + '</div><div class="track">' + bars + "</div></div>";
+  }
+  html += '<div class="lines">' +
+    '<div class="vline" style="left:' + pct(L) + '"></div><span class="flag" style="left:' + pct(L) + '">Last frost</span>' +
+    '<div class="vline" style="left:' + pct(F) + '"></div><span class="flag" style="left:' + pct(F) + '">First frost</span>' +
+    '<div class="vline today" style="left:' + pct(TODAY) + '"></div><span class="flag today" style="left:' + pct(TODAY) + '">Today</span></div>';
+  $("gantt").innerHTML = html;
+}
+
+// ---------- climate ----------
+function renderClimate(){
+  const ms = D.months;
+  if (!ms.length){ $("climateChart").innerHTML = '<p class="muted">No history yet.</p>'; return; }
+  const W = 640, H = 260, pl = 36, pr = 8, pt = 12, pb = 56;
+  const lo = Math.floor(Math.min(20, ...ms.map(m => m.min)) / 10) * 10, hi = Math.ceil(Math.max(...ms.map(m => m.max)) / 10) * 10;
+  const y = v => pt + (hi - v) / (hi - lo) * (H - pt - pb);
+  const bw = (W - pl - pr) / ms.length, x = i => pl + i * bw + bw / 2;
+  const maxRain = Math.max(1, ...ms.map(m => m.rain));
+  let g = "";
+  for (let v = lo; v <= hi; v += 20){
+    g += '<line x1="' + pl + '" x2="' + (W - pr) + '" y1="' + y(v) + '" y2="' + y(v) + '" stroke="var(--line)"/>';
+    g += '<text x="' + (pl - 6) + '" y="' + (y(v) + 3) + '" text-anchor="end">' + v + "°</text>";
+  }
+  g += '<line x1="' + pl + '" x2="' + (W - pr) + '" y1="' + y(32) + '" y2="' + y(32) + '" stroke="var(--frost)" stroke-dasharray="4 3"/>';
+  g += '<text x="' + (W - pr) + '" y="' + (y(32) - 4) + '" text-anchor="end" style="fill:var(--frost)">32° frost</text>';
+  ms.forEach((m, i) => {
+    const cx = x(i), w = Math.min(18, bw * 0.45);
+    g += '<line x1="' + cx + '" x2="' + cx + '" y1="' + y(m.max) + '" y2="' + y(m.min) + '" stroke="var(--muted)" stroke-width="1" opacity=".5"/>';
+    g += '<rect x="' + (cx - w/2) + '" y="' + y(m.hi) + '" width="' + w + '" height="' + Math.max(2, y(m.lo) - y(m.hi)) + '" rx="3" fill="var(--heat)" opacity=".85"><title>' + m.ym + ": avg high " + m.hi + "°, avg low " + m.lo + "°, range " + m.min + "–" + m.max + "°</title></rect>";
+    if (m.frost) g += '<circle cx="' + cx + '" cy="' + y(m.min) + '" r="3.5" fill="var(--frost)"/>';
+    const [yy, mm] = m.ym.split("-").map(Number);
+    g += '<text x="' + cx + '" y="' + (H - pb + 14) + '" text-anchor="middle">' + MONTHS[mm - 1] + "</text>";
+    const rh = m.rain / maxRain * 22;
+    g += '<rect x="' + (cx - w/2) + '" y="' + (H - 6 - rh) + '" width="' + w + '" height="' + Math.max(1, rh) + '" rx="2" fill="var(--rain)"><title>' + m.rain + ' in rain</title></rect>';
+    if (m.rain >= 0.5) g += '<text x="' + cx + '" y="' + (H - 9 - rh) + '" text-anchor="middle" style="fill:var(--rain)">' + m.rain.toFixed(1) + "</text>";
+  });
+  g += '<text x="' + pl + '" y="' + (H - pb + 30) + '" style="fill:var(--rain)">Rain (in)</text>';
+  $("climateChart").innerHTML = '<svg viewBox="0 0 ' + W + " " + H + '" role="img" aria-label="Monthly average high and low temperatures and rainfall for the last 12 months">' + g + "</svg>" +
+    '<div class="legend" style="margin-top:6px"><span><i style="background:var(--heat)"></i>Avg low to avg high</span><span><i class="line" style="background:var(--muted)"></i>Coldest to hottest</span><span><i style="background:var(--frost);border-radius:50%;width:8px"></i>Month had frost</span></div>';
+}
+function renderRecent(){
+  $("recent").querySelector("tbody").innerHTML = D.recent.slice().reverse().map(r => {
+    const d = new Date(r.d + "T12:00:00");
+    return "<tr><td>" + d.toLocaleDateString([], {weekday:"short"}) + " " + fmtMD(d) + "</td><td>" + Math.round(r.hi) + "°</td><td" + (r.lo <= 32 ? ' class="frost"' : "") + ">" + Math.round(r.lo) + "°</td><td>" + (r.rain ? r.rain.toFixed(2) : "–") + "</td><td>" + Math.round(r.gust) + "</td></tr>";
+  }).join("");
+}
+
+// ---------- sun & UV ----------
+function niceStep(max){
+  const raw = Math.max(max, 1e-6) / 4, p = 10 ** Math.floor(Math.log10(raw));
+  return [1, 2, 2.5, 5, 10].map(x => x * p).find(x => x >= raw);
+}
+function bars({vals, labels, titles, color, step, fmt, guide, endLabel}){
+  const W = 640, H = 190, pl = 40, pr = 8, pt = 16, pb = 24;
+  const max = Math.max(guide ? guide.v : 0, ...vals.filter(v => v != null));
+  step = step || niceStep(max);
+  const top = Math.max(step, Math.ceil(max / step) * step);
+  const y = v => pt + (1 - v / top) * (H - pt - pb);
+  const bw = (W - pl - pr) / vals.length, w = Math.min(26, bw * 0.62);
+  let g = "";
+  for (let v = 0; v <= top + 1e-9; v += step){
+    g += '<line x1="' + pl + '" x2="' + (W - pr) + '" y1="' + y(v) + '" y2="' + y(v) + '" stroke="var(--line)"/>';
+    g += '<text x="' + (pl - 6) + '" y="' + (y(v) + 3) + '" text-anchor="end">' + fmt(v) + "</text>";
+  }
+  if (guide){
+    g += '<line x1="' + pl + '" x2="' + (W - pr) + '" y1="' + y(guide.v) + '" y2="' + y(guide.v) + '" stroke="var(--muted)" stroke-dasharray="4 3"/>';
+    g += '<text x="' + (W - pr) + '" y="' + (y(guide.v) - 4) + '" text-anchor="end">' + guide.label + "</text>";
+  }
+  let last = -1;
+  vals.forEach((v, i) => {
+    const cx = pl + i * bw + bw / 2;
+    g += '<text x="' + cx + '" y="' + (H - pb + 15) + '" text-anchor="middle">' + labels[i] + "</text>";
+    if (v == null) return;
+    last = i;
+    g += '<rect x="' + (cx - w / 2) + '" y="' + y(v) + '" width="' + w + '" height="' + Math.max(1, y(0) - y(v)) + '" rx="3" fill="' + color(v, i) + '"><title>' + titles[i] + "</title></rect>";
+  });
+  if (endLabel && last >= 0){
+    const cx = pl + last * bw + bw / 2;
+    g += '<text x="' + cx + '" y="' + (y(vals[last]) - 5) + '" text-anchor="middle" style="fill:var(--ink);font-weight:500">' + endLabel(vals[last]) + "</text>";
+  }
+  return '<svg viewBox="0 0 ' + W + " " + H + '" role="img">' + g + "</svg>";
+}
+const UVCAT = [[3, "Low", "uv1"], [6, "Moderate", "uv2"], [8, "High", "uv3"], [11, "Very high", "uv4"], [Infinity, "Extreme", "uv5"]];
+const uvCat = v => UVCAT.find(c => v < c[0]);
+const hm = s => { if (!s) return ""; const [h, m] = s.split(":").map(Number); return (h % 12 || 12) + ":" + String(m).padStart(2, "0") + (h < 12 ? " am" : " pm"); };
+const dayOf = iso => new Date(iso + "T12:00:00");
+function renderUV(){
+  const c = D.current, u = c.uv;
+  $("uvLabel").textContent = "UV index · " + fmtMD(new Date(c.dateutc || D.updated));
+  $("uvNow").firstChild.nodeValue = u != null ? u : "--";
+  if (u != null){
+    const k = uvCat(u);
+    $("uvChip").querySelector("i").style.background = "var(--" + k[2] + ")";
+    $("uvChip").querySelector("span").textContent = k[1];
+  }
+  $("uvPeak").textContent = c.todayUV != null ? "Peak that day: " + c.todayUV + (c.todayUVAt ? " at " + hm(c.todayUVAt) : "") : "";
+  const r = D.recent, uvs = r.map(x => x.uv).filter(v => v != null), hi = uvs.length ? Math.max(...uvs) : 0;
+  $("uvAdvice").textContent = hi >= 8 ? "UV reached " + hi + " in the last 2 weeks. Put 30–40% shade cloth over lettuce, peppers and new transplants, and do garden work before 10 am or after 4 pm."
+    : hi >= 6 ? "UV peaked at " + hi + " in the last 2 weeks. Transplant and water in the morning, and give seedlings afternoon shade."
+    : "UV has stayed moderate. A good stretch for transplanting and midday garden work.";
+  $("uvChart").innerHTML = bars({
+    vals: r.map(x => x.uv), labels: r.map(x => dayOf(x.d).getDate()),
+    titles: r.map(x => fmtMD(dayOf(x.d)) + ": peak UV " + x.uv + (x.uvAt ? " at " + hm(x.uvAt) : "")),
+    color: v => "var(--" + uvCat(v)[2] + ")", step: 2, fmt: v => v,
+    guide: {v: 8, label: "8 very high"}
+  });
+  $("uvLegend").innerHTML = UVCAT.map(k => '<span><i style="background:var(--' + k[2] + ')"></i>' + k[1] + "</span>").join("");
+}
+const DIM = ym => { const [y, m] = ym.split("-").map(Number); return new Date(y, m, 0).getDate(); };
+const kwh = v => (v >= 100 ? Math.round(v).toLocaleString() : v.toFixed(1)) + " kWh";
+function renderSolar(){
+  const kw = Math.max(0, +$("pvKw").value || 0), pr = Math.min(100, Math.max(0, +$("pvPr").value || 0)) / 100, f = kw * pr;
+  const c = D.current;
+  $("pvToday").textContent = c.todaySun != null ? kwh(c.todaySun * f) : "--";
+  $("pvTodayN").textContent = c.todaySun != null ? c.todaySun.toFixed(1) + " sun hours so far" : "";
+  const d14 = D.recent.filter(x => x.sun != null), avg = d14.length ? d14.reduce((a, x) => a + x.sun, 0) / d14.length : null;
+  $("pv14").textContent = avg != null ? kwh(avg * f) + "/day" : "--";
+  $("pv14N").textContent = avg != null ? avg.toFixed(1) + " sun hours a day" : "";
+  const ms = D.months.filter(m => m.sun != null), total = ms.reduce((a, m) => a + m.sun * DIM(m.ym) * f, 0);
+  $("pvYear").textContent = ms.length ? kwh(total) : "--";
+  $("pvYearN").textContent = ms.length ? "about " + kwh(total / ms.length) + " a month" + (ms.length < 12 ? " (" + ms.length + " months of data)" : "") : "";
+  $("pvChart").innerHTML = bars({
+    vals: D.months.map(m => m.sun != null ? m.sun * DIM(m.ym) * f : null),
+    labels: D.months.map(m => MONTHS[+m.ym.slice(5) - 1]),
+    titles: D.months.map(m => m.ym + ": " + (m.sun != null ? kwh(m.sun * DIM(m.ym) * f) + ", " + m.sun.toFixed(1) + " sun hours a day" : "no data")),
+    color: () => "var(--sun)", fmt: v => Math.round(v).toLocaleString(),
+    endLabel: v => Math.round(v).toLocaleString()
+  });
+}
+for (const [id, key] of [["pvKw", "gc_kw"], ["pvPr", "gc_pr"]]){
+  const saved = store.get(key);
+  if (saved) $(id).value = saved;
+  $(id).addEventListener("input", e => { store.set(key, e.target.value); renderSolar(); });
+}
+
+// ---------- storm watch ----------
+const WD = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+const isoOf = dt => dt.getFullYear() + "-" + String(dt.getMonth() + 1).padStart(2, "0") + "-" + String(dt.getDate()).padStart(2, "0");
+const fromISO = s => new Date(s + "T12:00:00");
+const dayWord = s => { const d = fromISO(s), diff = Math.round((d - today) / 864e5); return diff === 0 ? "today" : diff === 1 ? "tomorrow" : WD[d.getDay()]; };
+const cap = s => s.charAt(0).toUpperCase() + s.slice(1);
+function forecastDays(){
+  const f = D.forecast;
+  if (!f || !f.days) return [];
+  const t = isoOf(today);
+  return f.days.filter(x => x.d >= t);
+}
+// lvl: 0 calm, 1 heads up, 2 watch, 3 alert
+function rateDay(x){
+  const tags = [], add = (n, t, k) => tags.push({n, t, k});
+  if (x.low <= 32) add(3, "Freeze", "freeze"); else if (x.low <= 36) add(2, "Frost", "frost"); else if (x.low <= 44) add(1, "Cool", "cool");
+  if (x.precip >= 80) add(3, "Rain", "rain"); else if (x.precip >= 50) add(2, "Rain", "rain"); else if (x.precip >= 30) add(1, "Showers", "showers");
+  if (x.high >= 105) add(3, "Heat", "heat"); else if (x.high >= 100) add(2, "Heat", "heat");
+  tags.sort((a, b) => b.n - a.n);
+  return {lvl: tags.length ? tags[0].n : 0, tags};
+}
+function renderStorm(){
+  const f = D.forecast, rated = forecastDays().map(x => ({x, ...rateDay(x)}));
+  const LV = ["Clear", "", "Watch", "Alert"];
+  const names = rs => rs.map(r => dayWord(r.x.d)).join(" and ");
+  if (!rated.length){
+    $("stormH").textContent = "Forecast needs a refresh";
+    $("stormSub").textContent = "The saved forecast has run out. Open the live forecast for current conditions.";
+    $("stormLevel").textContent = "No data"; $("stormLevel").className = "level";
+    $("stormDays").hidden = true;
+    $("stormActs").innerHTML = "<li>Check the live forecast before planning the week.</li>";
+    $("stormAge").textContent = "";
+    return;
+  }
+  $("stormDays").hidden = false;
+  const top = rated.filter(r => r.lvl >= 2);
+  const minLo = Math.min(...rated.map(r => r.x.low)), maxP = Math.max(...rated.map(r => r.x.precip));
+  const facts = "Lowest night " + Math.round(minLo) + "°, highest rain chance " + maxP + "%.";
+  let head, sub = facts;
+  if (top.length){
+    const first = top[0], t = first.tags[0], when = dayWord(first.x.d);
+    head = t.k === "rain" ? "Rain likely " + when + ", " + first.x.precip + "%"
+      : t.k === "freeze" ? "Freeze " + when + ", low " + Math.round(first.x.low) + "°"
+      : t.k === "frost" ? "Frost risk " + when + ", low " + Math.round(first.x.low) + "°"
+      : "Heat " + when + ", high " + Math.round(first.x.high) + "°";
+    const others = top.slice(1).map(r => dayWord(r.x.d) + " (" + r.tags[0].t.toLowerCase() + ")");
+    sub = (others.length ? "Also watching " + others.join(", ") + ". " : "") + facts;
+  } else {
+    head = "No storms or frost in the forecast";
+  }
+  const mx = Math.max(0, ...rated.map(r => r.lvl >= 2 ? r.lvl : 0));
+  $("stormH").textContent = cap(head);
+  $("stormSub").textContent = sub;
+  $("stormLevel").textContent = LV[mx]; $("stormLevel").className = "level" + (mx ? " l" + mx : "");
+
+  $("stormDays").innerHTML = rated.map(({x, lvl, tags}) => {
+    const d = fromISO(x.d), nm = dayWord(x.d) === "today" ? "Today" : d.toLocaleDateString([], {weekday:"short"}) + " " + d.getDate();
+    return '<div class="sd s' + lvl + '"><div class="dn">' + nm + '</div>' +
+      '<div class="hl">' + Math.round(x.high) + '°<small>/' + Math.round(x.low) + '°</small></div>' +
+      '<div class="pr"><span>' + x.precip + '% rain</span><span class="pbar"><i style="width:' + x.precip + '%"></i></span></div>' +
+      '<div class="tags">' + (tags.length ? tags.map(t => '<span class="tag">' + t.t + '</span>').join("") : '<span class="tag">Calm</span>') + "</div></div>";
+  }).join("");
+
+  const acts = [];
+  const rainD = rated.filter(r => r.x.precip >= 50), frostD = rated.filter(r => r.x.low <= 36), coolD = rated.filter(r => r.x.low > 36 && r.x.low <= 44), heatD = rated.filter(r => r.x.high >= 100);
+  if (rainD.length){
+    const gust = Math.max(0, ...D.months.map(m => m.gust || 0));
+    acts.push("Turn irrigation off for " + names(rainD) + ".");
+    acts.push("Before the rain, clear gutters, downspouts and swale inlets so runoff goes where you want it.");
+    acts.push("Tie down loose row cover, shade cloth and light pots. Your station logged gusts up to " + Math.round(gust) + " mph in the past year.");
+  }
+  if (frostD.length){
+    acts.push("Cover tender plants and fruit blossoms before sunset on " + names(frostD) + ". Use frost cloth, not plastic touching the leaves.");
+    if (frostD.some(r => r.x.low <= 32)) acts.push("Unhook hoses and wrap exposed irrigation fittings and spigots.");
+  } else if (coolD.length){
+    acts.push("Basil and peppers suffer when nights drop into the 40s. Bring pots in or cover them on " + names(coolD) + ".");
+  }
+  if (heatD.length) acts.push("Shade cloth over beds on " + names(heatD) + ", and water deeply before 9 a.m.");
+  if (!acts.length) acts.push("Nothing to prepare. Keep to your normal watering.");
+  $("stormActs").innerHTML = acts.map(a => "<li>" + a + "</li>").join("");
+
+  const fetched = new Date(f.fetched), ageH = (Date.now() - fetched) / 36e5;
+  $("stormAge").textContent = "Forecast saved " + fetched.toLocaleDateString([], {month:"short", day:"numeric"}) + " at " + fetched.toLocaleTimeString([], {hour:"numeric", minute:"2-digit"}) + ". It gives the chance of rain, not amounts.";
+  const stale = $("stormStale");
+  if (ageH > 36){
+    const n = Math.floor(ageH / 24);
+    stale.hidden = false;
+    stale.textContent = "This forecast is " + (n === 1 ? "1 day" : n + " days") + " old. Open the live forecast before you act on it.";
+  } else stale.hidden = true;
+}
+
+// ---------- chat ----------
+const turns = [];
+let sample = null, ctl = null, busy = false;
+function addMsg(role, text){
+  const el = document.createElement("div");
+  el.className = "msg " + role; el.textContent = text;
+  $("msgs").appendChild(el); $("msgs").scrollTop = $("msgs").scrollHeight;
+  return el;
+}
+function cropGuide(){
+  const range = (a, b) => fmtMD(dateOf(a)) + " to " + fmtMD(dateOf(b));
+  return CROPS.map(c => {
+    const facts = [CAT[c.c]];
+    if (c.dtm) facts.push(c.dtm + " days to maturity");
+    if (c.tender) facts.push("killed by frost");
+    if (c.cont) facts.push("keeps producing until frost");
+    const evs = eventsOf(c).map(ev => labelFor(c, ev.t) + " " + range(ev.s, ev.e) + (ev.note ? " (" + ev.note + ")" : ""));
+    return "- " + c.n + " [" + facts.join("; ") + "]: " + evs.join("; ") + "." + (c.tip ? " Tip: " + c.tip : "");
+  }).join("\n");
+}
+function context(){
+  const weekTasks = taskList(TODAY, TODAY + 6).map(x => labelFor(x.c, x.ev.t) + " " + x.c.n + " (until " + fmtMD(dateOf(x.b)) + ")").join("; ");
+  const soonTasks = taskList(TODAY + 7, TODAY + 28).filter(x => x.a > TODAY + 6).map(x => labelFor(x.c, x.ev.t) + " " + x.c.n + " from " + fmtMD(dateOf(x.a))).join("; ");
+  const yrRain = D.months.reduce((t, m) => t + (m.rain || 0), 0);
+  const maxGust = Math.max(0, ...D.months.map(m => m.gust || 0));
+  const adjusted = store.get("gc_L") || store.get("gc_F");
+  const storm = $("stormH").textContent + ". " + $("stormSub").textContent + " Suggested: " + [...$("stormActs").querySelectorAll("li")].map(li => li.textContent).join(" ");
+  return [
+    "You are a friendly, practical garden advisor for one home garden. Answer using the facts below, and be specific to this garden: name real dates from the crop guide, use the crop's tip, and cite station numbers (recent lows, rain totals, gusts) when they bear on the answer. Keep answers under 250 words, plain text with simple dashes for lists, no markdown headings. If a crop or topic isn't in the guide, say so and give advice suited to this site. If the station data is more than a week old, say the readings are a snapshot.",
+    "",
+    "LOCATION: " + D.station.name + " station, " + D.station.place + " — Mojave high desert, " + (D.station.elevationFt || 4300) + " ft, USDA zone 8a. Sandy alkaline soil, low humidity, strong spring winds, hot dry summers, cold nights, occasional winter snow, summer monsoon storms, gophers.",
+    "TODAY: " + today.toDateString(),
+    "FROST DATES used by the calendar" + (adjusted ? " (the gardener adjusted these)" : " (from the station)") + ": last spring frost " + fmtMD(dateOf(L)) + ", first fall frost " + fmtMD(dateOf(F)) + ", a " + (F - L) + "-day frost-free season. Station record since " + D.frost.recordStart + ": last spring frost " + D.frost.lastSpring + ", first fall frost " + D.frost.firstFall + ", " + D.frost.nights + " frost nights, coldest " + (D.frost.coldest ? D.frost.coldest.t + "°F on " + D.frost.coldest.d : "n/a") + ", hottest " + (D.frost.hottest ? D.frost.hottest.t + "°F on " + D.frost.hottest.d : "n/a") + ".",
+    "STATION SNAPSHOT (" + D.updated + ", temps °F, rain in, wind mph, solar W/m2): " + JSON.stringify(D.current),
+    "STORM WATCH: " + storm,
+    "SAVED FORECAST (saved " + (D.forecast ? D.forecast.fetched : "never") + ", chance of rain only, no amounts or wind): " + (forecastDays().map(x => x.d + " high " + x.high + " low " + x.low + " rain " + x.precip + "%").join(" | ") || "none left"),
+    "LAST 14 DAYS (date, high, low, rain in, max gust mph, peak UV, sun hours): " + D.recent.map(r => [r.d, r.hi, r.lo, r.rain, r.gust, r.uv, r.sun].join(",")).join(" | "),
+    "LAST 12 MONTHS (month, avg high, avg low, min, max, rain in, frost nights, max gust mph, sun hours/day, avg peak UV): " + D.months.map(m => [m.ym, m.hi, m.lo, m.min, m.max, m.rain, m.frost, m.gust, m.sun, m.uv].join(",")).join(" | ") + ". Total rain over these months: " + yrRain.toFixed(2) + " in; strongest gust " + Math.round(maxGust) + " mph.",
+    "CALENDAR — this week: " + (weekTasks || "nothing scheduled") + ". Next 4 weeks: " + (soonTasks || "nothing new") + ".",
+    "CROP GUIDE (every crop the gardener grows, with this year's windows from the frost dates above):",
+    cropGuide(),
+    "Links: full page " + ((D.links && D.links.site) || "") + ", calendar feed " + ((D.links && D.links.ics) || "") + ", live station " + D.station.dashboard + "."
+  ].join("\n");
+}
+const ERR = {
+  not_granted:"Chat needs your permission to use Claude. Reload the page to be asked again.",
+  sampling_disabled:"Chat isn't available on this account.",
+  rate_limited:"Too many questions at once or you've hit your usage limit. Try again in a bit.",
+  session_expired:"Sign in to Claude again to use the chat.",
+  refused:"Claude couldn't answer that one. Try rephrasing.",
+  prompt_too_large:"The conversation got too long. Reload the page to start fresh."
+};
+async function ask(q){
+  q = q.trim(); if (!q || busy) return;
+  if (!sample){ chatUnavailable(); return; }
+  busy = true; $("sendBtn").disabled = true; $("stopBtn").hidden = false;
+  addMsg("user", q); turns.push({role:"user", content:q});
+  while (turns.length > 12) turns.splice(0, 2);
+  const bubble = addMsg("bot", "Thinking…");
+  ctl = new AbortController();
+  try {
+    const { text, truncated } = await sample([{role:"user", content: context()}, {role:"assistant", content:"Understood. I'll answer from your station data, forecast and crop guide."}, ...turns], {
+      cache:false, signal:ctl.signal,
+      onText:({text}) => { bubble.textContent = text; $("msgs").scrollTop = $("msgs").scrollHeight; }
+    });
+    bubble.textContent = text + (truncated ? "\n\n(Answer cut short. Ask a narrower question.)" : "");
+    turns.push({role:"assistant", content:text});
+  } catch (e){
+    turns.pop();
+    if (e.code === "cancelled"){ bubble.textContent = e.text || "Stopped."; }
+    else if (e.code === "not_granted" || e.code === "sampling_disabled"){ bubble.remove(); addMsg("note", ERR[e.code]); $("chatForm").hidden = true; $("suggest").hidden = true; }
+    else { bubble.textContent = (e.text ? e.text + "\n\n" : "") + (ERR[e.code] || "Something went wrong reaching Claude. Try again."); }
+  } finally {
+    busy = false; $("sendBtn").disabled = false; $("stopBtn").hidden = true;
+  }
+}
+$("chatForm").addEventListener("submit", e => { e.preventDefault(); const v = $("chatInput").value; $("chatInput").value = ""; ask(v); });
+$("chatInput").addEventListener("keydown", e => { if (e.key === "Enter" && !e.shiftKey){ e.preventDefault(); $("chatForm").requestSubmit(); } });
+$("stopBtn").onclick = () => ctl?.abort();
+$("suggest").addEventListener("click", e => { if (e.target.tagName === "BUTTON") ask(e.target.textContent); });
+addMsg("note", "Ask anything about planting, watering, frost or harvest.");
+(async () => {
+  try { sample = window.claude ? await window.claude.use("sample") : null; } catch { sample = null; }
+  if (!sample) chatUnavailable();
+})();
+function chatUnavailable(){
+  $("msgs").innerHTML = ""; $("chatForm").hidden = true; $("suggest").hidden = true;
+  const el = addMsg("note", "The garden chat runs on Claude. ");
+  if (D.links && D.links.claude){
+    const a = document.createElement("a");
+    a.href = D.links.claude; a.target = "_blank"; a.rel = "noopener"; a.textContent = "Open the chat on claude.ai ↗";
+    el.appendChild(a);
+  }
+}
+
+// ---------- controls ----------
+document.querySelectorAll(".tab").forEach(b => b.onclick = () => { cat = b.dataset.cat; store.set("gc_cat", cat); renderGantt(); });
+$("adjL").onchange = e => { if (e.target.value){ store.set("gc_L", e.target.value); rerender(); } };
+$("adjF").onchange = e => { if (e.target.value){ store.set("gc_F", e.target.value); rerender(); } };
+$("adjReset").onclick = () => { store.del("gc_L"); store.del("gc_F"); rerender(); };
+function rerender(){ setFrost(); renderTasks(); renderGantt(); }
+
+setFrost(); renderHeader(); renderStorm(); renderConditions(); renderTasks(); renderGantt(); renderClimate(); renderRecent(); renderUV(); renderSolar();
+
+// ---------- live station data ----------
+const AW = "https://lightning.ambientweather.net";
+const SLUG = (D.station.dashboard || "").split("/").pop();
+const tzDate = ms => new Intl.DateTimeFormat("en-CA", {timeZone:"America/Los_Angeles"}).format(new Date(ms));
+const tzTime = ms => new Intl.DateTimeFormat("en-GB", {timeZone:"America/Los_Angeles", hour:"2-digit", minute:"2-digit"}).format(new Date(ms));
+async function goLive(){
+  try {
+    const dev = (await (await fetch(AW + "/devices?public.slug=" + SLUG)).json()).data[0];
+    const ld = dev.lastData, hl = ld.hl || {};
+    const keep = ["tempf","feelsLike","humidity","windspeedmph","windgustmph","maxdailygust","winddir","uv","solarradiation",
+      "hourlyrainin","dailyrainin","weeklyrainin","monthlyrainin","yearlyrainin","baromrelin","dateutc","lastRain"];
+    const cur = {}; keep.forEach(k => cur[k] = ld[k]);
+    const ht = hl.tempf || {}, hs = hl.solarradiation || {}, hu = hl.uv || {};
+    Object.assign(cur, {todayHi: ht.h, todayLo: ht.l, todaySun: hs.s != null ? +(hs.s / 60000).toFixed(2) : null,
+      todaySunPeak: hs.h, todayUV: hu.h, todayUVAt: hu.h && hu.ht ? tzTime(hu.ht) : null});
+    await new Promise(r => setTimeout(r, 1100));
+    const start = Date.now() - 16 * 864e5;
+    const days = (await (await fetch(AW + "/device-data?macAddress=" + encodeURIComponent(dev.macAddress) + "&dataKey=deviceSummaries&start=" + start + "&stats=summary")).json()).data || [];
+    const recent = days.filter(r => r.tempf && r.tempf.h != null).map(r => {
+      const sr = r.solarradiation || {}, uv = r.uv || {};
+      return {d: tzDate(r.dateutc), hi: r.tempf.h, lo: r.tempf.l, rain: (r.dailyrainin || {}).h || 0, gust: (r.maxdailygust || {}).h || 0,
+        sun: (sr.c || 0) >= 1200 ? +(sr.s / sr.c * 24 / 1000).toFixed(2) : null, uv: uv.h ?? null, uvAt: uv.h && uv.ht ? tzTime(uv.ht) : null};
+    }).filter(r => r.d < tzDate(Date.now())).sort((a, b) => a.d < b.d ? -1 : 1).slice(-14);
+    D.current = cur;
+    if (recent.length >= 7) D.recent = recent;
+    D.updated = new Date(ld.dateutc || Date.now()).toISOString();
+    D.live = true;
+    renderHeader(); renderConditions(); renderRecent(); renderUV(); renderSolar();
+  } catch { /* offline, or inside claude.ai where outside requests are blocked: keep the weekly snapshot */ }
+}
+if (!window.claude){ goLive(); setInterval(() => { if (!document.hidden) goLive(); }, 5 * 60 * 1000); }
+})();
+</script>

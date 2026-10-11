@@ -27,9 +27,9 @@ Then, inside a checkout of this repo:
 - `/garden:add-crop <crop>`: add or update a crop in `crops.json`
 - A `garden-calendar` skill that explains the `crops.json` format, and a hook that validates `crops.json` after each edit
 
-The garden chat page on claude.ai can't fetch the station itself, so a scheduled Claude routine runs
-`python3 build_garden.py --offline` about 40 minutes after each build and republishes the chat page from the
-fresh `data/station.json`.
+The garden chat page on claude.ai can't fetch the station itself. Each build saves the finished page as
+`data/chat.html`, and a scheduled Claude routine republishes it to the chat page about 40 minutes later.
+(`python3 build_garden.py --offline` rebuilds `garden.html` from the saved data without fetching.)
 
 ## Files
 
