@@ -108,6 +108,12 @@ button:focus-visible,input:focus-visible,textarea:focus-visible,a:focus-visible{
 .overlay .lines .vline{top:20px}
 .flag{position:absolute;top:0;font:600 .66rem var(--mono);padding:1px 5px;border-radius:3px;white-space:nowrap;transform:translateX(-50%);background:var(--frost);color:#fff}
 .flag.today{background:var(--ink);color:var(--ground)}
+.grow .name{display:flex;align-items:center;justify-content:space-between;gap:6px}
+.rm{flex:none;width:26px;height:26px;border-radius:6px;border:1px solid transparent;background:transparent;color:var(--muted);font-size:1.05rem;line-height:1;cursor:pointer}
+.rm:hover{border-color:var(--line);color:var(--harvest)}
+.removed{display:flex;flex-wrap:wrap;align-items:center;gap:6px 8px;margin-top:12px;font-size:.88rem;color:var(--muted)}
+.removed button{padding:4px 10px;border-radius:999px;border:1px dashed var(--line);background:var(--panel);cursor:pointer;font-size:.85rem}
+.removed button:hover{border-color:var(--accent)}
 .adjust{display:flex;flex-wrap:wrap;gap:12px;align-items:end;margin-top:14px;font-size:.88rem;color:var(--muted)}
 .adjust label{display:grid;gap:3px}
 .adjust input{padding:6px 8px;border:1px solid var(--line);border-radius:6px;background:var(--panel)}
@@ -325,6 +331,7 @@ footer{font-size:.82rem;color:var(--muted);text-align:center;max-width:70ch;marg
       <button class="btn" type="button" id="adjReset">Use station dates</button>
       <span id="adjNote">Dates come from your station. Adjust them to plan more cautiously.</span>
     </div>
+    <div class="removed" id="removedBar" hidden></div>
   </section>
 
   <div class="climate">
@@ -436,7 +443,11 @@ function setFrost(){
 
 // ---------- crops ----------
 // Offsets: "L+2" = 2 weeks after last spring frost, "F-8" = 8 weeks before first fall frost, "MM-DD" = fixed date.
-const CROPS = __CROPS__;
+const ALL_CROPS = __CROPS__;
+// Plants the gardener removed from their list: saved with the page on claude.ai, in this browser elsewhere.
+const readRemoved = () => { try { return JSON.parse(store.get("gc_removed") || "[]"); } catch { return []; } };
+let REMOVED = new Set(readRemoved());
+let CROPS = ALL_CROPS.filter(c => !REMOVED.has(c.n));
 const FARM = JSON.parse(document.getElementById("farm-brief").textContent).trim();
 const CAT = {veg:"Vegetables",herb:"Herbs",fruit:"Fruit trees",flower:"Flowers",native:"Native plants",lawn:"Lawn & grasses"};
 const LABEL = {indoor:"Start indoors",sow:"Sow",plant:"Plant out",harvest:"Harvest",care:"Care",propagate:"Propagate"};
@@ -568,7 +579,7 @@ function renderGantt(){
       const title = labelFor(c, ev.t) + ": " + fmtMD(dateOf(a)) + " – " + fmtMD(dateOf(b)) + (ev.note ? ". " + ev.note : "");
       bars += '<div class="bar ' + ev.t + '" style="left:' + pct(a) + ';width:calc(' + pct(b) + " - " + pct(a) + ' + 2px)" title="' + title + '"></div>';
     }
-    html += '<div class="grow"><div class="name">' + sub + c.n + '</div><div class="track">' + bars + "</div></div>";
+    html += '<div class="grow"><div class="name"><span>' + sub + c.n + '</span><button class="rm" type="button" data-rm="' + encodeURIComponent(c.n) + '" aria-label="Remove ' + c.n + ' from my list" title="Remove from my list">×</button></div><div class="track">' + bars + "</div></div>";
   }
   html += '<div class="lines">' +
     '<div class="vline" style="left:' + pct(L) + '"></div><span class="flag" style="left:' + pct(L) + '">Last frost</span>' +
@@ -835,6 +846,7 @@ function context(){
     "CALENDAR — this week: " + (weekTasks || "nothing scheduled") + ". Next 4 weeks: " + (soonTasks || "nothing new") + ".",
     "CROP GUIDE (every crop the gardener grows, with this year's windows from the frost dates above):",
     cropGuide(),
+    REMOVED.size ? "The gardener removed these from their list, so don't suggest them unless asked: " + [...REMOVED].join("; ") + "." : "",
     "FARM BRIEF:",
     FARM,
     "Links: full page " + ((D.links && D.links.site) || "") + ", calendar feed " + ((D.links && D.links.ics) || "") + ", live station " + D.station.dashboard + "."
@@ -890,6 +902,49 @@ function chatUnavailable(){
     el.appendChild(a);
   }
 }
+
+// ---------- removing plants from the list ----------
+let removedDoc = null, saving = Promise.resolve();
+function applyRemoved(names){
+  REMOVED = new Set(names);
+  CROPS = ALL_CROPS.filter(c => !REMOVED.has(c.n));
+  renderTasks(); renderGantt(); renderRemoved();
+}
+function renderRemoved(note){
+  const bar = $("removedBar"), names = ALL_CROPS.map(c => c.n).filter(n => REMOVED.has(n));
+  bar.hidden = !names.length && !note;
+  bar.innerHTML = (names.length ? "<span>Removed from your list (tap to restore):</span>" : "") +
+    names.map(n => '<button type="button" data-restore="' + encodeURIComponent(n) + '">↺ ' + n + "</button>").join("") +
+    (note ? "<span>" + note + "</span>" : "");
+}
+function saveRemoved(){
+  const names = [...REMOVED];
+  store.set("gc_removed", JSON.stringify(names));
+  if (!removedDoc) return;
+  saving = saving.then(() => removedDoc.set({names})).catch(e => {
+    renderRemoved(e && e.code === "invalid_argument" ? "Only the page owner or editors can change this list." : "Couldn't save that change. Try again in a moment.");
+  });
+}
+$("gantt").addEventListener("click", e => {
+  const b = e.target.closest("[data-rm]"); if (!b) return;
+  REMOVED.add(decodeURIComponent(b.dataset.rm)); saveRemoved(); applyRemoved([...REMOVED]);
+});
+$("removedBar").addEventListener("click", e => {
+  const b = e.target.closest("[data-restore]"); if (!b) return;
+  REMOVED.delete(decodeURIComponent(b.dataset.restore)); saveRemoved(); applyRemoved([...REMOVED]);
+});
+renderRemoved();
+(async () => {
+  let db = null;
+  try { db = window.claude ? await window.claude.use("db") : null; } catch { db = null; }
+  if (!db) return;
+  removedDoc = db.doc("garden/removed");
+  removedDoc.onSnapshot(snap => {
+    const names = snap.exists ? (snap.data().names || []) : [];
+    store.set("gc_removed", JSON.stringify(names));
+    applyRemoved(names);
+  }, () => { removedDoc = null; });
+})();
 
 // ---------- manual refresh (on claude.ai only) ----------
 // Starts the "Refresh West Cajon garden chat" routine, which republishes this page from the latest saved build.

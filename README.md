@@ -39,6 +39,9 @@ rules, ranked plan changes, permits). Edit that file when the plan changes; the 
 The garden chat page on claude.ai can't fetch the station itself. Each build saves the finished page as
 `data/chat.html`, and a scheduled Claude routine republishes it to the chat page once a day (6:40 AM Pacific). The page's
 **Refresh data** button (on claude.ai, through the Claude Code Remote connector) runs the same routine on demand.
+On the page, the × next to each plant in the year calendar removes it from your list (calendar, weekly tasks and
+chat). Removals are saved with the page on claude.ai and in the browser elsewhere; they don't change `crops.json`
+or the calendar feed.
 (`python3 build_garden.py --offline` rebuilds `garden.html` from the saved data without fetching.)
 
 ## Files
