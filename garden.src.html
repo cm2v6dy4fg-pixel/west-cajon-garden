@@ -153,6 +153,8 @@ td.frost{color:var(--frost);font-weight:600}
 .suggest button:hover{border-color:var(--accent)}
 .composer{display:flex;gap:8px;align-items:flex-end}
 .composer textarea{flex:1;min-height:46px;max-height:160px;resize:vertical;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--panel)}
+.refresh [hidden]{display:none}
+.refresh{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;margin-top:10px;font-size:.88rem;color:var(--muted)}
 footer{font-size:.82rem;color:var(--muted);text-align:center;max-width:70ch;margin:0 auto}
 
 @media (max-width:900px){.now,.climate{grid-template-columns:1fr}.frost{grid-template-columns:repeat(2,minmax(0,1fr))}}
@@ -377,6 +379,7 @@ footer{font-size:.82rem;color:var(--muted);text-align:center;max-width:70ch;marg
       <div class="eyebrow">Garden chat</div>
       <h2>Ask about your garden</h2>
       <p class="muted" style="margin:6px 0 0;max-width:65ch">Answers use your station's frost dates, rainfall and recent temperatures along with this calendar and the farm plan.</p>
+      <div class="refresh"><span id="refreshNote"></span> <button class="btn" type="button" id="refreshBtn" hidden>Refresh data</button></div>
     </div>
     <div class="msgs" id="msgs" aria-live="polite"></div>
     <div class="suggest" id="suggest">
@@ -887,6 +890,42 @@ function chatUnavailable(){
     el.appendChild(a);
   }
 }
+
+// ---------- manual refresh (on claude.ai only) ----------
+// Starts the "Refresh West Cajon garden chat" routine, which republishes this page from the latest saved build.
+const REFRESH_TRIGGER = "trig_01WiY6QjFbkS8Fw7ZK3fNoQ9";
+{
+  const up = new Date(D.updated);
+  $("refreshNote").textContent = "Station data from " + fmtMD(up) + ", " + up.toLocaleTimeString([], {hour:"numeric", minute:"2-digit"}) + ".";
+}
+(async () => {
+  let mcp = null;
+  try { mcp = window.claude ? await window.claude.use("mcp") : null; } catch { mcp = null; }
+  if (!mcp) return;
+  const btn = $("refreshBtn"), note = $("refreshNote");
+  btn.hidden = false;
+  btn.onclick = async () => {
+    btn.disabled = true;
+    note.textContent = "Starting a refresh…";
+    try {
+      await mcp.callTool("Claude Code Remote", "fire_trigger", {trigger_id: REFRESH_TRIGGER}, {cache:false});
+      note.textContent = "Refresh started. If newer station data is saved, the page updates in a minute or two.";
+    } catch (e){
+      const MSG = {
+        server_not_connected: "Add the Claude Code Remote connector in claude.ai Settings → Connectors to use this button.",
+        needs_reauth: "Reconnect Claude Code Remote in claude.ai Settings → Connectors, then try again.",
+        not_in_manifest: "Refreshing isn't allowed on this page. Reload the page to be asked again.",
+        consent_required: "Allow Claude Code Remote for this page, then try again.",
+        blocked_by_policy: "Your organization blocks this refresh.",
+        approval_required: "This refresh needs approval that pages can't ask for yet.",
+        tool_error: "The refresh job couldn't start: " + (e.message || "unknown error") + ".",
+        server_unavailable: "Couldn't reach the refresh service. It may have started anyway, so wait a minute before trying again."
+      };
+      note.textContent = MSG[e.code] || "Couldn't start the refresh (" + (e.code || "error") + "). Wait a minute before trying again.";
+      btn.disabled = false;
+    }
+  };
+})();
 
 // ---------- controls ----------
 document.querySelectorAll(".tab").forEach(b => b.onclick = () => { cat = b.dataset.cat; store.set("gc_cat", cat); renderGantt(); });

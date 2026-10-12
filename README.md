@@ -37,7 +37,8 @@ The garden chat also gets `farm.md`, a short public-safe brief of the farm plan 
 rules, ranked plan changes, permits). Edit that file when the plan changes; the next build carries it into the chat.
 
 The garden chat page on claude.ai can't fetch the station itself. Each build saves the finished page as
-`data/chat.html`, and a scheduled Claude routine republishes it to the chat page about 40 minutes later.
+`data/chat.html`, and a scheduled Claude routine republishes it to the chat page once a day (6:40 AM Pacific). The page's
+**Refresh data** button (on claude.ai, through the Claude Code Remote connector) runs the same routine on demand.
 (`python3 build_garden.py --offline` rebuilds `garden.html` from the saved data without fetching.)
 
 ## Files
