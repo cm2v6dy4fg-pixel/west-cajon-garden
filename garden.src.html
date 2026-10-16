@@ -238,7 +238,6 @@ footer{font-size:.82rem;color:var(--muted);text-align:center;max-width:70ch;marg
     </div>
     <div style="display:flex;gap:8px;flex-wrap:wrap">
       <a class="btn" id="liveLink" href="#" target="_blank" rel="noopener">Live station ↗</a>
-      <a class="btn" id="calLink" href="#" target="_blank" rel="noopener" hidden>Add to Google Calendar ↗</a>
       <a class="btn primary" href="#ask">Ask the garden</a>
     </div>
   </header>
@@ -493,10 +492,6 @@ function renderHeader(){
   const up = new Date(D.updated);
   $("snap").textContent = D.live ? "Live station data · updated " + up.toLocaleTimeString([], {hour:"numeric", minute:"2-digit"}) : "Station data as of " + fmtMD(up) + ", " + up.getFullYear();
   $("liveLink").href = st.dashboard;
-  if (D.links && D.links.ics){
-    $("calLink").href = "https://calendar.google.com/calendar/render?cid=" + encodeURIComponent(D.links.ics.replace(/^https:/, "webcal:"));
-    $("calLink").hidden = false;
-  }
   $("fLast").textContent = D.frost.lastSpring ? fmtISO(D.frost.lastSpring).replace(/, \d+$/, "") : "--";
   $("fLastN").textContent = D.frost.lastSpring ? "Recorded " + D.frost.lastSpring.slice(0,4) : "No spring frost recorded";
   $("fFirst").textContent = D.frost.firstFall ? fmtISO(D.frost.firstFall).replace(/, \d+$/, "") : "--";
