@@ -1,4 +1,3 @@
-
 <meta charset="utf-8">
 <title>West Cajon Garden</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -191,6 +190,22 @@ footer{font-size:.82rem;color:var(--muted);text-align:center;max-width:70ch;marg
 .storm-foot .note{flex:1 1 220px;min-width:0}
 @media (max-width:900px){.storm-days{grid-template-columns:repeat(4,minmax(0,1fr))}}
 
+/* plant links, seed notes */
+.plantlink{color:inherit;text-decoration:underline dotted;text-decoration-color:var(--muted);text-underline-offset:3px}
+.plantlink:hover{color:var(--accent)}
+.cal{display:inline-block;margin:4px 8px 0 0;padding:2px 8px;border:1px solid var(--line);border-radius:999px;font:600 .68rem var(--mono);color:var(--accent);text-decoration:none;background:var(--panel);cursor:pointer}
+.cal:hover{border-color:var(--accent)}
+.grow .name .acts{display:flex;flex:none}
+.rm.has{color:var(--accent);border-color:var(--line)}
+.seedform{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-top:14px}
+.seedform label{display:grid;gap:3px;font-size:.88rem;color:var(--muted)}
+.seedform .wide{grid-column:1/-1}
+.seedform input,.seedform select,.seedform textarea{padding:8px 10px;border:1px solid var(--line);border-radius:6px;background:var(--panel);font-size:16px}
+.seedbtns{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.seedlist{display:grid;gap:8px;margin-top:16px}
+.seeditem{display:grid;gap:2px;padding:10px 12px;border-radius:8px;background:var(--soft)}
+.seeditem .tip{font-size:.88rem;color:var(--muted)}
+
 /* mobile touch + layout refinements */
 .tablewrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
 @media (max-width:640px){
@@ -223,7 +238,7 @@ footer{font-size:.82rem;color:var(--muted);text-align:center;max-width:70ch;marg
 }
 </style>
 
-<script id="station-data" type="application/json">{"links":{"claude":"https://claude.ai/artifact/Mne7tpPjZjDPy2MYCRkvVm","site":"https://cm2v6dy4fg-pixel.github.io/west-cajon-garden/","ics":"https://cm2v6dy4fg-pixel.github.io/west-cajon-garden/garden.ics"},"station":{"name":"West Cajon","place":"Phelan, CA","elevationFt":4355,"dashboard":"https://ambientweather.net/dashboard/b937402f7843146297e761ffeb631e2a"},"updated":"2026-10-16T14:42-07:00","current":{"tempf":72.9,"feelsLike":71.488,"humidity":34,"windspeedmph":2.46,"windgustmph":5.82,"maxdailygust":19.46,"winddir":77,"uv":4,"solarradiation":430.36,"hourlyrainin":0,"dailyrainin":0,"weeklyrainin":0.008,"monthlyrainin":0.5,"yearlyrainin":23.35,"baromrelin":30.017,"dateutc":1792186920000,"lastRain":1791810120000,"todayHi":72.9,"todayLo":56.3,"todaySun":2.84,"todaySunPeak":574.48,"todayUV":5,"todayUVAt":"11:10"},"forecast":{"fetched":"2026-10-16T14:42-07:00","days":[{"d":"2026-10-16","high":69,"low":51,"precip":1},{"d":"2026-10-17","high":68,"low":49,"precip":4},{"d":"2026-10-18","high":68,"low":50,"precip":1},{"d":"2026-10-19","high":68,"low":46,"precip":3},{"d":"2026-10-20","high":60,"low":44,"precip":58},{"d":"2026-10-21","high":53,"low":43,"precip":68},{"d":"2026-10-22","high":52,"low":41,"precip":45}]},"frost":{"lastSpring":"2026-04-27","firstFall":"2025-11-18","nights":12,"coldest":{"d":"2026-02-20","t":25.9},"hottest":{"d":"2026-07-31","t":98.8},"recordStart":"2025-08-23"},"months":[{"ym":"2025-11","days":30,"hi":63.2,"lo":43.8,"max":81.9,"min":31.3,"rain":6.24,"frost":2,"gust":35.34,"sun":1.95,"uv":4.1,"uvMax":6},{"ym":"2025-12","days":31,"hi":61.3,"lo":43.4,"max":74.1,"min":32,"rain":10.77,"frost":1,"gust":60.4,"sun":1.72,"uv":3.0,"uvMax":5},{"ym":"2026-01","days":31,"hi":56.4,"lo":40.5,"max":66.4,"min":31.1,"rain":2.15,"frost":1,"gust":36.46,"sun":1.86,"uv":3.7,"uvMax":5},{"ym":"2026-02","days":28,"hi":60.3,"lo":40.5,"max":77.2,"min":25.9,"rain":3.53,"frost":5,"gust":52.57,"sun":2.75,"uv":4.9,"uvMax":7},{"ym":"2026-03","days":31,"hi":73.3,"lo":48.0,"max":89.8,"min":36.3,"rain":0.05,"frost":0,"gust":31.99,"sun":4.04,"uv":6.2,"uvMax":8},{"ym":"2026-04","days":30,"hi":64.7,"lo":39.2,"max":78.6,"min":30.4,"rain":0.6,"frost":3,"gust":31.99,"sun":4.7,"uv":7.7,"uvMax":10},{"ym":"2026-05","days":31,"hi":71.2,"lo":43.5,"max":90.1,"min":32.9,"rain":0,"frost":0,"gust":31.99,"sun":5.9,"uv":7.9,"uvMax":11},{"ym":"2026-06","days":30,"hi":78.6,"lo":48.8,"max":88.9,"min":39.7,"rain":0,"frost":0,"gust":23.93,"sun":6.29,"uv":8.2,"uvMax":11},{"ym":"2026-07","days":31,"hi":87.6,"lo":57.5,"max":98.8,"min":43.2,"rain":0.01,"frost":0,"gust":25.05,"sun":5.58,"uv":7.6,"uvMax":11},{"ym":"2026-08","days":31,"hi":90.7,"lo":60.8,"max":97.5,"min":52,"rain":0,"frost":0,"gust":26.17,"sun":5.07,"uv":7.4,"uvMax":9},{"ym":"2026-09","days":30,"hi":80.1,"lo":53.3,"max":96.3,"min":43,"rain":0.99,"frost":0,"gust":29.75,"sun":3.95,"uv":6.5,"uvMax":10},{"ym":"2026-10","days":15,"hi":78.3,"lo":54.5,"max":90.7,"min":34.2,"rain":0.63,"frost":0,"gust":31.99,"sun":3.3,"uv":6.1,"uvMax":9}],"recent":[{"d":"2026-10-02","hi":89.4,"lo":64.9,"rain":0,"gust":14.76,"sun":3.86,"uv":6,"uvAt":"11:55"},{"d":"2026-10-03","hi":85.5,"lo":62.1,"rain":0,"gust":19.46,"sun":3.85,"uv":6,"uvAt":"12:01"},{"d":"2026-10-04","hi":88,"lo":60.3,"rain":0,"gust":21.7,"sun":3.83,"uv":6,"uvAt":"12:01"},{"d":"2026-10-05","hi":87.4,"lo":59.9,"rain":0,"gust":13.65,"sun":3.72,"uv":6,"uvAt":"12:57"},{"d":"2026-10-06","hi":88.3,"lo":63.5,"rain":0,"gust":18.34,"sun":3.72,"uv":6,"uvAt":"12:34"},{"d":"2026-10-07","hi":90.7,"lo":62.1,"rain":0,"gust":11.41,"sun":3.37,"uv":6,"uvAt":"11:41"},{"d":"2026-10-08","hi":89.1,"lo":59.5,"rain":0,"gust":18.34,"sun":3.0,"uv":6,"uvAt":"13:34"},{"d":"2026-10-09","hi":83.3,"lo":52.7,"rain":0,"gust":21.7,"sun":3.63,"uv":5,"uvAt":"10:54"},{"d":"2026-10-10","hi":74.1,"lo":52.3,"rain":0.15,"gust":30.87,"sun":1.53,"uv":4,"uvAt":"12:55"},{"d":"2026-10-11","hi":58.5,"lo":47.1,"rain":0.472,"gust":31.99,"sun":2.13,"uv":9,"uvAt":"13:07"},{"d":"2026-10-12","hi":57.2,"lo":42.1,"rain":0.008,"gust":28.63,"sun":2.67,"uv":8,"uvAt":"13:05"},{"d":"2026-10-13","hi":55.8,"lo":34.2,"rain":0,"gust":25.05,"sun":3.24,"uv":7,"uvAt":"11:43"},{"d":"2026-10-14","hi":67.6,"lo":42.4,"rain":0,"gust":13.65,"sun":3.54,"uv":5,"uvAt":"11:01"},{"d":"2026-10-15","hi":69.8,"lo":57.2,"rain":0,"gust":27.29,"sun":3.51,"uv":5,"uvAt":"11:04"}]}</script>
+<script id="station-data" type="application/json">{"links":{"claude":"https://claude.ai/artifact/Mne7tpPjZjDPy2MYCRkvVm","site":"https://cm2v6dy4fg-pixel.github.io/west-cajon-garden/","ics":"https://cm2v6dy4fg-pixel.github.io/west-cajon-garden/garden.ics"},"station":{"name":"West Cajon","place":"Phelan, CA","elevationFt":4355,"dashboard":"https://ambientweather.net/dashboard/b937402f7843146297e761ffeb631e2a"},"updated":"2026-10-16T14:44-07:00","current":{"tempf":73.2,"feelsLike":71.771,"humidity":33,"windspeedmph":6.49,"windgustmph":9.17,"maxdailygust":19.46,"winddir":48,"uv":3,"solarradiation":382.92,"hourlyrainin":0,"dailyrainin":0,"weeklyrainin":0.008,"monthlyrainin":0.5,"yearlyrainin":23.35,"baromrelin":30.02,"dateutc":1792187040000,"lastRain":1791810120000,"todayHi":73.2,"todayLo":56.3,"todaySun":2.85,"todaySunPeak":574.48,"todayUV":5,"todayUVAt":"11:10"},"forecast":{"fetched":"2026-10-16T14:44-07:00","days":[{"d":"2026-10-16","high":69,"low":51,"precip":1},{"d":"2026-10-17","high":68,"low":49,"precip":4},{"d":"2026-10-18","high":68,"low":50,"precip":1},{"d":"2026-10-19","high":68,"low":46,"precip":3},{"d":"2026-10-20","high":60,"low":44,"precip":58},{"d":"2026-10-21","high":53,"low":43,"precip":68},{"d":"2026-10-22","high":52,"low":41,"precip":45}]},"frost":{"lastSpring":"2026-04-27","firstFall":"2025-11-18","nights":12,"coldest":{"d":"2026-02-20","t":25.9},"hottest":{"d":"2026-07-31","t":98.8},"recordStart":"2025-08-23"},"months":[{"ym":"2025-11","days":30,"hi":63.2,"lo":43.8,"max":81.9,"min":31.3,"rain":6.24,"frost":2,"gust":35.34,"sun":1.95,"uv":4.1,"uvMax":6},{"ym":"2025-12","days":31,"hi":61.3,"lo":43.4,"max":74.1,"min":32,"rain":10.77,"frost":1,"gust":60.4,"sun":1.72,"uv":3.0,"uvMax":5},{"ym":"2026-01","days":31,"hi":56.4,"lo":40.5,"max":66.4,"min":31.1,"rain":2.15,"frost":1,"gust":36.46,"sun":1.86,"uv":3.7,"uvMax":5},{"ym":"2026-02","days":28,"hi":60.3,"lo":40.5,"max":77.2,"min":25.9,"rain":3.53,"frost":5,"gust":52.57,"sun":2.75,"uv":4.9,"uvMax":7},{"ym":"2026-03","days":31,"hi":73.3,"lo":48.0,"max":89.8,"min":36.3,"rain":0.05,"frost":0,"gust":31.99,"sun":4.04,"uv":6.2,"uvMax":8},{"ym":"2026-04","days":30,"hi":64.7,"lo":39.2,"max":78.6,"min":30.4,"rain":0.6,"frost":3,"gust":31.99,"sun":4.7,"uv":7.7,"uvMax":10},{"ym":"2026-05","days":31,"hi":71.2,"lo":43.5,"max":90.1,"min":32.9,"rain":0,"frost":0,"gust":31.99,"sun":5.9,"uv":7.9,"uvMax":11},{"ym":"2026-06","days":30,"hi":78.6,"lo":48.8,"max":88.9,"min":39.7,"rain":0,"frost":0,"gust":23.93,"sun":6.29,"uv":8.2,"uvMax":11},{"ym":"2026-07","days":31,"hi":87.6,"lo":57.5,"max":98.8,"min":43.2,"rain":0.01,"frost":0,"gust":25.05,"sun":5.58,"uv":7.6,"uvMax":11},{"ym":"2026-08","days":31,"hi":90.7,"lo":60.8,"max":97.5,"min":52,"rain":0,"frost":0,"gust":26.17,"sun":5.07,"uv":7.4,"uvMax":9},{"ym":"2026-09","days":30,"hi":80.1,"lo":53.3,"max":96.3,"min":43,"rain":0.99,"frost":0,"gust":29.75,"sun":3.95,"uv":6.5,"uvMax":10},{"ym":"2026-10","days":15,"hi":78.3,"lo":54.5,"max":90.7,"min":34.2,"rain":0.63,"frost":0,"gust":31.99,"sun":3.3,"uv":6.1,"uvMax":9}],"recent":[{"d":"2026-10-02","hi":89.4,"lo":64.9,"rain":0,"gust":14.76,"sun":3.86,"uv":6,"uvAt":"11:55"},{"d":"2026-10-03","hi":85.5,"lo":62.1,"rain":0,"gust":19.46,"sun":3.85,"uv":6,"uvAt":"12:01"},{"d":"2026-10-04","hi":88,"lo":60.3,"rain":0,"gust":21.7,"sun":3.83,"uv":6,"uvAt":"12:01"},{"d":"2026-10-05","hi":87.4,"lo":59.9,"rain":0,"gust":13.65,"sun":3.72,"uv":6,"uvAt":"12:57"},{"d":"2026-10-06","hi":88.3,"lo":63.5,"rain":0,"gust":18.34,"sun":3.72,"uv":6,"uvAt":"12:34"},{"d":"2026-10-07","hi":90.7,"lo":62.1,"rain":0,"gust":11.41,"sun":3.37,"uv":6,"uvAt":"11:41"},{"d":"2026-10-08","hi":89.1,"lo":59.5,"rain":0,"gust":18.34,"sun":3.0,"uv":6,"uvAt":"13:34"},{"d":"2026-10-09","hi":83.3,"lo":52.7,"rain":0,"gust":21.7,"sun":3.63,"uv":5,"uvAt":"10:54"},{"d":"2026-10-10","hi":74.1,"lo":52.3,"rain":0.15,"gust":30.87,"sun":1.53,"uv":4,"uvAt":"12:55"},{"d":"2026-10-11","hi":58.5,"lo":47.1,"rain":0.472,"gust":31.99,"sun":2.13,"uv":9,"uvAt":"13:07"},{"d":"2026-10-12","hi":57.2,"lo":42.1,"rain":0.008,"gust":28.63,"sun":2.67,"uv":8,"uvAt":"13:05"},{"d":"2026-10-13","hi":55.8,"lo":34.2,"rain":0,"gust":25.05,"sun":3.24,"uv":7,"uvAt":"11:43"},{"d":"2026-10-14","hi":67.6,"lo":42.4,"rain":0,"gust":13.65,"sun":3.54,"uv":5,"uvAt":"11:01"},{"d":"2026-10-15","hi":69.8,"lo":57.2,"rain":0,"gust":27.29,"sun":3.51,"uv":5,"uvAt":"11:04"}]}</script>
 <script id="farm-brief" type="application/json">"## Site\n- 5 acres in Phelan, CA, about 4,330-4,360 ft. Mojave / high-desert transition (Joshua tree, juniper, creosote scrub). Alkaline sandy alluvium assumed until a soil test says otherwise. Fenced field about 181 x 100 m. A wash draining ~50 ha crosses the property.\n- The station's first year (Oct 2025-Sep 2026) was a wet El Nino year: 24 in of rain, ~21 in of it Nov-Feb, one storm of 8.4 in in 22 hours. Long-term normals are far drier (roughly 6-14 in, unverified), so storage is sized for a dry year of 6-8 in.\n- Winds: S/SW gusts most of the year, NE Santa Anas in fall.\n- Water is hauled at $60 per 1,000 gal. The existing well is weak and its yield has never been tested. Mature farm demand in the plan is ~211-231k gal/yr (about $12.7-13.9k/yr if hauled).\n\n## Owner's decisions (Oct 2026; these override older plan documents)\n1. Goal: self-sufficiency. The farm feeds the household first (groceries not bought count as income) and aims to cover the household's current bills.\n2. Time: 4-16 hours a week beside a day job. Automate first (drip on timers, deep mulch, deep-litter pens). Start with low-hours income: eggs, pig shares, nursery stock from cuttings.\n3. Pond: an unlined regeneration / recharge basin that fills in storms and soaks in. Water for later pumping goes in covered tanks.\n4. Pigs: at most 9 at a time, two batches a year finishing spring and fall (16-18 pigs/yr) on KNF deep litter.\n\n## Design rules\n1. Plan in Regrarians order: climate, geography, water, access, ecosystems, buildings, fences, soils, economy, energy.\n2. Water is the binding constraint and arrives in pulses: design for the 8-inch storm and the six dry months at once. Plan every overflow as a resource.\n3. Rank enterprises by net $ per 1,000 gal and per labour hour. Under ~$60 per 1,000 gal loses money on hauled water. Plan figures: pork ~$621, nursery ~$393, jujube ~$53, pomegranate ~$50, stone fruit $9-13 per 1,000 gal.\n4. Desert-adapted keyline: few swales; keyline pattern cultivation (a subsoiler pass before winter rain), many small tree basins and half-moons sized with C:CA = (CWR - DR) / (DR x K x Eff), rock-armored spillways, off-channel storage. Passive treatments (cover, litter, animal impact) before earthworks.\n5. Open water evaporates (~2 m/yr). Store water in soil and covered tanks; ponds are for recharge.\n6. Biome model: desert wash / mesquite bosque with a pinyon-juniper edge (honey mesquite, desert willow, blue elderberry, saltbush, Apache plume, pinyon, juniper). Main crops by water return: jujube, pomegranate, pistachio, grape, fig. Stone fruit at home scale only. Grow mass plantings from seed and cuttings to find adapted genetics.\n7. Windbreaks (S/SW and W, consider NE for Santa Anas), shade and wood-chip mulch come before any soil input.\n8. Soil biology needs moisture: KNF/JADAM inputs only where water already goes (basins, drip zones, compost, deep-litter pens).\n9. Revegetating the wash: vertical mulch, one-rock dams, media lunas and protected transplants first; seed balls only as a cheap extra before winter rain.\n10. Income realism: primary production nets about $17.6-31.6k/yr at maturity, so cash also has to come from nursery stock, water-harvesting design-install work, education and value-added products, with the farm as the demonstration.\nTwo tests for any new project: does it cut a household cost or bring in more per 1,000 gal and per hour than what it replaces? Does it fit the 4-16 hour week?\n\n## Recommended plan changes (ranked)\n1. Test the well first: a drawdown and recovery test (4 h pumping, 4 h recovery, roughly $500-1,500), the DWR well completion report and a water quality test. Plan on hauled water until then. Even 1 GPM into a tank on a timer is ~175k gal/yr.\n2. Pond as an unlined recharge basin sized for the big storms, edges planted with natives and willow cuttings, spillways rock-armored. Two or three 10-20k gal covered tanks fed by roof and pad runoff (~$0.80-1.50/gal installed).\n3. Keep the cutoff swale above the building pad and one keyline row; replace other swales with keyline cultivation, tree basins and armored spillways. Jujube or pomegranate needs a catchment about 4x the basin area in an average year, far more in a dry one; closer rows need drip.\n4. Defer aquaponics 3-5 years (energy, water treatment, CDFW permits).\n5. Pigs: shaded KNF deep-litter pen (~90 cm wood chips and sawdust with IMO), batches timed to miss July-August heat; pigs over 100 lb are in danger above 80 F. Sell live-animal shares priced per head or live weight.\n6. Income lines in order: desert-adapted nursery; water-harvesting and keyline design-install services for High Desert lots; workshops and tours; value-added (dried jujube, pomegranate molasses, tea blends, jam).\n7. Fruit: jujube (Li, Lang, Sugar Cane, Honey Jar), pomegranate (Wonderful, Parfianka, Kashmir Blend), pistachio with a male pollinizer, grapes on the north-fence trellis; stone fruit near the house. Keep the asparagus bed.\n8. Bees: start with 4-6 hives, shaded water, drought-blooming forage (desert willow, mesquite, rosemary, sages, globemallow); plan for Africanized genetics.\n9. Apply for NRCS EQIP before planting windbreaks and drip; nothing installed before the contract is signed is paid.\n10. Laundry-to-landscape greywater to zone 1 tree basins: ~10-15k gal/yr for ~$200-400 in parts.\n\nOrder of work: holistic context and well test; EQIP application and county hog question; cutoff swale, recharge basin and keyline subsoiling before winter rain; windbreaks and first jujube and pomegranate rows with basins and drip, plus greywater; nursery licence and propagation; deep-litter pig pen (first batch of up to 9 in spring) and 4-6 hives; value-added products and services.\n\n## Rules and permits (researched Oct 2026; confirm with the agency before spending)\n- Groundwater: Mojave Water Agency adjudicated basin. Under 10 acre-feet/yr is a Minimal Producer (fee on the tax bill). A new well needs an MWA Notice of Intent 15 days before drilling.\n- County RL zone: hogs 1 per 20,000 sq ft, max 9, as a primary use (confirm with Land Use Services); roosters need 1 acre, max 9; pens 70 ft from neighbours' homes and 100 ft from domestic wells.\n- Meat: live-animal shares under custom-exempt rules; retail cuts need USDA-inspected slaughter.\n- Eggs: CDFA egg handler registration ($75, then $50/yr), keep at 45 F or colder, cage-free required. A farm stand under a county Community Food Producer registration allows up to 15 dozen a month.\n- Cottage food Class A covers jams, dried fruit and dried tea blends. Nursery sales need a CDFA nursery licence, county inspection and seller's permit. Bees need yearly county apiary registration.\n- Earthworks need a county grading permit; work in the wash may need a CDFW 1602 agreement. Rooftop rainwater needs no water right.\n- Funding: NRCS EQIP (beginning farmer rates, advance payment, apply before the mid-January cutoff), USDA FSA microloans, Mojave Desert RCD, Western SARE grants, CDFA Healthy Soils (producer funding expected 2027).\n\n## Open questions\nWell yield and water quality; a soil test (texture, pH, EC, SAR, caliche depth); a percolation test at the recharge basin; long-term rainfall normals for the parcel; which income lines the owner wants to run.\n"</script>
 
 <div class="wrap">
@@ -379,6 +394,26 @@ footer{font-size:.82rem;color:var(--muted);text-align:center;max-width:70ch;marg
       <p class="fine">Estimated from the station's sun sensor: sun hours × system size × efficiency. The sensor lies flat, and panels tilted toward the south usually collect more, especially in winter. Winter readings here also look low, possibly from shading, so treat these numbers as a floor.</p>
     </section>
   </div>
+
+  <section class="panel seeds" id="seeds">
+    <div class="eyebrow">Seed &amp; propagation notes</div>
+    <h2>My seeds</h2>
+    <p class="muted" style="margin:6px 0 0;max-width:65ch">Save what you have for each plant: variety, source, amount and when you collected it. Your notes show on the calendar tasks and in the garden chat.</p>
+    <form class="seedform" id="seedForm">
+      <label for="sdPlant">Plant<select id="sdPlant"></select></label>
+      <label for="sdVariety">Variety<input id="sdVariety" type="text" placeholder="e.g. Cherokee Purple"></label>
+      <label for="sdSource">Source<input id="sdSource" type="text" placeholder="e.g. saved from 2026 crop, Baker Creek"></label>
+      <label for="sdQty">Amount<input id="sdQty" type="text" placeholder="e.g. about 40 seeds"></label>
+      <label for="sdDate">Collected or packed<input id="sdDate" type="date"></label>
+      <label class="wide" for="sdNotes">Notes<textarea id="sdNotes" rows="2" placeholder="Germination, storage, how to propagate, what worked…"></textarea></label>
+      <div class="seedbtns">
+        <button class="btn primary" type="submit">Save seed info</button>
+        <button class="btn" type="button" id="sdClear">Clear this plant</button>
+        <span class="muted" id="seedMsg"></span>
+      </div>
+    </form>
+    <div class="seedlist" id="seedList"></div>
+  </section>
 
   <section class="panel chat" id="ask">
     <div>
@@ -543,7 +578,10 @@ function taskList(from, to){
 function taskHTML({c, ev, a, b}, mode){
   const when = mode === "now" ? "until " + fmtMD(dateOf(b)) : "from " + fmtMD(dateOf(a));
   const tip = ev.note || c.tip ? '<span class="tip">' + (ev.note || c.tip) + "</span>" : "";
-  return '<div class="task"><span class="chip ' + ev.t + '">' + labelFor(c, ev.t) + '</span><div><b>' + c.n + "</b>" + tip + '</div><span class="when">' + when + "</span></div>";
+  const seed = seedText(c);
+  return '<div class="task"><span class="chip ' + ev.t + '">' + labelFor(c, ev.t) + '</span><div><b>' + plantLink(c) + "</b>" + tip +
+    (seed ? '<span class="tip">My seeds: ' + esc(seed) + "</span>" : "") +
+    '</div><span class="when">' + when + "</span></div>";
 }
 function renderTasks(){
   const wk = new Date(today); wk.setDate(wk.getDate() - wk.getDay());
@@ -554,7 +592,7 @@ function renderTasks(){
   const soon = taskList(TODAY + 7, TODAY + 28).filter(x => x.a > TODAY + 6 && !nowKeys.has(x.c.n + x.ev.t)).sort((x, y) => x.a - y.a);
   const work = now.filter(x => x.ev.t !== "harvest"), ready = now.filter(x => x.ev.t === "harvest");
   $("nowList").innerHTML = work.length ? work.map(x => taskHTML(x, "now")).join("") : '<div class="muted">No planting this week. Weed, mulch and plan.</div>';
-  $("readyList").innerHTML = ready.length ? ready.map(x => "<span>" + x.c.n + "</span>").join("") : '<span style="border-color:var(--line)">Nothing yet</span>';
+  $("readyList").innerHTML = ready.length ? ready.map(x => "<span>" + plantLink(x.c) + "</span>").join("") : '<span style="border-color:var(--line)">Nothing yet</span>';
   $("soonList").innerHTML = soon.length ? soon.slice(0, 8).map(x => taskHTML(x, "soon")).join("") : '<div class="muted">Nothing new starts in the next 4 weeks.</div>';
 }
 
@@ -574,7 +612,7 @@ function renderGantt(){
       const title = labelFor(c, ev.t) + ": " + fmtMD(dateOf(a)) + " – " + fmtMD(dateOf(b)) + (ev.note ? ". " + ev.note : "");
       bars += '<div class="bar ' + ev.t + '" style="left:' + pct(a) + ';width:calc(' + pct(b) + " - " + pct(a) + ' + 2px)" title="' + title + '"></div>';
     }
-    html += '<div class="grow"><div class="name"><span>' + sub + c.n + '</span><button class="rm" type="button" data-rm="' + encodeURIComponent(c.n) + '" aria-label="Remove ' + c.n + ' from my list" title="Remove from my list">×</button></div><div class="track">' + bars + "</div></div>";
+    html += '<div class="grow"><div class="name"><span>' + sub + plantLink(c) + '</span><span class="acts"><button class="rm' + (SEEDS[c.n] ? " has" : "") + '" type="button" data-seed="' + encodeURIComponent(c.n) + '" aria-label="Seed notes for ' + esc(c.n) + '" title="Seed notes">✎</button><button class="rm" type="button" data-rm="' + encodeURIComponent(c.n) + '" aria-label="Remove ' + esc(c.n) + ' from my list" title="Remove from my list">×</button></span></div><div class="track">' + bars + "</div></div>";
   }
   html += '<div class="lines">' +
     '<div class="vline" style="left:' + pct(L) + '"></div><span class="flag" style="left:' + pct(L) + '">Last frost</span>' +
@@ -841,6 +879,7 @@ function context(){
     "CALENDAR — this week: " + (weekTasks || "nothing scheduled") + ". Next 4 weeks: " + (soonTasks || "nothing new") + ".",
     "CROP GUIDE (every crop the gardener grows, with this year's windows from the frost dates above):",
     cropGuide(),
+    Object.keys(SEEDS).length ? "THE GARDENER'S SEED NOTES: " + ALL_CROPS.filter(c => seedText(c)).map(c => c.n + " - " + seedText(c)).join("; ") + "." : "",
     REMOVED.size ? "The gardener removed these from their list, so don't suggest them unless asked: " + [...REMOVED].join("; ") + "." : "",
     "FARM BRIEF:",
     FARM,
@@ -898,6 +937,54 @@ function chatUnavailable(){
   }
 }
 
+// ---------- plant links, seed notes ----------
+const esc = s => String(s).replace(/[&<>"']/g, ch => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch]));
+const plantUrl = c => "https://www.google.com/search?q=" + encodeURIComponent(c.n.replace(/\s*&\s*/g, " and ") + " how to grow high desert");
+const plantLink = c => '<a class="plantlink" href="' + esc(plantUrl(c)) + '" target="_blank" rel="noopener">' + esc(c.n) + "</a>";
+const readSeeds = () => { try { return JSON.parse(store.get("gc_seeds") || "{}") || {}; } catch { return {}; } };
+let SEEDS = readSeeds(), seedsDoc = null, seedSaving = Promise.resolve();
+const SEED_FIELDS = [["variety", "sdVariety"], ["source", "sdSource"], ["qty", "sdQty"], ["date", "sdDate"], ["notes", "sdNotes"]];
+function seedText(c){
+  const s = SEEDS[c.n]; if (!s) return "";
+  return [s.variety, s.source && "from " + s.source, s.qty, s.date && "collected " + fmtISO(s.date), s.notes].filter(Boolean).join("; ");
+}
+function fillSeedForm(){
+  const s = SEEDS[$("sdPlant").value] || {};
+  SEED_FIELDS.forEach(([k, id]) => $(id).value = s[k] || "");
+}
+function renderSeeds(){
+  const sel = $("sdPlant");
+  if (!sel.options.length) sel.innerHTML = Object.keys(CAT).map(k => '<optgroup label="' + CAT[k] + '">' + ALL_CROPS.filter(c => c.c === k).map(c => '<option value="' + esc(c.n) + '">' + esc(c.n) + "</option>").join("") + "</optgroup>").join("");
+  const items = ALL_CROPS.filter(c => SEEDS[c.n]);
+  $("seedList").innerHTML = items.length ? items.map(c => '<div class="seeditem"><div><b>' + plantLink(c) + '</b></div><span class="tip">' + esc(seedText(c)) + "</span><div>" +
+    '<button class="cal" type="button" data-edit="' + encodeURIComponent(c.n) + '">Edit</button></div></div>').join("") : '<div class="muted">No seed notes yet. Pick a plant above and save what you have.</div>';
+}
+function saveSeeds(){
+  store.set("gc_seeds", JSON.stringify(SEEDS));
+  renderSeeds(); renderTasks(); renderGantt();
+  if (!seedsDoc) return;
+  seedSaving = seedSaving.then(() => seedsDoc.set({items: SEEDS})).catch(e => {
+    $("seedMsg").textContent = e && e.code === "invalid_argument" ? "Saved in this browser only. Only the page owner or editors can save it to the page." : "Couldn't save that change. Try again in a moment.";
+  });
+}
+function openSeedForm(name){
+  $("sdPlant").value = name; fillSeedForm();
+  $("seeds").scrollIntoView({behavior: "smooth", block: "start"});
+  $("sdVariety").focus({preventScroll: true});
+}
+$("sdPlant").addEventListener("change", () => { $("seedMsg").textContent = ""; fillSeedForm(); });
+$("seedForm").addEventListener("submit", e => {
+  e.preventDefault();
+  const name = $("sdPlant").value, s = {};
+  SEED_FIELDS.forEach(([k, id]) => { const v = $(id).value.trim(); if (v) s[k] = v; });
+  if (Object.keys(s).length) SEEDS[name] = s; else delete SEEDS[name];
+  $("seedMsg").textContent = "Saved.";
+  saveSeeds();
+});
+$("sdClear").onclick = () => { delete SEEDS[$("sdPlant").value]; fillSeedForm(); $("seedMsg").textContent = "Cleared."; saveSeeds(); };
+$("seedList").addEventListener("click", e => { const b = e.target.closest("[data-edit]"); if (b) openSeedForm(decodeURIComponent(b.dataset.edit)); });
+$("gantt").addEventListener("click", e => { const b = e.target.closest("[data-seed]"); if (b) openSeedForm(decodeURIComponent(b.dataset.seed)); });
+
 // ---------- removing plants from the list ----------
 let removedDoc = null, saving = Promise.resolve();
 function applyRemoved(names){
@@ -933,6 +1020,17 @@ renderRemoved();
   let db = null;
   try { db = window.claude ? await window.claude.use("db") : null; } catch { db = null; }
   if (!db) return;
+  seedsDoc = db.doc("garden/seeds");
+  seedsDoc.onSnapshot(snap => {
+    if (snap.exists){
+      SEEDS = snap.data().items || {};
+      store.set("gc_seeds", JSON.stringify(SEEDS));
+    } else if (Object.keys(SEEDS).length){
+      seedsDoc.set({items: SEEDS}).catch(() => {});
+    }
+    renderSeeds(); renderTasks(); renderGantt();
+    if (!$("seedForm").contains(document.activeElement)) fillSeedForm();
+  }, () => { seedsDoc = null; });
   removedDoc = db.doc("garden/removed");
   removedDoc.onSnapshot(snap => {
     const names = snap.exists ? (snap.data().names || []) : [];
@@ -984,7 +1082,7 @@ $("adjF").onchange = e => { if (e.target.value){ store.set("gc_F", e.target.valu
 $("adjReset").onclick = () => { store.del("gc_L"); store.del("gc_F"); rerender(); };
 function rerender(){ setFrost(); renderTasks(); renderGantt(); }
 
-setFrost(); renderHeader(); renderStorm(); renderConditions(); renderTasks(); renderGantt(); renderClimate(); renderRecent(); renderUV(); renderSolar();
+setFrost(); renderHeader(); renderStorm(); renderConditions(); renderTasks(); renderGantt(); renderClimate(); renderRecent(); renderUV(); renderSolar(); renderSeeds(); fillSeedForm();
 
 // ---------- live station data ----------
 const AW = "https://lightning.ambientweather.net";
@@ -1019,3 +1117,4 @@ async function goLive(){
 if (!window.claude){ goLive(); setInterval(() => { if (!document.hidden) goLive(); }, 5 * 60 * 1000); }
 })();
 </script>
+
