@@ -10,76 +10,76 @@
   "elevationFt": 4355,
   "dashboard": "https://ambientweather.net/dashboard/b937402f7843146297e761ffeb631e2a"
  },
- "updated": "2026-10-16T12:25-07:00",
+ "updated": "2026-10-16T14:42-07:00",
  "current": {
-  "tempf": 69.3,
-  "feelsLike": 67.66900000000001,
-  "humidity": 37,
-  "windspeedmph": 4.7,
+  "tempf": 72.9,
+  "feelsLike": 71.488,
+  "humidity": 34,
+  "windspeedmph": 2.46,
   "windgustmph": 5.82,
-  "maxdailygust": 17.22,
-  "winddir": 113,
-  "uv": 5,
-  "solarradiation": 572.94,
+  "maxdailygust": 19.46,
+  "winddir": 77,
+  "uv": 4,
+  "solarradiation": 430.36,
   "hourlyrainin": 0,
   "dailyrainin": 0,
   "weeklyrainin": 0.008,
   "monthlyrainin": 0.5,
   "yearlyrainin": 23.35,
-  "baromrelin": 30.064,
-  "dateutc": 1792178640000,
+  "baromrelin": 30.017,
+  "dateutc": 1792186920000,
   "lastRain": 1791810120000,
-  "todayHi": 69.8,
+  "todayHi": 72.9,
   "todayLo": 56.3,
-  "todaySun": 1.63,
-  "todaySunPeak": 574.11,
+  "todaySun": 2.84,
+  "todaySunPeak": 574.48,
   "todayUV": 5,
   "todayUVAt": "11:10"
  },
  "forecast": {
-  "fetched": "2026-10-16T12:25-07:00",
+  "fetched": "2026-10-16T14:42-07:00",
   "days": [
    {
     "d": "2026-10-16",
     "high": 69,
-    "low": 50,
-    "precip": 2
-   },
-   {
-    "d": "2026-10-17",
-    "high": 67,
-    "low": 49,
+    "low": 51,
     "precip": 1
    },
    {
+    "d": "2026-10-17",
+    "high": 68,
+    "low": 49,
+    "precip": 4
+   },
+   {
     "d": "2026-10-18",
-    "high": 69,
+    "high": 68,
     "low": 50,
-    "precip": 0
+    "precip": 1
    },
    {
     "d": "2026-10-19",
-    "high": 69,
+    "high": 68,
     "low": 46,
-    "precip": 10
+    "precip": 3
    },
    {
     "d": "2026-10-20",
-    "high": 59,
-    "low": 43,
-    "precip": 53
+    "high": 60,
+    "low": 44,
+    "precip": 58
    },
    {
     "d": "2026-10-21",
     "high": 53,
-    "low": 40,
-    "precip": 61
+    "low": 43,
+    "precip": 68
    },
    {
     "d": "2026-10-22",
-    "high": 54,
-    "low": 40,
-    "precip": 26
+    "high": 52,
+    "low": 41,
+    "precip": 45
    }
   ]
  },
