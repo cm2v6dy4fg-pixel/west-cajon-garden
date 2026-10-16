@@ -31,7 +31,8 @@
 }
 *{box-sizing:border-box}
 body{background:var(--ground);color:var(--ink);font:16px/1.5 var(--body);padding-inline:16px;padding-block:24px 56px}
-.wrap{max-width:1120px;margin:0 auto;display:grid;gap:20px}
+.wrap{max-width:1120px;margin:0 auto;display:grid;grid-template-columns:minmax(0,1fr);gap:20px}
+.wrap>*{min-width:0}
 h1,h2,h3{font-family:var(--display);margin:0;text-wrap:balance;line-height:1.1}
 h1{font-size:clamp(2rem,5vw,3rem);font-weight:800;letter-spacing:-.02em}
 h2{font-size:1.35rem;font-weight:700}
@@ -197,10 +198,11 @@ footer{font-size:.82rem;color:var(--muted);text-align:center;max-width:70ch;marg
 .cal:hover{border-color:var(--accent)}
 .grow .name .acts{display:flex;flex:none}
 .rm.has{color:var(--accent);border-color:var(--line)}
-.seedform{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-top:14px}
+.seedform{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(200px,100%),1fr));gap:12px;margin-top:14px}
+.seedform label{min-width:0}
 .seedform label{display:grid;gap:3px;font-size:.88rem;color:var(--muted)}
 .seedform .wide{grid-column:1/-1}
-.seedform input,.seedform select,.seedform textarea{padding:8px 10px;border:1px solid var(--line);border-radius:6px;background:var(--panel);font-size:16px}
+.seedform input,.seedform select,.seedform textarea{width:100%;min-width:0;box-sizing:border-box;padding:8px 10px;border:1px solid var(--line);border-radius:6px;background:var(--panel);font-size:16px}
 .seedbtns{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:8px;align-items:center}
 .seedlist{display:grid;gap:8px;margin-top:16px}
 .seeditem{display:grid;gap:2px;padding:10px 12px;border-radius:8px;background:var(--soft)}
