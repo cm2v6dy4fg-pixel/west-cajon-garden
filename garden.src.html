@@ -1,4 +1,3 @@
-
 <meta charset="utf-8">
 <title>West Cajon Garden</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -191,6 +190,22 @@ footer{font-size:.82rem;color:var(--muted);text-align:center;max-width:70ch;marg
 .storm-foot .note{flex:1 1 220px;min-width:0}
 @media (max-width:900px){.storm-days{grid-template-columns:repeat(4,minmax(0,1fr))}}
 
+/* plant links, seed notes */
+.plantlink{color:inherit;text-decoration:underline dotted;text-decoration-color:var(--muted);text-underline-offset:3px}
+.plantlink:hover{color:var(--accent)}
+.cal{display:inline-block;margin:4px 8px 0 0;padding:2px 8px;border:1px solid var(--line);border-radius:999px;font:600 .68rem var(--mono);color:var(--accent);text-decoration:none;background:var(--panel);cursor:pointer}
+.cal:hover{border-color:var(--accent)}
+.grow .name .acts{display:flex;flex:none}
+.rm.has{color:var(--accent);border-color:var(--line)}
+.seedform{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-top:14px}
+.seedform label{display:grid;gap:3px;font-size:.88rem;color:var(--muted)}
+.seedform .wide{grid-column:1/-1}
+.seedform input,.seedform select,.seedform textarea{padding:8px 10px;border:1px solid var(--line);border-radius:6px;background:var(--panel);font-size:16px}
+.seedbtns{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.seedlist{display:grid;gap:8px;margin-top:16px}
+.seeditem{display:grid;gap:2px;padding:10px 12px;border-radius:8px;background:var(--soft)}
+.seeditem .tip{font-size:.88rem;color:var(--muted)}
+
 /* mobile touch + layout refinements */
 .tablewrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
 @media (max-width:640px){
@@ -380,6 +395,26 @@ footer{font-size:.82rem;color:var(--muted);text-align:center;max-width:70ch;marg
     </section>
   </div>
 
+  <section class="panel seeds" id="seeds">
+    <div class="eyebrow">Seed &amp; propagation notes</div>
+    <h2>My seeds</h2>
+    <p class="muted" style="margin:6px 0 0;max-width:65ch">Save what you have for each plant: variety, source, amount and when you collected it. Your notes show on the calendar tasks and in the garden chat.</p>
+    <form class="seedform" id="seedForm">
+      <label for="sdPlant">Plant<select id="sdPlant"></select></label>
+      <label for="sdVariety">Variety<input id="sdVariety" type="text" placeholder="e.g. Cherokee Purple"></label>
+      <label for="sdSource">Source<input id="sdSource" type="text" placeholder="e.g. saved from 2026 crop, Baker Creek"></label>
+      <label for="sdQty">Amount<input id="sdQty" type="text" placeholder="e.g. about 40 seeds"></label>
+      <label for="sdDate">Collected or packed<input id="sdDate" type="date"></label>
+      <label class="wide" for="sdNotes">Notes<textarea id="sdNotes" rows="2" placeholder="Germination, storage, how to propagate, what worked…"></textarea></label>
+      <div class="seedbtns">
+        <button class="btn primary" type="submit">Save seed info</button>
+        <button class="btn" type="button" id="sdClear">Clear this plant</button>
+        <span class="muted" id="seedMsg"></span>
+      </div>
+    </form>
+    <div class="seedlist" id="seedList"></div>
+  </section>
+
   <section class="panel chat" id="ask">
     <div>
       <div class="eyebrow">Garden chat</div>
@@ -543,7 +578,10 @@ function taskList(from, to){
 function taskHTML({c, ev, a, b}, mode){
   const when = mode === "now" ? "until " + fmtMD(dateOf(b)) : "from " + fmtMD(dateOf(a));
   const tip = ev.note || c.tip ? '<span class="tip">' + (ev.note || c.tip) + "</span>" : "";
-  return '<div class="task"><span class="chip ' + ev.t + '">' + labelFor(c, ev.t) + '</span><div><b>' + c.n + "</b>" + tip + '</div><span class="when">' + when + "</span></div>";
+  const seed = seedText(c);
+  return '<div class="task"><span class="chip ' + ev.t + '">' + labelFor(c, ev.t) + '</span><div><b>' + plantLink(c) + "</b>" + tip +
+    (seed ? '<span class="tip">My seeds: ' + esc(seed) + "</span>" : "") +
+    '</div><span class="when">' + when + "</span></div>";
 }
 function renderTasks(){
   const wk = new Date(today); wk.setDate(wk.getDate() - wk.getDay());
@@ -554,7 +592,7 @@ function renderTasks(){
   const soon = taskList(TODAY + 7, TODAY + 28).filter(x => x.a > TODAY + 6 && !nowKeys.has(x.c.n + x.ev.t)).sort((x, y) => x.a - y.a);
   const work = now.filter(x => x.ev.t !== "harvest"), ready = now.filter(x => x.ev.t === "harvest");
   $("nowList").innerHTML = work.length ? work.map(x => taskHTML(x, "now")).join("") : '<div class="muted">No planting this week. Weed, mulch and plan.</div>';
-  $("readyList").innerHTML = ready.length ? ready.map(x => "<span>" + x.c.n + "</span>").join("") : '<span style="border-color:var(--line)">Nothing yet</span>';
+  $("readyList").innerHTML = ready.length ? ready.map(x => "<span>" + plantLink(x.c) + "</span>").join("") : '<span style="border-color:var(--line)">Nothing yet</span>';
   $("soonList").innerHTML = soon.length ? soon.slice(0, 8).map(x => taskHTML(x, "soon")).join("") : '<div class="muted">Nothing new starts in the next 4 weeks.</div>';
 }
 
@@ -574,7 +612,7 @@ function renderGantt(){
       const title = labelFor(c, ev.t) + ": " + fmtMD(dateOf(a)) + " – " + fmtMD(dateOf(b)) + (ev.note ? ". " + ev.note : "");
       bars += '<div class="bar ' + ev.t + '" style="left:' + pct(a) + ';width:calc(' + pct(b) + " - " + pct(a) + ' + 2px)" title="' + title + '"></div>';
     }
-    html += '<div class="grow"><div class="name"><span>' + sub + c.n + '</span><button class="rm" type="button" data-rm="' + encodeURIComponent(c.n) + '" aria-label="Remove ' + c.n + ' from my list" title="Remove from my list">×</button></div><div class="track">' + bars + "</div></div>";
+    html += '<div class="grow"><div class="name"><span>' + sub + plantLink(c) + '</span><span class="acts"><button class="rm' + (SEEDS[c.n] ? " has" : "") + '" type="button" data-seed="' + encodeURIComponent(c.n) + '" aria-label="Seed notes for ' + esc(c.n) + '" title="Seed notes">✎</button><button class="rm" type="button" data-rm="' + encodeURIComponent(c.n) + '" aria-label="Remove ' + esc(c.n) + ' from my list" title="Remove from my list">×</button></span></div><div class="track">' + bars + "</div></div>";
   }
   html += '<div class="lines">' +
     '<div class="vline" style="left:' + pct(L) + '"></div><span class="flag" style="left:' + pct(L) + '">Last frost</span>' +
@@ -841,6 +879,7 @@ function context(){
     "CALENDAR — this week: " + (weekTasks || "nothing scheduled") + ". Next 4 weeks: " + (soonTasks || "nothing new") + ".",
     "CROP GUIDE (every crop the gardener grows, with this year's windows from the frost dates above):",
     cropGuide(),
+    Object.keys(SEEDS).length ? "THE GARDENER'S SEED NOTES: " + ALL_CROPS.filter(c => seedText(c)).map(c => c.n + " - " + seedText(c)).join("; ") + "." : "",
     REMOVED.size ? "The gardener removed these from their list, so don't suggest them unless asked: " + [...REMOVED].join("; ") + "." : "",
     "FARM BRIEF:",
     FARM,
@@ -898,6 +937,54 @@ function chatUnavailable(){
   }
 }
 
+// ---------- plant links, seed notes ----------
+const esc = s => String(s).replace(/[&<>"']/g, ch => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch]));
+const plantUrl = c => "https://www.google.com/search?q=" + encodeURIComponent(c.n.replace(/\s*&\s*/g, " and ") + " how to grow high desert");
+const plantLink = c => '<a class="plantlink" href="' + esc(plantUrl(c)) + '" target="_blank" rel="noopener">' + esc(c.n) + "</a>";
+const readSeeds = () => { try { return JSON.parse(store.get("gc_seeds") || "{}") || {}; } catch { return {}; } };
+let SEEDS = readSeeds(), seedsDoc = null, seedSaving = Promise.resolve();
+const SEED_FIELDS = [["variety", "sdVariety"], ["source", "sdSource"], ["qty", "sdQty"], ["date", "sdDate"], ["notes", "sdNotes"]];
+function seedText(c){
+  const s = SEEDS[c.n]; if (!s) return "";
+  return [s.variety, s.source && "from " + s.source, s.qty, s.date && "collected " + fmtISO(s.date), s.notes].filter(Boolean).join("; ");
+}
+function fillSeedForm(){
+  const s = SEEDS[$("sdPlant").value] || {};
+  SEED_FIELDS.forEach(([k, id]) => $(id).value = s[k] || "");
+}
+function renderSeeds(){
+  const sel = $("sdPlant");
+  if (!sel.options.length) sel.innerHTML = Object.keys(CAT).map(k => '<optgroup label="' + CAT[k] + '">' + ALL_CROPS.filter(c => c.c === k).map(c => '<option value="' + esc(c.n) + '">' + esc(c.n) + "</option>").join("") + "</optgroup>").join("");
+  const items = ALL_CROPS.filter(c => SEEDS[c.n]);
+  $("seedList").innerHTML = items.length ? items.map(c => '<div class="seeditem"><div><b>' + plantLink(c) + '</b></div><span class="tip">' + esc(seedText(c)) + "</span><div>" +
+    '<button class="cal" type="button" data-edit="' + encodeURIComponent(c.n) + '">Edit</button></div></div>').join("") : '<div class="muted">No seed notes yet. Pick a plant above and save what you have.</div>';
+}
+function saveSeeds(){
+  store.set("gc_seeds", JSON.stringify(SEEDS));
+  renderSeeds(); renderTasks(); renderGantt();
+  if (!seedsDoc) return;
+  seedSaving = seedSaving.then(() => seedsDoc.set({items: SEEDS})).catch(e => {
+    $("seedMsg").textContent = e && e.code === "invalid_argument" ? "Saved in this browser only. Only the page owner or editors can save it to the page." : "Couldn't save that change. Try again in a moment.";
+  });
+}
+function openSeedForm(name){
+  $("sdPlant").value = name; fillSeedForm();
+  $("seeds").scrollIntoView({behavior: "smooth", block: "start"});
+  $("sdVariety").focus({preventScroll: true});
+}
+$("sdPlant").addEventListener("change", () => { $("seedMsg").textContent = ""; fillSeedForm(); });
+$("seedForm").addEventListener("submit", e => {
+  e.preventDefault();
+  const name = $("sdPlant").value, s = {};
+  SEED_FIELDS.forEach(([k, id]) => { const v = $(id).value.trim(); if (v) s[k] = v; });
+  if (Object.keys(s).length) SEEDS[name] = s; else delete SEEDS[name];
+  $("seedMsg").textContent = "Saved.";
+  saveSeeds();
+});
+$("sdClear").onclick = () => { delete SEEDS[$("sdPlant").value]; fillSeedForm(); $("seedMsg").textContent = "Cleared."; saveSeeds(); };
+$("seedList").addEventListener("click", e => { const b = e.target.closest("[data-edit]"); if (b) openSeedForm(decodeURIComponent(b.dataset.edit)); });
+$("gantt").addEventListener("click", e => { const b = e.target.closest("[data-seed]"); if (b) openSeedForm(decodeURIComponent(b.dataset.seed)); });
+
 // ---------- removing plants from the list ----------
 let removedDoc = null, saving = Promise.resolve();
 function applyRemoved(names){
@@ -933,6 +1020,17 @@ renderRemoved();
   let db = null;
   try { db = window.claude ? await window.claude.use("db") : null; } catch { db = null; }
   if (!db) return;
+  seedsDoc = db.doc("garden/seeds");
+  seedsDoc.onSnapshot(snap => {
+    if (snap.exists){
+      SEEDS = snap.data().items || {};
+      store.set("gc_seeds", JSON.stringify(SEEDS));
+    } else if (Object.keys(SEEDS).length){
+      seedsDoc.set({items: SEEDS}).catch(() => {});
+    }
+    renderSeeds(); renderTasks(); renderGantt();
+    if (!$("seedForm").contains(document.activeElement)) fillSeedForm();
+  }, () => { seedsDoc = null; });
   removedDoc = db.doc("garden/removed");
   removedDoc.onSnapshot(snap => {
     const names = snap.exists ? (snap.data().names || []) : [];
@@ -984,7 +1082,7 @@ $("adjF").onchange = e => { if (e.target.value){ store.set("gc_F", e.target.valu
 $("adjReset").onclick = () => { store.del("gc_L"); store.del("gc_F"); rerender(); };
 function rerender(){ setFrost(); renderTasks(); renderGantt(); }
 
-setFrost(); renderHeader(); renderStorm(); renderConditions(); renderTasks(); renderGantt(); renderClimate(); renderRecent(); renderUV(); renderSolar();
+setFrost(); renderHeader(); renderStorm(); renderConditions(); renderTasks(); renderGantt(); renderClimate(); renderRecent(); renderUV(); renderSolar(); renderSeeds(); fillSeedForm();
 
 // ---------- live station data ----------
 const AW = "https://lightning.ambientweather.net";
@@ -1019,3 +1117,4 @@ async function goLive(){
 if (!window.claude){ goLive(); setInterval(() => { if (!document.hidden) goLive(); }, 5 * 60 * 1000); }
 })();
 </script>
+
