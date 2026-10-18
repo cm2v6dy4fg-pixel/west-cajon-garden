@@ -10,34 +10,34 @@
   "elevationFt": 4355,
   "dashboard": "https://ambientweather.net/dashboard/b937402f7843146297e761ffeb631e2a"
  },
- "updated": "2026-10-18T06:26-07:00",
+ "updated": "2026-10-18T12:19-07:00",
  "current": {
-  "tempf": 56.7,
-  "feelsLike": 56.7,
-  "humidity": 43,
-  "windspeedmph": 0,
-  "windgustmph": 0,
-  "maxdailygust": 4.47,
-  "winddir": 332,
-  "uv": 0,
-  "solarradiation": 0,
+  "tempf": 68.5,
+  "feelsLike": 66.601,
+  "humidity": 33,
+  "windspeedmph": 2.46,
+  "windgustmph": 3.36,
+  "maxdailygust": 9.17,
+  "winddir": 57,
+  "uv": 5,
+  "solarradiation": 574.66,
   "hourlyrainin": 0,
   "dailyrainin": 0,
   "weeklyrainin": 0.008,
   "monthlyrainin": 0.5,
   "yearlyrainin": 23.35,
-  "baromrelin": 29.914,
-  "dateutc": 1792329900000,
+  "baromrelin": 29.938,
+  "dateutc": 1792351080000,
   "lastRain": 1791810120000,
-  "todayHi": 56.8,
+  "todayHi": 69.4,
   "todayLo": 49.5,
-  "todaySun": 0.0,
-  "todaySunPeak": 0,
-  "todayUV": 0,
-  "todayUVAt": null
+  "todaySun": 1.14,
+  "todaySunPeak": 581.97,
+  "todayUV": 5,
+  "todayUVAt": "11:37"
  },
  "forecast": {
-  "fetched": "2026-10-18T06:26-07:00",
+  "fetched": "2026-10-18T12:19-07:00",
   "days": [
    {
     "d": "2026-10-18",
@@ -48,38 +48,38 @@
    {
     "d": "2026-10-19",
     "high": 70,
-    "low": 49,
-    "precip": 1
+    "low": 50,
+    "precip": 0
    },
    {
     "d": "2026-10-20",
-    "high": 66,
-    "low": 46,
-    "precip": 36
+    "high": 68,
+    "low": 49,
+    "precip": 9
    },
    {
     "d": "2026-10-21",
-    "high": 61,
+    "high": 62,
     "low": 43,
-    "precip": 76
+    "precip": 81
    },
    {
     "d": "2026-10-22",
-    "high": 54,
-    "low": 39,
-    "precip": 78
+    "high": 55,
+    "low": 40,
+    "precip": 72
    },
    {
     "d": "2026-10-23",
-    "high": 56,
-    "low": 40,
-    "precip": 4
+    "high": 57,
+    "low": 42,
+    "precip": 3
    },
    {
     "d": "2026-10-24",
-    "high": 58,
-    "low": 42,
-    "precip": 7
+    "high": 60,
+    "low": 43,
+    "precip": 1
    }
   ]
  },
