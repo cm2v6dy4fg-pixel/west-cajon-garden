@@ -10,76 +10,76 @@
   "elevationFt": 4355,
   "dashboard": "https://ambientweather.net/dashboard/b937402f7843146297e761ffeb631e2a"
  },
- "updated": "2026-10-19T06:42-07:00",
+ "updated": "2026-10-19T12:29-07:00",
  "current": {
-  "tempf": 54.7,
-  "feelsLike": 54.7,
-  "humidity": 46,
-  "windspeedmph": 1.12,
-  "windgustmph": 1.12,
-  "maxdailygust": 4.47,
-  "winddir": 215,
-  "uv": 0,
-  "solarradiation": 0.21,
+  "tempf": 73.6,
+  "feelsLike": 72.11699999999999,
+  "humidity": 31,
+  "windspeedmph": 4.03,
+  "windgustmph": 5.82,
+  "maxdailygust": 10.29,
+  "winddir": 16,
+  "uv": 5,
+  "solarradiation": 553.76,
   "hourlyrainin": 0,
   "dailyrainin": 0,
   "weeklyrainin": 0,
   "monthlyrainin": 0.5,
   "yearlyrainin": 23.35,
-  "baromrelin": 29.873,
-  "dateutc": 1792417320000,
+  "baromrelin": 29.855,
+  "dateutc": 1792438080000,
   "lastRain": 1791810120000,
-  "todayHi": 58.1,
+  "todayHi": 73.6,
   "todayLo": 49.1,
-  "todaySun": 0.0,
-  "todaySunPeak": 0.21,
-  "todayUV": 0,
-  "todayUVAt": null
+  "todaySun": 1.64,
+  "todaySunPeak": 556.2,
+  "todayUV": 5,
+  "todayUVAt": "11:21"
  },
  "forecast": {
-  "fetched": "2026-10-19T06:42-07:00",
+  "fetched": "2026-10-19T12:29-07:00",
   "days": [
    {
     "d": "2026-10-19",
     "high": 71,
     "low": 50,
-    "precip": 3
+    "precip": 2
    },
    {
     "d": "2026-10-20",
     "high": 68,
     "low": 47,
-    "precip": 11
+    "precip": 2
    },
    {
     "d": "2026-10-21",
     "high": 61,
     "low": 44,
-    "precip": 82
+    "precip": 84
    },
    {
     "d": "2026-10-22",
     "high": 55,
-    "low": 40,
-    "precip": 66
+    "low": 41,
+    "precip": 70
    },
    {
     "d": "2026-10-23",
     "high": 58,
     "low": 42,
-    "precip": 3
+    "precip": 1
    },
    {
     "d": "2026-10-24",
-    "high": 60,
-    "low": 43,
-    "precip": 2
+    "high": 62,
+    "low": 44,
+    "precip": 0
    },
    {
     "d": "2026-10-25",
-    "high": 61,
-    "low": 43,
-    "precip": 5
+    "high": 63,
+    "low": 45,
+    "precip": 2
    }
   ]
  },
