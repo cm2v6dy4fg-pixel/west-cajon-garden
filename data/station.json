@@ -10,76 +10,76 @@
   "elevationFt": 4355,
   "dashboard": "https://ambientweather.net/dashboard/b937402f7843146297e761ffeb631e2a"
  },
- "updated": "2026-10-26T08:09-07:00",
+ "updated": "2026-10-26T12:37-07:00",
  "current": {
-  "tempf": 53.8,
-  "feelsLike": 53.8,
-  "humidity": 60,
-  "windspeedmph": 2.01,
-  "windgustmph": 2.24,
-  "maxdailygust": 4.47,
-  "winddir": 145,
-  "uv": 0,
-  "solarradiation": 27.3,
+  "tempf": 64.2,
+  "feelsLike": 64.2,
+  "humidity": 48,
+  "windspeedmph": 5.59,
+  "windgustmph": 8.05,
+  "maxdailygust": 13.65,
+  "winddir": 33,
+  "uv": 5,
+  "solarradiation": 530.09,
   "hourlyrainin": 0,
   "dailyrainin": 0,
   "weeklyrainin": 0,
   "monthlyrainin": 1.941,
   "yearlyrainin": 24.791,
-  "baromrelin": 29.943,
-  "dateutc": 1793027340000,
+  "baromrelin": 29.935,
+  "dateutc": 1793043360000,
   "lastRain": 1792752780000,
-  "todayHi": 54.7,
+  "todayHi": 65.7,
   "todayLo": 46.6,
-  "todaySun": 0.02,
-  "todaySunPeak": 46.72,
-  "todayUV": 0,
-  "todayUVAt": null
+  "todaySun": 1.59,
+  "todaySunPeak": 531.37,
+  "todayUV": 5,
+  "todayUVAt": "11:41"
  },
  "forecast": {
-  "fetched": "2026-10-26T08:09-07:00",
+  "fetched": "2026-10-26T12:37-07:00",
   "days": [
    {
     "d": "2026-10-26",
-    "high": 66,
-    "low": 44,
-    "precip": 0
-   },
-   {
-    "d": "2026-10-27",
     "high": 65,
-    "low": 44,
-    "precip": 0
-   },
-   {
-    "d": "2026-10-28",
-    "high": 62,
     "low": 45,
     "precip": 0
    },
    {
-    "d": "2026-10-29",
-    "high": 60,
+    "d": "2026-10-27",
+    "high": 64,
     "low": 44,
-    "precip": 4
+    "precip": 2
+   },
+   {
+    "d": "2026-10-28",
+    "high": 62,
+    "low": 46,
+    "precip": 0
+   },
+   {
+    "d": "2026-10-29",
+    "high": 59,
+    "low": 44,
+    "precip": 3
    },
    {
     "d": "2026-10-30",
-    "high": 57,
-    "low": 42,
-    "precip": 12
+    "high": 54,
+    "low": 43,
+    "precip": 17
    },
    {
     "d": "2026-10-31",
-    "high": 53,
-    "low": 42,
-    "precip": 58
+    "high": 51,
+    "low": 43,
+    "precip": 57
    },
    {
     "d": "2026-11-01",
-    "high": 50,
-    "low": 39,
-    "precip": 58
+    "high": 48,
+    "low": 40,
+    "precip": 57
    }
   ]
  },
