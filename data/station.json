@@ -10,76 +10,76 @@
   "elevationFt": 4355,
   "dashboard": "https://ambientweather.net/dashboard/b937402f7843146297e761ffeb631e2a"
  },
- "updated": "2026-10-28T06:52-07:00",
+ "updated": "2026-10-28T12:42-07:00",
  "current": {
-  "tempf": 39.7,
-  "feelsLike": 39.7,
-  "humidity": 94,
-  "windspeedmph": 2.24,
-  "windgustmph": 2.24,
-  "maxdailygust": 4.47,
-  "winddir": 138,
-  "uv": 0,
-  "solarradiation": 0.17,
+  "tempf": 62.2,
+  "feelsLike": 62.2,
+  "humidity": 53,
+  "windspeedmph": 5.37,
+  "windgustmph": 8.05,
+  "maxdailygust": 12.53,
+  "winddir": 119,
+  "uv": 5,
+  "solarradiation": 521.67,
   "hourlyrainin": 0,
   "dailyrainin": 0,
   "weeklyrainin": 0,
   "monthlyrainin": 1.941,
   "yearlyrainin": 24.791,
-  "baromrelin": 29.802,
-  "dateutc": 1793195460000,
+  "baromrelin": 29.822,
+  "dateutc": 1793216460000,
   "lastRain": 1792752780000,
-  "todayHi": 45.7,
+  "todayHi": 63.7,
   "todayLo": 37.8,
-  "todaySun": 0.0,
-  "todaySunPeak": 0.17,
-  "todayUV": 0,
-  "todayUVAt": null
+  "todaySun": 1.52,
+  "todaySunPeak": 524.92,
+  "todayUV": 5,
+  "todayUVAt": "11:54"
  },
  "forecast": {
-  "fetched": "2026-10-28T06:52-07:00",
+  "fetched": "2026-10-28T12:42-07:00",
   "days": [
    {
     "d": "2026-10-28",
     "high": 63,
-    "low": 45,
+    "low": 46,
     "precip": 0
    },
    {
     "d": "2026-10-29",
-    "high": 62,
-    "low": 46,
-    "precip": 6
+    "high": 61,
+    "low": 45,
+    "precip": 7
    },
    {
     "d": "2026-10-30",
-    "high": 57,
-    "low": 42,
-    "precip": 6
+    "high": 58,
+    "low": 43,
+    "precip": 7
    },
    {
     "d": "2026-10-31",
-    "high": 57,
-    "low": 44,
-    "precip": 61
+    "high": 55,
+    "low": 45,
+    "precip": 79
    },
    {
     "d": "2026-11-01",
     "high": 53,
-    "low": 42,
-    "precip": 45
+    "low": 43,
+    "precip": 69
    },
    {
     "d": "2026-11-02",
-    "high": 56,
-    "low": 44,
+    "high": 58,
+    "low": 45,
     "precip": 1
    },
    {
     "d": "2026-11-03",
-    "high": 58,
-    "low": 44,
-    "precip": 13
+    "high": 59,
+    "low": 45,
+    "precip": 12
    }
   ]
  },
