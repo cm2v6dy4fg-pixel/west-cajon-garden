@@ -10,75 +10,75 @@
   "elevationFt": 4355,
   "dashboard": "https://ambientweather.net/dashboard/b937402f7843146297e761ffeb631e2a"
  },
- "updated": "2026-11-01T11:33-08:00",
+ "updated": "2026-11-01T16:49-08:00",
  "current": {
-  "tempf": 51.6,
-  "feelsLike": 51.6,
-  "humidity": 90,
-  "windspeedmph": 1.34,
-  "windgustmph": 2.24,
-  "maxdailygust": 14.76,
-  "winddir": 350,
-  "uv": 1,
-  "solarradiation": 137.93,
+  "tempf": 46.9,
+  "feelsLike": 43.711287450938535,
+  "humidity": 88,
+  "windspeedmph": 6.49,
+  "windgustmph": 6.93,
+  "maxdailygust": 15.88,
+  "winddir": 11,
+  "uv": 0,
+  "solarradiation": 5.5,
   "hourlyrainin": 0,
   "dailyrainin": 0.217,
   "weeklyrainin": 0.248,
   "monthlyrainin": 2.189,
   "yearlyrainin": 25.039,
-  "baromrelin": 29.663,
-  "dateutc": 1793561580000,
+  "baromrelin": 29.737,
+  "dateutc": 1793580540000,
   "lastRain": 1793537640000,
-  "todayHi": 51.6,
-  "todayLo": 47.3,
-  "todaySun": 0.5,
-  "todaySunPeak": 262.89,
-  "todayUV": 2,
-  "todayUVAt": "09:04"
+  "todayHi": 54.5,
+  "todayLo": 46.9,
+  "todaySun": 1.06,
+  "todaySunPeak": 607.44,
+  "todayUV": 5,
+  "todayUVAt": "12:46"
  },
  "forecast": {
-  "fetched": "2026-11-01T11:33-08:00",
+  "fetched": "2026-11-01T16:49-08:00",
   "days": [
    {
     "d": "2026-11-01",
-    "high": 53,
-    "low": 40,
-    "precip": 30
+    "high": 52,
+    "low": 39,
+    "precip": 15
    },
    {
     "d": "2026-11-02",
-    "high": 57,
+    "high": 59,
     "low": 44,
     "precip": 0
    },
    {
     "d": "2026-11-03",
-    "high": 60,
-    "low": 43,
+    "high": 61,
+    "low": 41,
     "precip": 0
    },
    {
     "d": "2026-11-04",
-    "high": 58,
+    "high": 56,
     "low": 43,
     "precip": 0
    },
    {
     "d": "2026-11-05",
     "high": 59,
-    "low": 43,
-    "precip": 1
+    "low": 44,
+    "precip": 0
    },
    {
     "d": "2026-11-06",
     "high": 60,
-    "low": 44,
+    "low": 46,
     "precip": 1
    },
    {
     "d": "2026-11-07",
-    "high": 61,
-    "low": 45,
+    "high": 62,
+    "low": 46,
     "precip": 0
    }
   ]
