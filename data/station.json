@@ -10,76 +10,76 @@
   "elevationFt": 4355,
   "dashboard": "https://ambientweather.net/dashboard/b937402f7843146297e761ffeb631e2a"
  },
- "updated": "2026-11-06T06:06-08:00",
+ "updated": "2026-11-06T11:47-08:00",
  "current": {
-  "tempf": 51.1,
-  "feelsLike": 51.1,
-  "humidity": 51,
-  "windspeedmph": 2.01,
-  "windgustmph": 2.24,
-  "maxdailygust": 8.05,
-  "winddir": 303,
-  "uv": 0,
-  "solarradiation": 1.1,
+  "tempf": 59.7,
+  "feelsLike": 59.7,
+  "humidity": 38,
+  "windspeedmph": 7.38,
+  "windgustmph": 9.17,
+  "maxdailygust": 18.34,
+  "winddir": 9,
+  "uv": 4,
+  "solarradiation": 482.97,
   "hourlyrainin": 0,
   "dailyrainin": 0,
   "weeklyrainin": 0,
   "monthlyrainin": 0,
   "yearlyrainin": 0,
-  "baromrelin": 29.952,
-  "dateutc": 1793973960000,
+  "baromrelin": 29.967,
+  "dateutc": 1793994360000,
   "lastRain": 1793537640000,
-  "todayHi": 54.5,
+  "todayHi": 60.4,
   "todayLo": 48.7,
-  "todaySun": 0.0,
-  "todaySunPeak": 1.1,
-  "todayUV": 0,
-  "todayUVAt": null
+  "todaySun": 1.49,
+  "todaySunPeak": 486.48,
+  "todayUV": 4,
+  "todayUVAt": "09:58"
  },
  "forecast": {
-  "fetched": "2026-11-06T06:06-08:00",
+  "fetched": "2026-11-06T11:47-08:00",
   "days": [
    {
     "d": "2026-11-06",
     "high": 59,
-    "low": 45,
+    "low": 46,
     "precip": 0
    },
    {
     "d": "2026-11-07",
-    "high": 62,
-    "low": 46,
+    "high": 63,
+    "low": 47,
     "precip": 0
    },
    {
     "d": "2026-11-08",
-    "high": 65,
-    "low": 47,
+    "high": 66,
+    "low": 48,
     "precip": 0
    },
    {
     "d": "2026-11-09",
-    "high": 65,
-    "low": 47,
+    "high": 66,
+    "low": 48,
     "precip": 0
    },
    {
     "d": "2026-11-10",
-    "high": 64,
-    "low": 47,
+    "high": 65,
+    "low": 48,
     "precip": 0
    },
    {
     "d": "2026-11-11",
-    "high": 65,
-    "low": 46,
-    "precip": 6
+    "high": 66,
+    "low": 47,
+    "precip": 1
    },
    {
     "d": "2026-11-12",
-    "high": 62,
-    "low": 43,
-    "precip": 8
+    "high": 64,
+    "low": 45,
+    "precip": 9
    }
   ]
  },
