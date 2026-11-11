@@ -10,34 +10,34 @@
   "elevationFt": 4355,
   "dashboard": "https://ambientweather.net/dashboard/b937402f7843146297e761ffeb631e2a"
  },
- "updated": "2026-11-10T21:25-08:00",
+ "updated": "2026-11-11T12:03-08:00",
  "current": {
-  "tempf": 55.6,
-  "feelsLike": 55.6,
-  "humidity": 39,
-  "windspeedmph": 2.24,
+  "tempf": 68.9,
+  "feelsLike": 66.947,
+  "humidity": 31,
+  "windspeedmph": 1.79,
   "windgustmph": 2.24,
-  "maxdailygust": 4.47,
-  "winddir": 168,
-  "uv": 0,
-  "solarradiation": 0,
+  "maxdailygust": 9.17,
+  "winddir": 69,
+  "uv": 4,
+  "solarradiation": 453.09,
   "hourlyrainin": 0,
   "dailyrainin": 0,
   "weeklyrainin": 0,
   "monthlyrainin": 0,
   "yearlyrainin": 0,
-  "baromrelin": 30.035,
-  "dateutc": 1794374700000,
+  "baromrelin": 29.994,
+  "dateutc": 1794427380000,
   "lastRain": 1793537640000,
-  "todayHi": 68.5,
-  "todayLo": 52,
-  "todaySun": 2.57,
-  "todaySunPeak": 466.27,
+  "todayHi": 70,
+  "todayLo": 53.1,
+  "todaySun": 1.51,
+  "todaySunPeak": 464.15,
   "todayUV": 4,
-  "todayUVAt": "10:10"
+  "todayUVAt": "10:13"
  },
  "forecast": {
-  "fetched": "2026-11-10T21:25-08:00",
+  "fetched": "2026-11-11T12:03-08:00",
   "days": [
    {
     "d": "2026-11-11",
@@ -47,33 +47,39 @@
    },
    {
     "d": "2026-11-12",
-    "high": 64,
+    "high": 65,
     "low": 45,
-    "precip": 13
+    "precip": 20
    },
    {
     "d": "2026-11-13",
-    "high": 58,
+    "high": 56,
     "low": 42,
-    "precip": 35
+    "precip": 71
    },
    {
     "d": "2026-11-14",
-    "high": 55,
-    "low": 40,
-    "precip": 30
+    "high": 53,
+    "low": 39,
+    "precip": 51
    },
    {
     "d": "2026-11-15",
-    "high": 56,
+    "high": 54,
     "low": 40,
-    "precip": 26
+    "precip": 25
    },
    {
     "d": "2026-11-16",
     "high": 51,
     "low": 37,
-    "precip": 64
+    "precip": 71
+   },
+   {
+    "d": "2026-11-17",
+    "high": 48,
+    "low": 34,
+    "precip": 16
    }
   ]
  },
@@ -89,7 +95,7 @@
    "d": "2026-07-31",
    "t": 98.8
   },
-  "recordStart": "2025-09-17"
+  "recordStart": "2025-09-18"
  },
  "months": [
   {
@@ -248,9 +254,9 @@
   },
   {
    "ym": "2026-11",
-   "days": 9,
-   "hi": 64.4,
-   "lo": 43.5,
+   "days": 10,
+   "hi": 64.8,
+   "lo": 44.3,
    "max": 72.7,
    "min": 36.7,
    "rain": 0.22,
@@ -262,16 +268,6 @@
   }
  ],
  "recent": [
-  {
-   "d": "2026-10-27",
-   "hi": 63.5,
-   "lo": 40.5,
-   "rain": 0,
-   "gust": 15.88,
-   "sun": 3.05,
-   "uv": 5,
-   "uvAt": "11:48"
-  },
   {
    "d": "2026-10-28",
    "hi": 64.6,
@@ -401,6 +397,16 @@
    "sun": 2.59,
    "uv": 4,
    "uvAt": "09:58"
+  },
+  {
+   "d": "2026-11-10",
+   "hi": 68.5,
+   "lo": 52,
+   "rain": 0,
+   "gust": 15.88,
+   "sun": 2.57,
+   "uv": 4,
+   "uvAt": "10:10"
   }
  ]
 }
