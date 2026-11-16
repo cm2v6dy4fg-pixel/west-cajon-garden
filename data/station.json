@@ -10,76 +10,70 @@
   "elevationFt": 4355,
   "dashboard": "https://ambientweather.net/dashboard/b937402f7843146297e761ffeb631e2a"
  },
- "updated": "2026-11-15T11:17-08:00",
+ "updated": "2026-11-15T21:37-08:00",
  "current": {
-  "tempf": 56.5,
-  "feelsLike": 56.5,
-  "humidity": 67,
-  "windspeedmph": 1.12,
-  "windgustmph": 1.12,
-  "maxdailygust": 18.34,
-  "winddir": 78,
-  "uv": 4,
-  "solarradiation": 457.62,
+  "tempf": 44.8,
+  "feelsLike": 44.8,
+  "humidity": 93,
+  "windspeedmph": 0,
+  "windgustmph": 0,
+  "maxdailygust": 4.47,
+  "winddir": 204,
+  "uv": 0,
+  "solarradiation": 0,
   "hourlyrainin": 0,
-  "dailyrainin": 0.008,
-  "weeklyrainin": 0.071,
+  "dailyrainin": 0,
+  "weeklyrainin": 0,
   "monthlyrainin": 0.071,
   "yearlyrainin": 0.071,
-  "baromrelin": 29.92,
-  "dateutc": 1794770220000,
+  "baromrelin": 29.905,
+  "dateutc": 1794807420000,
   "lastRain": 1794751260000,
-  "todayHi": 57.6,
+  "todayHi": 60.6,
   "todayLo": 37.4,
-  "todaySun": 0.95,
-  "todaySunPeak": 466.99,
+  "todaySun": 2.27,
+  "todaySunPeak": 481.56,
   "todayUV": 4,
   "todayUVAt": "09:56"
  },
  "forecast": {
-  "fetched": "2026-11-15T11:17-08:00",
+  "fetched": "2026-11-15T21:37-08:00",
   "days": [
    {
-    "d": "2026-11-15",
-    "high": 57,
-    "low": 40,
-    "precip": 3
-   },
-   {
     "d": "2026-11-16",
-    "high": 55,
-    "low": 38,
-    "precip": 64
+    "high": 56,
+    "low": 37,
+    "precip": 63
    },
    {
     "d": "2026-11-17",
-    "high": 48,
+    "high": 49,
     "low": 33,
-    "precip": 33
+    "precip": 22
    },
    {
     "d": "2026-11-18",
     "high": 51,
     "low": 36,
-    "precip": 79
+    "precip": 77
    },
    {
     "d": "2026-11-19",
     "high": 46,
-    "low": 34,
-    "precip": 88
+    "low": 33,
+    "precip": 84
    },
    {
     "d": "2026-11-20",
-    "high": 48,
-    "low": 33,
-    "precip": 20
+    "high": 47,
+    "low": 31,
+    "precip": 4
    },
    {
     "d": "2026-11-21",
-    "high": 50,
-    "low": 35,
-    "precip": 3
+    "high": 49,
+    "low": 34,
+    "precip": 7
    }
   ]
  },
