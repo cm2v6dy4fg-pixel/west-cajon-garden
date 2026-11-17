@@ -10,76 +10,70 @@
   "elevationFt": 4355,
   "dashboard": "https://ambientweather.net/dashboard/b937402f7843146297e761ffeb631e2a"
  },
- "updated": "2026-11-16T14:47-08:00",
+ "updated": "2026-11-16T23:14-08:00",
  "current": {
-  "tempf": 53.2,
-  "feelsLike": 53.2,
-  "humidity": 80,
-  "windspeedmph": 2.46,
-  "windgustmph": 3.36,
-  "maxdailygust": 19.46,
-  "winddir": 120,
+  "tempf": 45.7,
+  "feelsLike": 41.819213941030064,
+  "humidity": 96,
+  "windspeedmph": 7.38,
+  "windgustmph": 9.17,
+  "maxdailygust": 9.17,
+  "winddir": 328,
   "uv": 0,
-  "solarradiation": 62.32,
+  "solarradiation": 0,
   "hourlyrainin": 0,
   "dailyrainin": 0,
-  "weeklyrainin": 0,
-  "monthlyrainin": 0.071,
-  "yearlyrainin": 0.071,
-  "baromrelin": 29.79,
-  "dateutc": 1794869160000,
-  "lastRain": 1794751260000,
+  "weeklyrainin": 0.02,
+  "monthlyrainin": 0.091,
+  "yearlyrainin": 0.091,
+  "baromrelin": 29.728,
+  "dateutc": 1794899580000,
+  "lastRain": 1794880020000,
   "todayHi": 58.8,
   "todayLo": 39.6,
-  "todaySun": 1.71,
+  "todaySun": 1.77,
   "todaySunPeak": 558.26,
   "todayUV": 5,
   "todayUVAt": "11:01"
  },
  "forecast": {
-  "fetched": "2026-11-16T14:47-08:00",
+  "fetched": "2026-11-16T23:14-08:00",
   "days": [
-   {
-    "d": "2026-11-16",
-    "high": 56,
-    "low": 36,
-    "precip": 63
-   },
    {
     "d": "2026-11-17",
     "high": 48,
     "low": 32,
-    "precip": 3
+    "precip": 11
    },
    {
     "d": "2026-11-18",
     "high": 51,
     "low": 37,
-    "precip": 95
+    "precip": 98
    },
    {
     "d": "2026-11-19",
     "high": 45,
     "low": 33,
-    "precip": 95
+    "precip": 98
    },
    {
     "d": "2026-11-20",
     "high": 45,
     "low": 30,
-    "precip": 1
+    "precip": 2
    },
    {
     "d": "2026-11-21",
     "high": 47,
     "low": 32,
-    "precip": 6
+    "precip": 5
    },
    {
     "d": "2026-11-22",
-    "high": 48,
-    "low": 33,
-    "precip": 11
+    "high": 47,
+    "low": 32,
+    "precip": 18
    }
   ]
  },
@@ -95,7 +89,7 @@
    "d": "2026-07-31",
    "t": 98.8
   },
-  "recordStart": "2025-09-23"
+  "recordStart": "2025-09-24"
  },
  "months": [
   {
