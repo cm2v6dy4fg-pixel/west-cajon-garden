@@ -10,77 +10,83 @@
   "elevationFt": 4355,
   "dashboard": "https://ambientweather.net/dashboard/b937402f7843146297e761ffeb631e2a"
  },
- "updated": "2026-11-20T22:19-08:00",
+ "updated": "2026-11-21T11:59-08:00",
  "current": {
-  "tempf": 39.9,
-  "feelsLike": 35.61262382418808,
-  "humidity": 58,
-  "windspeedmph": 6.04,
-  "windgustmph": 8.05,
-  "maxdailygust": 12.53,
-  "winddir": 271,
-  "uv": 0,
-  "solarradiation": 0,
+  "tempf": 52.2,
+  "feelsLike": 52.2,
+  "humidity": 39,
+  "windspeedmph": 0.67,
+  "windgustmph": 1.12,
+  "maxdailygust": 17.22,
+  "winddir": 31,
+  "uv": 4,
+  "solarradiation": 422.83,
   "hourlyrainin": 0,
   "dailyrainin": 0,
   "weeklyrainin": 0.583,
   "monthlyrainin": 0.654,
   "yearlyrainin": 0.654,
-  "baromrelin": 29.825,
-  "dateutc": 1795241940000,
+  "baromrelin": 29.861,
+  "dateutc": 1795291080000,
   "lastRain": 1795124340000,
-  "todayHi": 49.3,
-  "todayLo": 30.4,
-  "todaySun": 1.95,
-  "todaySunPeak": 466.7,
+  "todayHi": 52.5,
+  "todayLo": 34.5,
+  "todaySun": 1.32,
+  "todaySunPeak": 435.32,
   "todayUV": 4,
-  "todayUVAt": "10:37"
+  "todayUVAt": "10:41"
  },
  "forecast": {
-  "fetched": "2026-11-20T22:19-08:00",
+  "fetched": "2026-11-21T11:59-08:00",
   "days": [
    {
     "d": "2026-11-21",
     "high": 48,
-    "low": 32,
+    "low": 34,
     "precip": 0
    },
    {
     "d": "2026-11-22",
-    "high": 49,
+    "high": 50,
     "low": 33,
-    "precip": 17
+    "precip": 20
    },
    {
     "d": "2026-11-23",
-    "high": 48,
-    "low": 34,
-    "precip": 3
+    "high": 49,
+    "low": 36,
+    "precip": 0
    },
    {
     "d": "2026-11-24",
     "high": 52,
-    "low": 38,
-    "precip": 6
+    "low": 39,
+    "precip": 3
    },
    {
     "d": "2026-11-25",
-    "high": 52,
-    "low": 38,
-    "precip": 10
+    "high": 54,
+    "low": 40,
+    "precip": 5
    },
    {
     "d": "2026-11-26",
-    "high": 54,
-    "low": 42,
+    "high": 58,
+    "low": 44,
     "precip": 0
+   },
+   {
+    "d": "2026-11-27",
+    "high": 60,
+    "low": 45,
+    "precip": 4
    }
   ]
  },
  "frost": {
   "lastSpring": "2026-04-27",
   "firstFall": "2026-11-17",
-  "nights": 14,
+  "nights": 15,
   "coldest": {
    "d": "2026-02-20",
    "t": 25.9
@@ -89,7 +95,7 @@
    "d": "2026-07-31",
    "t": 98.8
   },
-  "recordStart": "2025-09-27"
+  "recordStart": "2025-09-28"
  },
  "months": [
   {
@@ -248,30 +254,20 @@
   },
   {
    "ym": "2026-11",
-   "days": 19,
-   "hi": 62.0,
-   "lo": 41.9,
+   "days": 20,
+   "hi": 61.3,
+   "lo": 41.4,
    "max": 72.7,
    "min": 30.4,
    "rain": 0.87,
-   "frost": 2,
+   "frost": 3,
    "gust": 44.51,
-   "sun": 2.26,
+   "sun": 2.25,
    "uv": 4.5,
    "uvMax": 6
   }
  ],
  "recent": [
-  {
-   "d": "2026-11-06",
-   "hi": 62.4,
-   "lo": 48.7,
-   "rain": 0,
-   "gust": 18.34,
-   "sun": 2.72,
-   "uv": 4,
-   "uvAt": "09:58"
-  },
   {
    "d": "2026-11-07",
    "hi": 68.2,
@@ -401,6 +397,16 @@
    "sun": 1.32,
    "uv": 4,
    "uvAt": "11:32"
+  },
+  {
+   "d": "2026-11-20",
+   "hi": 49.3,
+   "lo": 30.4,
+   "rain": 0,
+   "gust": 17.22,
+   "sun": 1.95,
+   "uv": 4,
+   "uvAt": "10:37"
   }
  ]
 }
