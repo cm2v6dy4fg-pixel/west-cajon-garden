@@ -10,41 +10,35 @@
   "elevationFt": 4355,
   "dashboard": "https://ambientweather.net/dashboard/b937402f7843146297e761ffeb631e2a"
  },
- "updated": "2026-11-24T14:56-08:00",
+ "updated": "2026-11-24T23:43-08:00",
  "current": {
-  "tempf": 55,
-  "feelsLike": 55,
-  "humidity": 40,
-  "windspeedmph": 1.79,
-  "windgustmph": 2.24,
-  "maxdailygust": 10.29,
-  "winddir": 222,
-  "uv": 1,
-  "solarradiation": 110.9,
+  "tempf": 43.5,
+  "feelsLike": 43.5,
+  "humidity": 54,
+  "windspeedmph": 0.89,
+  "windgustmph": 1.12,
+  "maxdailygust": 4.47,
+  "winddir": 176,
+  "uv": 0,
+  "solarradiation": 0,
   "hourlyrainin": 0,
   "dailyrainin": 0,
   "weeklyrainin": 0,
   "monthlyrainin": 0.654,
   "yearlyrainin": 0.654,
-  "baromrelin": 29.955,
-  "dateutc": 1795560960000,
+  "baromrelin": 29.961,
+  "dateutc": 1795592520000,
   "lastRain": 1795124340000,
   "todayHi": 55.2,
   "todayLo": 37.4,
-  "todaySun": 1.95,
+  "todaySun": 2.01,
   "todaySunPeak": 513.9,
   "todayUV": 5,
   "todayUVAt": "11:09"
  },
  "forecast": {
-  "fetched": "2026-11-24T14:56-08:00",
+  "fetched": "2026-11-24T23:43-08:00",
   "days": [
-   {
-    "d": "2026-11-24",
-    "high": 53,
-    "low": 39,
-    "precip": 0
-   },
    {
     "d": "2026-11-25",
     "high": 54,
@@ -95,7 +89,7 @@
    "d": "2026-07-31",
    "t": 98.8
   },
-  "recordStart": "2025-10-01"
+  "recordStart": "2025-10-02"
  },
  "months": [
   {
